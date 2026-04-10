@@ -10,6 +10,7 @@
     "loading": "Đang đăng nhập…",
     "error_invalid": "Email hoặc mật khẩu không hợp lệ.",
     "error_generic": "Đã xảy ra lỗi. Vui lòng thử lại.",
+    "error_inactive": "Tài khoản này đã bị vô hiệu hóa. Vui lòng liên hệ quản trị viên.",
     "show_password": "Hiện mật khẩu",
     "hide_password": "Ẩn mật khẩu",
     "forgot_password": "Quên mật khẩu?",
@@ -45,7 +46,8 @@
   "nav": {
     "logout": "Đăng xuất",
     "dashboard": "Bảng điều khiển",
-    "employees": "Nhân viên"
+    "employees": "Nhân viên",
+    "my_entries": "Dịch vụ của tôi"
   },
   "form": {
     "title": "Ghi nhận dịch vụ mới",

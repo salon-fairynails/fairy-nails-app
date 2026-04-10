@@ -10,6 +10,7 @@
     "loading": "Anmelden…",
     "error_invalid": "E-Mail oder Passwort ungültig.",
     "error_generic": "Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
+    "error_inactive": "Dieses Konto wurde deaktiviert. Bitte wende dich an den Admin.",
     "show_password": "Passwort anzeigen",
     "hide_password": "Passwort verbergen",
     "forgot_password": "Passwort vergessen?",
@@ -45,7 +46,8 @@
   "nav": {
     "logout": "Abmelden",
     "dashboard": "Dashboard",
-    "employees": "Mitarbeitende"
+    "employees": "Mitarbeitende",
+    "my_entries": "Meine Leistungen"
   },
   "form": {
     "title": "Neue Leistung erfassen",

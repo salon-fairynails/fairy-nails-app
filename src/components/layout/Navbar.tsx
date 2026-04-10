@@ -13,6 +13,7 @@ import LanguageSwitcher from './LanguageSwitcher'
 const ADMIN_NAV = [
   { href: '/admin/dashboard', labelKey: 'nav.dashboard' },
   { href: '/admin/employees', labelKey: 'nav.employees' },
+  { href: '/employee/dashboard', labelKey: 'nav.my_entries' },
 ]
 
 export default function Navbar() {

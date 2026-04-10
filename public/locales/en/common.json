@@ -10,6 +10,7 @@
     "loading": "Signing in…",
     "error_invalid": "Invalid email or password.",
     "error_generic": "An error occurred. Please try again.",
+    "error_inactive": "This account has been deactivated. Please contact the admin.",
     "show_password": "Show password",
     "hide_password": "Hide password",
     "forgot_password": "Forgot password?",
@@ -45,7 +46,8 @@
   "nav": {
     "logout": "Sign out",
     "dashboard": "Dashboard",
-    "employees": "Employees"
+    "employees": "Employees",
+    "my_entries": "My services"
   },
   "form": {
     "title": "Record new service",

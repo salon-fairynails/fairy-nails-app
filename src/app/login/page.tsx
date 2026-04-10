@@ -71,12 +71,19 @@ export default function LoginPage() {
         return
       }
 
-      // Rolle aus profiles laden
+      // Profil laden (Rolle + is_active)
       const { data: profile } = await supabase
         .from('profiles')
-        .select('role')
+        .select('role, is_active')
         .eq('id', data.user.id)
         .single()
+
+      if (profile?.is_active === false) {
+        await supabase.auth.signOut()
+        setError(t('login.error_inactive'))
+        setLoading(false)
+        return
+      }
 
       if (profile?.role === 'admin') {
         router.replace('/admin/dashboard')

@@ -63,6 +63,20 @@ export async function proxy(request: NextRequest) {
     }
   }
 
+  // Inaktive User ausloggen
+  if (user && (pathname.startsWith('/employee') || pathname.startsWith('/admin'))) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('is_active')
+      .eq('id', user.id)
+      .single()
+
+    if (profile?.is_active === false) {
+      await supabase.auth.signOut()
+      return NextResponse.redirect(new URL('/login', request.url))
+    }
+  }
+
   return supabaseResponse
 }
 

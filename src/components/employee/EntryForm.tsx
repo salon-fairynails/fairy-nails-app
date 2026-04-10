@@ -52,6 +52,17 @@ export default function EntryForm({ categories, services, onSuccess }: Props) {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => setForm((prev) => ({ ...prev, [field]: e.target.value }))
 
+  const handleTimeFromChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setForm((prev) => {
+      const [h, m] = value.split(':').map(Number)
+      const totalMinutes = h * 60 + m + 60
+      const toH = String(Math.floor(totalMinutes / 60) % 24).padStart(2, '0')
+      const toM = String(totalMinutes % 60).padStart(2, '0')
+      return { ...prev, time_from: value, time_to: `${toH}:${toM}` }
+    })
+  }
+
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setForm((prev) => ({ ...prev, category_id: e.target.value, service_id: '', amount: '' }))
   }
@@ -128,7 +139,7 @@ export default function EntryForm({ categories, services, onSuccess }: Props) {
           </div>
           <div>
             <label className={labelClass}>{t('form.time_from')}</label>
-            <input type="time" required value={form.time_from} onChange={set('time_from')} className={inputClass} />
+            <input type="time" required value={form.time_from} onChange={handleTimeFromChange} className={inputClass} />
           </div>
           <div>
             <label className={labelClass}>{t('form.time_to')}</label>
