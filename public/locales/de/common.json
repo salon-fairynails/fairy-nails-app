@@ -11,7 +11,26 @@
     "error_invalid": "E-Mail oder Passwort ungültig.",
     "error_generic": "Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
     "show_password": "Passwort anzeigen",
-    "hide_password": "Passwort verbergen"
+    "hide_password": "Passwort verbergen",
+    "forgot_password": "Passwort vergessen?",
+    "forgot_title": "Passwort zurücksetzen",
+    "forgot_subtitle": "Wir senden dir einen Link per E-Mail.",
+    "forgot_submit": "Link senden",
+    "forgot_sending": "Wird gesendet…",
+    "forgot_success": "E-Mail wurde gesendet. Bitte prüfe deinen Posteingang.",
+    "forgot_back": "Zurück zum Login"
+  },
+  "reset_password": {
+    "title": "Neues Passwort festlegen",
+    "subtitle": "Gib dein neues Passwort ein.",
+    "password": "Neues Passwort",
+    "password_confirm": "Passwort bestätigen",
+    "submit": "Passwort festlegen",
+    "submitting": "Wird gespeichert…",
+    "success": "Passwort wurde erfolgreich geändert.",
+    "redirect": "Du wirst zum Login weitergeleitet…",
+    "error_mismatch": "Die Passwörter stimmen nicht überein.",
+    "error_generic": "Fehler beim Zurücksetzen. Bitte versuche es erneut."
   },
   "brand": {
     "name": "Fairy Nails",
@@ -119,13 +138,19 @@
       "role_admin": "Admin",
       "role_employee": "Mitarbeiter/in",
       "deactivate": "Deaktivieren",
-      "deactivate_confirm": "Wirklich deaktivieren?"
+      "deactivate_confirm": "Wirklich deaktivieren?",
+      "reset_password": "Passwort ändern",
+      "new_password": "Neues Passwort",
+      "reset_password_submit": "Speichern",
+      "reset_password_success": "Passwort geändert"
     },
     "add_employee": {
       "title": "Neue/n Mitarbeitende/n anlegen",
       "name": "Vollständiger Name",
       "email": "E-Mail-Adresse",
       "password": "Passwort",
+      "password_confirm": "Passwort bestätigen",
+      "password_mismatch": "Die Passwörter stimmen nicht überein.",
       "role": "Rolle",
       "language": "Sprache",
       "submit": "Anlegen",

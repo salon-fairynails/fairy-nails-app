@@ -15,6 +15,24 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
   const { t } = useTranslation('common')
   const [confirmId, setConfirmId] = useState<string | null>(null)
   const [working, setWorking] = useState(false)
+  const [resetId, setResetId] = useState<string | null>(null)
+  const [newPassword, setNewPassword] = useState('')
+  const [resetSuccess, setResetSuccess] = useState<string | null>(null)
+
+  const handleResetPassword = async (id: string) => {
+    if (!newPassword || newPassword.length < 6) return
+    setWorking(true)
+    await fetch('/api/admin/reset-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ employee_id: id, new_password: newPassword }),
+    })
+    setResetId(null)
+    setNewPassword('')
+    setResetSuccess(id)
+    setTimeout(() => setResetSuccess(null), 3000)
+    setWorking(false)
+  }
 
   const handleDeactivate = async (id: string) => {
     if (confirmId !== id) {
@@ -79,22 +97,49 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
                     </span>
                   </td>
                   <td className="px-4 py-3 text-right">
-                    {emp.is_active && (
-                      <button
-                        onClick={() => handleDeactivate(emp.id)}
-                        disabled={working}
-                        className={cn(
-                          'text-xs px-3 py-1 rounded-lg transition-all',
-                          confirmId === emp.id
-                            ? 'bg-error text-white'
-                            : 'text-error hover:bg-error/10'
-                        )}
-                      >
-                        {confirmId === emp.id
-                          ? t('admin.employees.deactivate_confirm')
-                          : t('admin.employees.deactivate')}
-                      </button>
-                    )}
+                    <div className="flex items-center justify-end gap-2 flex-wrap">
+                      {resetSuccess === emp.id ? (
+                        <span className="text-xs text-success">{t('admin.employees.reset_password_success')}</span>
+                      ) : resetId === emp.id ? (
+                        <div className="flex items-center gap-1.5">
+                          <input
+                            type="password"
+                            value={newPassword}
+                            onChange={(e) => setNewPassword(e.target.value)}
+                            placeholder={t('admin.employees.new_password')}
+                            minLength={6}
+                            className="text-xs px-2 py-1 rounded-lg border border-border bg-bg text-text w-32 outline-none focus:border-primary"
+                          />
+                          <button onClick={() => handleResetPassword(emp.id)} disabled={working || newPassword.length < 6}
+                            className="text-xs px-2 py-1 rounded-lg bg-accent text-white hover:bg-[#7a3d5e] disabled:opacity-40 transition-all">
+                            {t('admin.employees.reset_password_submit')}
+                          </button>
+                          <button onClick={() => { setResetId(null); setNewPassword('') }}
+                            className="text-xs text-text-muted hover:text-text transition-colors">✕</button>
+                        </div>
+                      ) : (
+                        <button onClick={() => { setResetId(emp.id); setConfirmId(null) }}
+                          className="text-xs px-3 py-1 rounded-lg text-text-muted hover:bg-secondary/40 transition-all">
+                          {t('admin.employees.reset_password')}
+                        </button>
+                      )}
+                      {emp.is_active && resetId !== emp.id && (
+                        <button
+                          onClick={() => handleDeactivate(emp.id)}
+                          disabled={working}
+                          className={cn(
+                            'text-xs px-3 py-1 rounded-lg transition-all',
+                            confirmId === emp.id
+                              ? 'bg-error text-white'
+                              : 'text-error hover:bg-error/10'
+                          )}
+                        >
+                          {confirmId === emp.id
+                            ? t('admin.employees.deactivate_confirm')
+                            : t('admin.employees.deactivate')}
+                        </button>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}

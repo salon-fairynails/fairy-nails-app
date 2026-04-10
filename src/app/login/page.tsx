@@ -25,6 +25,10 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [forgotMode, setForgotMode] = useState(false)
+  const [forgotEmail, setForgotEmail] = useState('')
+  const [forgotSent, setForgotSent] = useState(false)
+  const [forgotLoading, setForgotLoading] = useState(false)
 
   const handleLocaleChange = useCallback(
     async (next: Locale) => {
@@ -33,6 +37,17 @@ export default function LoginPage() {
     },
     [i18n]
   )
+
+  const handleForgotPassword = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setForgotLoading(true)
+    const supabase = createClient()
+    await supabase.auth.resetPasswordForEmail(forgotEmail.trim(), {
+      redirectTo: `${window.location.origin}/auth/reset-password`,
+    })
+    setForgotSent(true)
+    setForgotLoading(false)
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -113,6 +128,58 @@ export default function LoginPage() {
 
         {/* Form card */}
         <div className="bg-surface rounded-2xl shadow-sm border border-border p-8">
+          {forgotMode ? (
+            <>
+              <h1 className="font-display text-2xl font-semibold text-text mb-1">
+                {t('login.forgot_title')}
+              </h1>
+              <p className="text-text-muted text-sm mb-7">{t('login.forgot_subtitle')}</p>
+
+              {forgotSent ? (
+                <div className="space-y-4">
+                  <p className="text-success text-sm">{t('login.forgot_success')}</p>
+                  <button onClick={() => { setForgotMode(false); setForgotSent(false) }}
+                    className="text-sm text-accent hover:underline">
+                    {t('login.forgot_back')}
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleForgotPassword} className="space-y-5">
+                  <div className="space-y-1.5">
+                    <label htmlFor="forgot-email" className="block text-sm font-medium text-text">
+                      {t('login.email')}
+                    </label>
+                    <input
+                      id="forgot-email"
+                      type="email"
+                      required
+                      value={forgotEmail}
+                      onChange={(e) => setForgotEmail(e.target.value)}
+                      placeholder={t('login.email_placeholder')}
+                      className={clsx(
+                        'w-full px-4 py-2.5 rounded-xl border border-border bg-bg text-text placeholder-text-muted',
+                        'text-sm transition-all duration-200 outline-none',
+                        'focus:ring-2 focus:ring-primary/40 focus:border-primary'
+                      )}
+                    />
+                  </div>
+                  <button type="submit" disabled={forgotLoading || !forgotEmail}
+                    className={clsx(
+                      'w-full py-3 rounded-xl font-medium text-sm transition-all duration-200',
+                      'bg-accent text-white hover:bg-[#7a3d5e] active:scale-[0.98]',
+                      'disabled:opacity-50 disabled:cursor-not-allowed'
+                    )}>
+                    {forgotLoading ? t('login.forgot_sending') : t('login.forgot_submit')}
+                  </button>
+                  <button type="button" onClick={() => setForgotMode(false)}
+                    className="w-full text-sm text-text-muted hover:text-text transition-colors">
+                    {t('login.forgot_back')}
+                  </button>
+                </form>
+              )}
+            </>
+          ) : (
+            <>
           <h1 className="font-display text-2xl font-semibold text-text mb-1">
             {t('login.title')}
           </h1>
@@ -213,7 +280,16 @@ export default function LoginPage() {
                 t('login.submit')
               )}
             </button>
+
+            <div className="text-center">
+              <button type="button" onClick={() => { setForgotMode(true); setForgotEmail(email) }}
+                className="text-sm text-text-muted hover:text-accent transition-colors">
+                {t('login.forgot_password')}
+              </button>
+            </div>
           </form>
+            </>
+          )}
         </div>
 
         {/* Decorative footer */}

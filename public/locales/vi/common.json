@@ -11,7 +11,26 @@
     "error_invalid": "Email hoặc mật khẩu không hợp lệ.",
     "error_generic": "Đã xảy ra lỗi. Vui lòng thử lại.",
     "show_password": "Hiện mật khẩu",
-    "hide_password": "Ẩn mật khẩu"
+    "hide_password": "Ẩn mật khẩu",
+    "forgot_password": "Quên mật khẩu?",
+    "forgot_title": "Đặt lại mật khẩu",
+    "forgot_subtitle": "Chúng tôi sẽ gửi link qua email.",
+    "forgot_submit": "Gửi link",
+    "forgot_sending": "Đang gửi…",
+    "forgot_success": "Email đã được gửi. Vui lòng kiểm tra hộp thư.",
+    "forgot_back": "Quay lại đăng nhập"
+  },
+  "reset_password": {
+    "title": "Đặt mật khẩu mới",
+    "subtitle": "Nhập mật khẩu mới của bạn.",
+    "password": "Mật khẩu mới",
+    "password_confirm": "Xác nhận mật khẩu",
+    "submit": "Đặt mật khẩu",
+    "submitting": "Đang lưu…",
+    "success": "Mật khẩu đã được thay đổi thành công.",
+    "redirect": "Đang chuyển đến trang đăng nhập…",
+    "error_mismatch": "Mật khẩu không khớp.",
+    "error_generic": "Lỗi khi đặt lại mật khẩu. Vui lòng thử lại."
   },
   "brand": {
     "name": "Fairy Nails",
@@ -119,13 +138,19 @@
       "role_admin": "Quản trị viên",
       "role_employee": "Nhân viên",
       "deactivate": "Vô hiệu hóa",
-      "deactivate_confirm": "Xác nhận vô hiệu hóa?"
+      "deactivate_confirm": "Xác nhận vô hiệu hóa?",
+      "reset_password": "Đổi mật khẩu",
+      "new_password": "Mật khẩu mới",
+      "reset_password_submit": "Lưu",
+      "reset_password_success": "Mật khẩu đã đổi"
     },
     "add_employee": {
       "title": "Thêm nhân viên mới",
       "name": "Họ và tên",
       "email": "Địa chỉ email",
       "password": "Mật khẩu",
+      "password_confirm": "Xác nhận mật khẩu",
+      "password_mismatch": "Mật khẩu không khớp.",
       "role": "Vai trò",
       "language": "Ngôn ngữ",
       "submit": "Tạo",

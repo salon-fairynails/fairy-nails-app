@@ -11,7 +11,26 @@
     "error_invalid": "Invalid email or password.",
     "error_generic": "An error occurred. Please try again.",
     "show_password": "Show password",
-    "hide_password": "Hide password"
+    "hide_password": "Hide password",
+    "forgot_password": "Forgot password?",
+    "forgot_title": "Reset password",
+    "forgot_subtitle": "We'll send you a link by email.",
+    "forgot_submit": "Send link",
+    "forgot_sending": "Sending…",
+    "forgot_success": "Email sent. Please check your inbox.",
+    "forgot_back": "Back to login"
+  },
+  "reset_password": {
+    "title": "Set new password",
+    "subtitle": "Enter your new password.",
+    "password": "New password",
+    "password_confirm": "Confirm password",
+    "submit": "Set password",
+    "submitting": "Saving…",
+    "success": "Password changed successfully.",
+    "redirect": "Redirecting to login…",
+    "error_mismatch": "Passwords do not match.",
+    "error_generic": "Error resetting password. Please try again."
   },
   "brand": {
     "name": "Fairy Nails",
@@ -119,13 +138,19 @@
       "role_admin": "Admin",
       "role_employee": "Employee",
       "deactivate": "Deactivate",
-      "deactivate_confirm": "Really deactivate?"
+      "deactivate_confirm": "Really deactivate?",
+      "reset_password": "Change password",
+      "new_password": "New password",
+      "reset_password_submit": "Save",
+      "reset_password_success": "Password changed"
     },
     "add_employee": {
       "title": "Add new employee",
       "name": "Full name",
       "email": "Email address",
       "password": "Password",
+      "password_confirm": "Confirm password",
+      "password_mismatch": "Passwords do not match.",
       "role": "Role",
       "language": "Language",
       "submit": "Create",
