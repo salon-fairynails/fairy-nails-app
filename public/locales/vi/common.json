@@ -1,0 +1,136 @@
+{
+  "login": {
+    "title": "Chào mừng trở lại",
+    "subtitle": "Đăng nhập bằng thông tin của bạn",
+    "email": "Địa chỉ email",
+    "email_placeholder": "ten@fairynails.ch",
+    "password": "Mật khẩu",
+    "password_placeholder": "••••••••",
+    "submit": "Đăng nhập",
+    "loading": "Đang đăng nhập…",
+    "error_invalid": "Email hoặc mật khẩu không hợp lệ.",
+    "error_generic": "Đã xảy ra lỗi. Vui lòng thử lại.",
+    "show_password": "Hiện mật khẩu",
+    "hide_password": "Ẩn mật khẩu"
+  },
+  "brand": {
+    "name": "Fairy Nails",
+    "tagline": "Cổng thông tin nhân viên nội bộ"
+  },
+  "language": {
+    "label": "Ngôn ngữ",
+    "de": "Deutsch",
+    "en": "English",
+    "vi": "Tiếng Việt"
+  },
+  "nav": {
+    "logout": "Đăng xuất",
+    "dashboard": "Bảng điều khiển",
+    "employees": "Nhân viên"
+  },
+  "form": {
+    "title": "Ghi nhận dịch vụ mới",
+    "date": "Ngày",
+    "time_from": "Giờ từ",
+    "time_to": "Giờ đến",
+    "category": "Danh mục",
+    "category_placeholder": "Chọn danh mục",
+    "service": "Dịch vụ",
+    "service_placeholder": "Chọn dịch vụ",
+    "service_disabled": "Chọn danh mục trước",
+    "amount": "Số tiền (CHF)",
+    "payment_method": "Phương thức thanh toán",
+    "payment_placeholder": "Chọn phương thức",
+    "notes": "Ghi chú",
+    "notes_placeholder": "Tùy chọn",
+    "submit": "Lưu",
+    "submitting": "Đang lưu…",
+    "success": "Đã ghi nhận dịch vụ",
+    "error_time": "Giờ kết thúc phải sau giờ bắt đầu",
+    "error_generic": "Lỗi khi lưu. Vui lòng thử lại."
+  },
+  "payment": {
+    "cash": "Tiền mặt",
+    "twint": "Twint",
+    "credit_card": "Thẻ tín dụng"
+  },
+  "table": {
+    "title": "Dịch vụ của tôi",
+    "date": "Ngày",
+    "time": "Thời gian",
+    "category": "Danh mục",
+    "service": "Dịch vụ",
+    "amount": "Số tiền",
+    "payment": "Thanh toán",
+    "no_entries": "Chưa có dịch vụ nào.",
+    "loading": "Đang tải…"
+  },
+  "modal": {
+    "edit_title": "Chỉnh sửa dịch vụ",
+    "save": "Lưu",
+    "saving": "Đang lưu…",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "delete_confirm": "Xác nhận xóa?"
+  },
+  "admin": {
+    "dashboard_title": "Bảng quản trị",
+    "export": {
+      "button": "Xuất PDF"
+    },
+    "filter": {
+      "title": "Bộ lọc",
+      "reset": "Đặt lại",
+      "all_employees": "Tất cả nhân viên",
+      "all_payments": "Tất cả phương thức",
+      "all_categories": "Tất cả danh mục",
+      "all_services": "Tất cả dịch vụ"
+    },
+    "period": {
+      "week": "Tuần",
+      "month": "Tháng",
+      "year": "Năm",
+      "custom": "Tùy chỉnh"
+    },
+    "summary": {
+      "total": "Tổng cộng",
+      "entries": "mục"
+    },
+    "table": {
+      "employee": "Nhân viên",
+      "date": "Ngày",
+      "time": "Thời gian",
+      "category": "Danh mục",
+      "service": "Dịch vụ",
+      "amount": "Số tiền",
+      "payment": "Thanh toán",
+      "no_entries": "Không có dịch vụ nào cho bộ lọc đã chọn."
+    },
+    "employees": {
+      "title": "Nhân viên",
+      "add": "Thêm nhân viên",
+      "name": "Tên",
+      "email": "Email",
+      "role": "Vai trò",
+      "language": "Ngôn ngữ",
+      "status": "Trạng thái",
+      "active": "Hoạt động",
+      "inactive": "Không hoạt động",
+      "role_admin": "Quản trị viên",
+      "role_employee": "Nhân viên",
+      "deactivate": "Vô hiệu hóa",
+      "deactivate_confirm": "Xác nhận vô hiệu hóa?"
+    },
+    "add_employee": {
+      "title": "Thêm nhân viên mới",
+      "name": "Họ và tên",
+      "email": "Địa chỉ email",
+      "password": "Mật khẩu",
+      "role": "Vai trò",
+      "language": "Ngôn ngữ",
+      "submit": "Tạo",
+      "submitting": "Đang tạo…",
+      "error": "Lỗi khi tạo nhân viên. Vui lòng thử lại."
+    }
+  }
+}

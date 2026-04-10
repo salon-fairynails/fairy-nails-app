@@ -1,0 +1,136 @@
+{
+  "login": {
+    "title": "Willkommen zurück",
+    "subtitle": "Melde dich mit deinen Zugangsdaten an",
+    "email": "E-Mail-Adresse",
+    "email_placeholder": "name@fairynails.ch",
+    "password": "Passwort",
+    "password_placeholder": "••••••••",
+    "submit": "Anmelden",
+    "loading": "Anmelden…",
+    "error_invalid": "E-Mail oder Passwort ungültig.",
+    "error_generic": "Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
+    "show_password": "Passwort anzeigen",
+    "hide_password": "Passwort verbergen"
+  },
+  "brand": {
+    "name": "Fairy Nails",
+    "tagline": "Internes Mitarbeiterportal"
+  },
+  "language": {
+    "label": "Sprache",
+    "de": "Deutsch",
+    "en": "English",
+    "vi": "Tiếng Việt"
+  },
+  "nav": {
+    "logout": "Abmelden",
+    "dashboard": "Dashboard",
+    "employees": "Mitarbeitende"
+  },
+  "form": {
+    "title": "Neue Leistung erfassen",
+    "date": "Datum",
+    "time_from": "Zeit von",
+    "time_to": "Zeit bis",
+    "category": "Kategorie",
+    "category_placeholder": "Kategorie wählen",
+    "service": "Service",
+    "service_placeholder": "Service wählen",
+    "service_disabled": "Zuerst Kategorie wählen",
+    "amount": "Betrag (CHF)",
+    "payment_method": "Zahlungsart",
+    "payment_placeholder": "Zahlungsart wählen",
+    "notes": "Notizen",
+    "notes_placeholder": "Optional",
+    "submit": "Erfassen",
+    "submitting": "Wird gespeichert…",
+    "success": "Leistung erfasst",
+    "error_time": "Endzeit muss nach Startzeit liegen",
+    "error_generic": "Fehler beim Speichern. Bitte versuche es erneut."
+  },
+  "payment": {
+    "cash": "Bar",
+    "twint": "Twint",
+    "credit_card": "Kreditkarte"
+  },
+  "table": {
+    "title": "Meine Leistungen",
+    "date": "Datum",
+    "time": "Zeit",
+    "category": "Kategorie",
+    "service": "Service",
+    "amount": "Betrag",
+    "payment": "Zahlung",
+    "no_entries": "Noch keine Einträge vorhanden.",
+    "loading": "Lädt…"
+  },
+  "modal": {
+    "edit_title": "Leistung bearbeiten",
+    "save": "Speichern",
+    "saving": "Wird gespeichert…",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "delete_confirm": "Wirklich löschen?"
+  },
+  "admin": {
+    "dashboard_title": "Admin Dashboard",
+    "export": {
+      "button": "PDF exportieren"
+    },
+    "filter": {
+      "title": "Filter",
+      "reset": "Zurücksetzen",
+      "all_employees": "Alle Mitarbeitenden",
+      "all_payments": "Alle Zahlungsarten",
+      "all_categories": "Alle Kategorien",
+      "all_services": "Alle Services"
+    },
+    "period": {
+      "week": "Woche",
+      "month": "Monat",
+      "year": "Jahr",
+      "custom": "Individuell"
+    },
+    "summary": {
+      "total": "Gesamt",
+      "entries": "Einträge"
+    },
+    "table": {
+      "employee": "Mitarbeiter/in",
+      "date": "Datum",
+      "time": "Zeit",
+      "category": "Kategorie",
+      "service": "Service",
+      "amount": "Betrag",
+      "payment": "Zahlung",
+      "no_entries": "Keine Einträge für diese Filterauswahl."
+    },
+    "employees": {
+      "title": "Mitarbeitende",
+      "add": "Mitarbeitende/n hinzufügen",
+      "name": "Name",
+      "email": "E-Mail",
+      "role": "Rolle",
+      "language": "Sprache",
+      "status": "Status",
+      "active": "Aktiv",
+      "inactive": "Inaktiv",
+      "role_admin": "Admin",
+      "role_employee": "Mitarbeiter/in",
+      "deactivate": "Deaktivieren",
+      "deactivate_confirm": "Wirklich deaktivieren?"
+    },
+    "add_employee": {
+      "title": "Neue/n Mitarbeitende/n anlegen",
+      "name": "Vollständiger Name",
+      "email": "E-Mail-Adresse",
+      "password": "Passwort",
+      "role": "Rolle",
+      "language": "Sprache",
+      "submit": "Anlegen",
+      "submitting": "Wird angelegt…",
+      "error": "Fehler beim Anlegen. Bitte versuche es erneut."
+    }
+  }
+}
