@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { CheckCircle } from 'lucide-react'
+import { CheckCircle, Clock } from 'lucide-react'
 import { cn, todayIso } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
 import type { Service, ServiceCategory } from '@/types/database'
@@ -37,6 +37,49 @@ const EMPTY_FORM: FormState = {
   notes: '',
 }
 
+const HOURS = Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0'))
+const MINUTES = ['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55']
+
+function TimeSelect({
+  value,
+  onChange,
+  required,
+}: {
+  value: string
+  onChange: (val: string) => void
+  required?: boolean
+}) {
+  const [h, m] = value ? value.split(':') : ['', '']
+  return (
+    <div className={cn(
+      'flex items-center gap-1 w-full px-3 py-2 rounded-xl border border-border bg-bg text-text text-sm',
+      'transition-all duration-200 hover:border-primary/50',
+      'focus-within:ring-2 focus-within:ring-primary/30 focus-within:border-primary'
+    )}>
+      <Clock size={14} className="text-text-muted flex-shrink-0" />
+      <select
+        value={h || ''}
+        onChange={(e) => onChange(`${e.target.value}:${m || '00'}`)}
+        required={required}
+        className="bg-transparent outline-none flex-1 min-w-0 cursor-pointer"
+      >
+        <option value="">HH</option>
+        {HOURS.map((hh) => <option key={hh} value={hh}>{hh}</option>)}
+      </select>
+      <span className="text-text-muted select-none">:</span>
+      <select
+        value={m || ''}
+        onChange={(e) => onChange(`${h || '00'}:${e.target.value}`)}
+        required={required && !!h}
+        className="bg-transparent outline-none flex-1 min-w-0 cursor-pointer"
+      >
+        <option value="">MM</option>
+        {MINUTES.map((mm) => <option key={mm} value={mm}>{mm}</option>)}
+      </select>
+    </div>
+  )
+}
+
 export default function EntryForm({ categories, services, onSuccess }: Props) {
   const { t } = useTranslation('common')
   const [form, setForm] = useState<FormState>(EMPTY_FORM)
@@ -52,10 +95,10 @@ export default function EntryForm({ categories, services, onSuccess }: Props) {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => setForm((prev) => ({ ...prev, [field]: e.target.value }))
 
-  const handleTimeFromChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
+  const handleTimeFromChange = (value: string) => {
     setForm((prev) => {
       const [h, m] = value.split(':').map(Number)
+      if (isNaN(h) || isNaN(m)) return { ...prev, time_from: value }
       const totalMinutes = h * 60 + m + 60
       const toH = String(Math.floor(totalMinutes / 60) % 24).padStart(2, '0')
       const toM = String(totalMinutes % 60).padStart(2, '0')
@@ -139,11 +182,11 @@ export default function EntryForm({ categories, services, onSuccess }: Props) {
           </div>
           <div>
             <label className={labelClass}>{t('form.time_from')}</label>
-            <input type="time" required value={form.time_from} onChange={handleTimeFromChange} className={inputClass} />
+            <TimeSelect value={form.time_from} onChange={handleTimeFromChange} required />
           </div>
           <div>
             <label className={labelClass}>{t('form.time_to')}</label>
-            <input type="time" required value={form.time_to} onChange={set('time_to')} className={inputClass} />
+            <TimeSelect value={form.time_to} onChange={(v) => setForm((p) => ({ ...p, time_to: v }))} required />
           </div>
         </div>
 
