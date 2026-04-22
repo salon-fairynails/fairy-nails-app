@@ -142,13 +142,13 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
                   <td className="px-4 py-3">
                     <span className={cn(
                       'inline-block px-2 py-0.5 rounded-full text-xs font-medium',
-                      !emp.email_confirmed_at
+                      !emp.last_sign_in_at
                         ? 'bg-secondary/60 text-text-muted'
                         : emp.is_active
                           ? 'bg-success/15 text-success'
                           : 'bg-error/15 text-error'
                     )}>
-                      {!emp.email_confirmed_at
+                      {!emp.last_sign_in_at
                         ? t('admin.employees.pending')
                         : emp.is_active
                           ? t('admin.employees.active')
@@ -157,7 +157,7 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
                   </td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-2 flex-wrap">
-                      {!emp.email_confirmed_at && (
+                      {!emp.last_sign_in_at && (
                         resendResult?.id === emp.id ? (
                           <span className={cn('text-xs', resendResult.ok ? 'text-success' : 'text-error')}>
                             {resendResult.ok

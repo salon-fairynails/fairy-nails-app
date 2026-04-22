@@ -60,7 +60,7 @@ export interface EmployeeWithEmail {
   language: Language
   is_active: boolean
   email: string
-  email_confirmed_at: string | null
+  last_sign_in_at: string | null
 }
 
 export type PeriodType = 'week' | 'month' | 'year' | 'custom'
