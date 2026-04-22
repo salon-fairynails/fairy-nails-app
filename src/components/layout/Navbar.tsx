@@ -1,14 +1,17 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import { LogOut } from 'lucide-react'
+import { LogOut, HelpCircle } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import '@/lib/i18n/config'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
 import { useUser } from '@/hooks/useUser'
 import LanguageSwitcher from './LanguageSwitcher'
+import HelpModal from './HelpModal'
 
 const ADMIN_NAV = [
   { href: '/admin/dashboard', labelKey: 'nav.dashboard' },
@@ -21,6 +24,7 @@ export default function Navbar() {
   const pathname = usePathname()
   const { t } = useTranslation('common')
   const { profile } = useUser()
+  const [helpOpen, setHelpOpen] = useState(false)
 
   const handleLogout = async () => {
     const supabase = createClient()
@@ -29,15 +33,22 @@ export default function Navbar() {
   }
 
   return (
+    <>
     <header className="bg-surface border-b border-border sticky top-0 z-10">
       <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
         {/* Logo + Admin-Nav */}
         <div className="flex items-center gap-6">
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
+            <Image
+              src="/fairy.png"
+              alt="Fairy Nails Logo"
+              width={32}
+              height={32}
+              className="object-contain"
+            />
             <span className="font-display text-xl font-semibold text-accent">
               {t('brand.name')}
             </span>
-            <span className="text-lg" role="img" aria-label="sparkle">✨</span>
           </div>
 
           {profile?.role === 'admin' && (
@@ -71,6 +82,15 @@ export default function Navbar() {
           <LanguageSwitcher />
 
           <button
+            onClick={() => setHelpOpen(true)}
+            title={t('help.title')}
+            className="flex items-center gap-1.5 text-sm text-text-muted hover:text-text transition-colors"
+          >
+            <HelpCircle size={16} strokeWidth={1.75} />
+            <span className="hidden sm:inline">{t('help.title')}</span>
+          </button>
+
+          <button
             onClick={handleLogout}
             title={t('nav.logout')}
             className="flex items-center gap-1.5 text-sm text-text-muted hover:text-text transition-colors"
@@ -81,5 +101,8 @@ export default function Navbar() {
         </div>
       </div>
     </header>
+
+    {helpOpen && <HelpModal onClose={() => setHelpOpen(false)} />}
+  </>
   )
 }

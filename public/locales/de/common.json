@@ -73,7 +73,8 @@
   "payment": {
     "cash": "Bar",
     "twint": "Twint",
-    "credit_card": "Kreditkarte"
+    "credit_card": "Kreditkarte",
+    "bank_transfer": "Überweisung"
   },
   "table": {
     "title": "Meine Leistungen",
@@ -88,6 +89,67 @@
   },
   "modal": {
     "edit_title": "Leistung bearbeiten",
+    "save": "Speichern",
+    "saving": "Wird gespeichert…",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "delete_confirm": "Wirklich löschen?"
+  },
+  "expense_categories": {
+    "1": "Material & Verbrauchsmittel",
+    "2": "Werkzeuge & Equipment",
+    "3": "Reinigung & Hygiene",
+    "4": "Miete & Nebenkosten",
+    "5": "Marketing & Werbung",
+    "6": "Weiterbildung",
+    "7": "Versicherungen & Gebühren",
+    "8": "Sonstiges"
+  },
+  "tabs": {
+    "income": "Einnahmen",
+    "expenses": "Ausgaben"
+  },
+  "expense_form": {
+    "title": "Neue Ausgabe erfassen",
+    "date": "Datum",
+    "amount": "Betrag (CHF)",
+    "category": "Kategorie",
+    "category_placeholder": "Kategorie wählen",
+    "description": "Beschreibung",
+    "description_placeholder": "Was wurde gekauft?",
+    "supplier": "Lieferant",
+    "supplier_placeholder": "Optional",
+    "payment_method": "Zahlungsart",
+    "payment_placeholder": "Zahlungsart wählen",
+    "receipt": "Beleg",
+    "receipt_placeholder": "Foto oder PDF hochladen",
+    "scan_button": "Beleg scannen & Daten erkennen",
+    "scanning": "Wird gescannt…",
+    "scan_success": "Daten wurden erkannt",
+    "scan_error": "Erkennung fehlgeschlagen",
+    "receipt_remove": "Datei entfernen",
+    "notes": "Notizen",
+    "notes_placeholder": "Optional",
+    "submit": "Speichern",
+    "submitting": "Wird gespeichert…",
+    "success": "Ausgabe gespeichert",
+    "error_generic": "Fehler beim Speichern. Bitte versuche es erneut."
+  },
+  "expense_table": {
+    "title": "Meine Ausgaben",
+    "date": "Datum",
+    "category": "Kategorie",
+    "description": "Beschreibung",
+    "supplier": "Lieferant",
+    "amount": "Betrag",
+    "payment": "Zahlung",
+    "receipt": "Beleg",
+    "no_entries": "Noch keine Ausgaben vorhanden.",
+    "loading": "Lädt…",
+    "view_receipt": "Beleg ansehen"
+  },
+  "expense_modal": {
+    "edit_title": "Ausgabe bearbeiten",
     "save": "Speichern",
     "saving": "Wird gespeichert…",
     "cancel": "Abbrechen",
@@ -127,6 +189,31 @@
       "payment": "Zahlung",
       "no_entries": "Keine Einträge für diese Filterauswahl."
     },
+    "expense_table": {
+      "employee": "Mitarbeiter/in",
+      "date": "Datum",
+      "category": "Kategorie",
+      "description": "Beschreibung",
+      "supplier": "Lieferant",
+      "amount": "Betrag",
+      "payment": "Zahlung",
+      "receipt": "Beleg",
+      "no_entries": "Keine Ausgaben für diese Filterauswahl."
+    },
+    "expense_filter": {
+      "all_categories": "Alle Kategorien",
+      "all_payments": "Alle Zahlungsarten"
+    },
+    "summary": {
+      "total": "Gesamt",
+      "entries": "Einträge"
+    },
+    "combined_summary": {
+      "income": "Einnahmen",
+      "expenses": "Ausgaben",
+      "profit": "Gewinn",
+      "loss": "Verlust"
+    },
     "employees": {
       "title": "Mitarbeitende",
       "add": "Mitarbeitende/n hinzufügen",
@@ -139,25 +226,72 @@
       "inactive": "Inaktiv",
       "role_admin": "Admin",
       "role_employee": "Mitarbeiter/in",
+      "activate": "Aktivieren",
+      "activate_confirm": "Wirklich aktivieren?",
       "deactivate": "Deaktivieren",
       "deactivate_confirm": "Wirklich deaktivieren?",
+      "delete": "Löschen",
+      "delete_confirm": "Wirklich löschen? Alle Daten werden entfernt.",
       "reset_password": "Passwort ändern",
       "new_password": "Neues Passwort",
       "reset_password_submit": "Speichern",
-      "reset_password_success": "Passwort geändert"
+      "reset_password_success": "Passwort geändert",
+      "pending": "Ausstehend",
+      "resend_invite": "Einladung erneut senden",
+      "resend_invite_success": "Einladung erneut gesendet",
+      "resend_invite_error": "Fehler beim Senden"
     },
     "add_employee": {
       "title": "Neue/n Mitarbeitende/n anlegen",
       "name": "Vollständiger Name",
       "email": "E-Mail-Adresse",
-      "password": "Passwort",
-      "password_confirm": "Passwort bestätigen",
-      "password_mismatch": "Die Passwörter stimmen nicht überein.",
+      "invite_hint": "Nach dem Anlegen erhält die Person automatisch eine Einladungs-E-Mail mit einem Link, über den sie ihr eigenes Passwort setzen kann.",
       "role": "Rolle",
       "language": "Sprache",
-      "submit": "Anlegen",
-      "submitting": "Wird angelegt…",
+      "submit": "Einladung senden",
+      "submitting": "Wird gesendet…",
       "error": "Fehler beim Anlegen. Bitte versuche es erneut."
     }
+  },
+  "help": {
+    "title": "Hilfe",
+    "close": "Schliessen",
+    "tab_general": "Allgemein",
+    "tab_income": "Einnahmen",
+    "tab_expenses": "Ausgaben",
+    "tab_employees": "Mitarbeitende",
+    "general_steps": [
+      { "title": "Einloggen", "text": "Melde dich mit deiner E-Mail-Adresse und deinem Passwort an. Nach dem Login wirst du automatisch zum richtigen Dashboard weitergeleitet." },
+      { "title": "Sprache wechseln", "text": "Oben rechts kannst du jederzeit zwischen Deutsch, Englisch und Vietnamesisch wechseln." },
+      { "title": "Tabs verwenden", "text": "Im Dashboard gibt es zwei Tabs: 'Einnahmen' für erbrachte Leistungen und 'Ausgaben' für Kosten und Einkäufe." },
+      { "title": "PDF exportieren", "text": "Mit dem Export-Button oben rechts kannst du deine Einträge als PDF herunterladen." },
+      { "title": "Ausloggen", "text": "Klicke oben rechts auf 'Abmelden', um dich sicher auszuloggen." }
+    ],
+    "income_steps": [
+      { "title": "Datum wählen", "text": "Standardmässig ist das heutige Datum vorausgewählt. Du kannst es manuell anpassen." },
+      { "title": "Zeit von/bis eingeben", "text": "Gib die Startzeit ein – die Endzeit wird automatisch um 1 Stunde erhöht. Du kannst sie danach anpassen." },
+      { "title": "Kategorie wählen", "text": "Wähle zuerst eine Kategorie (z.B. Maniküre, Pediküre, Face). Danach erscheinen die passenden Services." },
+      { "title": "Service wählen", "text": "Wähle den erbrachten Service. Der Standardpreis wird automatisch eingetragen." },
+      { "title": "Betrag anpassen", "text": "Der Betrag ist vorausgefüllt, kann aber manuell überschrieben werden (z.B. bei Sonderpreisen)." },
+      { "title": "Zahlungsart wählen", "text": "Wähle wie der Kunde bezahlt hat: Bar, Twint oder Kreditkarte." },
+      { "title": "Eintrag bearbeiten", "text": "Klicke auf einen bestehenden Eintrag in der Tabelle, um ihn zu bearbeiten oder zu löschen." }
+    ],
+    "expenses_steps": [
+      { "title": "Datum und Betrag", "text": "Wähle das Datum des Einkaufs und gib den Betrag in CHF ein." },
+      { "title": "Kategorie wählen", "text": "Wähle die passende Ausgaben-Kategorie (z.B. Material, Reinigung, Marketing)." },
+      { "title": "Beschreibung eingeben", "text": "Beschreibe kurz den Zweck der Ausgabe. Dieses Feld ist Pflicht." },
+      { "title": "Lieferant (optional)", "text": "Trage den Namen des Lieferanten oder Shops ein, z.B. 'Migros' oder 'Amazon'." },
+      { "title": "Beleg hochladen", "text": "Lade ein Foto oder PDF des Belegs hoch. Mit dem Button 'Beleg scannen' werden Datum, Betrag, Lieferant und Beschreibung automatisch erkannt." },
+      { "title": "Beleg entfernen", "text": "Wenn du die falsche Datei gewählt hast, klicke auf das X neben dem Dateinamen um sie zu entfernen." },
+      { "title": "Eintrag bearbeiten", "text": "Klicke auf einen bestehenden Eintrag in der Tabelle, um ihn zu bearbeiten." }
+    ],
+    "employees_steps": [
+      { "title": "Mitarbeitendenliste öffnen", "text": "Im Admin-Dashboard auf 'Mitarbeitende' in der Navigation klicken, um die vollständige Liste zu sehen." },
+      { "title": "Neuen Mitarbeitenden anlegen", "text": "Klicke auf 'Mitarbeitende hinzufügen'. Fülle Name, E-Mail-Adresse, Passwort (zweimal) und Rolle aus. Mit 'Speichern' wird der Account erstellt." },
+      { "title": "Mitarbeitenden deaktivieren", "text": "Klicke beim gewünschten Eintrag auf 'Deaktivieren'. Der Account bleibt erhalten, aber die Person kann sich nicht mehr einloggen." },
+      { "title": "Mitarbeitenden reaktivieren", "text": "Klicke bei einem deaktivierten Eintrag auf 'Aktivieren', um den Zugang wieder freizuschalten." },
+      { "title": "Mitarbeitenden löschen", "text": "Mit dem Löschen-Button wird der Account dauerhaft entfernt. Alle bisherigen Einträge dieser Person bleiben in der Datenbank erhalten." },
+      { "title": "Passwort zurücksetzen", "text": "Klicke auf 'Passwort ändern' um direkt ein neues Passwort für einen Mitarbeitenden zu setzen – ohne E-Mail-Link." }
+    ]
   }
 }

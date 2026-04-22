@@ -1,16 +1,24 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { Eye, EyeOff } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useTranslation } from 'react-i18next'
 import '@/lib/i18n/config'
 import { clsx } from 'clsx'
+import { type Locale } from '@/lib/i18n/config'
+
+const LOCALES: { value: Locale; label: string }[] = [
+  { value: 'de', label: 'DE' },
+  { value: 'en', label: 'EN' },
+  { value: 'vi', label: 'VI' },
+]
 
 export default function ResetPasswordPage() {
   const router = useRouter()
-  const { t } = useTranslation('common')
+  const { t, i18n } = useTranslation('common')
+  const [locale, setLocale] = useState<Locale>('de')
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -18,20 +26,27 @@ export default function ResetPasswordPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
-  const [ready, setReady] = useState(false)
+
+  // Token-Referenz — wird beim Mount aus dem URL-Hash gelesen
+  const tokensRef = useRef<{ access: string; refresh: string } | null>(null)
 
   useEffect(() => {
-    // Supabase setzt die Session automatisch aus dem URL-Hash beim Laden der Seite
-    const supabase = createClient()
-    supabase.auth.onAuthStateChange((event) => {
-      if (event === 'PASSWORD_RECOVERY') {
-        setReady(true)
-      }
-    })
-    // Fallback: kurz warten dann trotzdem anzeigen
-    const timer = setTimeout(() => setReady(true), 1000)
-    return () => clearTimeout(timer)
+    // Supabase kann Token als Hash (#) oder Query-Parameter (?) senden
+    const hashParams = new URLSearchParams(window.location.hash.replace('#', ''))
+    const queryParams = new URLSearchParams(window.location.search)
+
+    const access = hashParams.get('access_token') ?? queryParams.get('access_token')
+    const refresh = hashParams.get('refresh_token') ?? queryParams.get('refresh_token')
+
+    if (access && refresh) {
+      tokensRef.current = { access, refresh }
+    }
   }, [])
+
+  const handleLocaleChange = useCallback(async (next: Locale) => {
+    setLocale(next)
+    await i18n.changeLanguage(next)
+  }, [i18n])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -44,10 +59,32 @@ export default function ResetPasswordPage() {
 
     setLoading(true)
     const supabase = createClient()
+
+    // Session setzen falls Token vorhanden (Invite-Flow)
+    if (tokensRef.current) {
+      const { error: sessionError } = await supabase.auth.setSession({
+        access_token: tokensRef.current.access,
+        refresh_token: tokensRef.current.refresh,
+      })
+      if (sessionError) {
+        setError(`Session-Fehler: ${sessionError.message}`)
+        setLoading(false)
+        return
+      }
+    } else {
+      // Kein Token im URL — prüfen ob bereits eine Session existiert
+      const { data: { session } } = await supabase.auth.getSession()
+      if (!session) {
+        setError('Kein gültiger Einladungslink gefunden. Bitte fordere einen neuen Link an.')
+        setLoading(false)
+        return
+      }
+    }
+
     const { error: updateError } = await supabase.auth.updateUser({ password })
 
     if (updateError) {
-      setError(t('reset_password.error_generic'))
+      setError(updateError.message ?? t('reset_password.error_generic'))
       setLoading(false)
       return
     }
@@ -64,14 +101,29 @@ export default function ResetPasswordPage() {
 
   return (
     <main className="min-h-screen bg-bg flex flex-col items-center justify-center px-4 py-12">
+      {/* Language switcher */}
+      <div className="absolute top-6 right-6 flex gap-1">
+        {LOCALES.map(({ value, label }) => (
+          <button
+            key={value}
+            onClick={() => handleLocaleChange(value)}
+            className={clsx(
+              'px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200',
+              locale === value
+                ? 'bg-accent text-white shadow-sm'
+                : 'text-text-muted hover:text-text hover:bg-secondary/40'
+            )}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
       <div className="w-full max-w-md">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 mb-3">
-            <span className="font-display text-4xl font-semibold text-accent tracking-wide">
-              Fairy Nails
-            </span>
-            <span className="text-3xl">✨</span>
-          </div>
+          <span className="font-display text-4xl font-semibold text-accent tracking-wide">
+            Fairy Nails
+          </span>
         </div>
 
         <div className="bg-surface rounded-2xl shadow-sm border border-border p-8">
@@ -129,7 +181,7 @@ export default function ResetPasswordPage() {
 
               {error && <p role="alert" className="text-error text-sm">{error}</p>}
 
-              <button type="submit" disabled={loading || !ready}
+              <button type="submit" disabled={loading}
                 className={clsx(
                   'w-full py-3 rounded-xl font-medium text-sm transition-all duration-200',
                   'bg-accent text-white shadow-sm hover:bg-[#7a3d5e] active:scale-[0.98]',

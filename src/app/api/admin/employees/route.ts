@@ -36,6 +36,7 @@ export async function GET() {
       language: p.language,
       is_active: p.is_active,
       email: authUser?.email ?? '',
+      email_confirmed_at: authUser?.email_confirmed_at ?? null,
     }
   })
 

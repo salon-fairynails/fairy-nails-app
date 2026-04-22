@@ -73,7 +73,8 @@
   "payment": {
     "cash": "Tiền mặt",
     "twint": "Twint",
-    "credit_card": "Thẻ tín dụng"
+    "credit_card": "Thẻ tín dụng",
+    "bank_transfer": "Chuyển khoản"
   },
   "table": {
     "title": "Dịch vụ của tôi",
@@ -88,6 +89,67 @@
   },
   "modal": {
     "edit_title": "Chỉnh sửa dịch vụ",
+    "save": "Lưu",
+    "saving": "Đang lưu…",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "delete_confirm": "Xác nhận xóa?"
+  },
+  "expense_categories": {
+    "1": "Vật liệu & Tiêu hao",
+    "2": "Dụng cụ & Thiết bị",
+    "3": "Vệ sinh & Hygiene",
+    "4": "Thuê mặt bằng & Chi phí",
+    "5": "Marketing & Quảng cáo",
+    "6": "Đào tạo",
+    "7": "Bảo hiểm & Phí",
+    "8": "Khác"
+  },
+  "tabs": {
+    "income": "Thu nhập",
+    "expenses": "Chi phí"
+  },
+  "expense_form": {
+    "title": "Ghi nhận chi phí mới",
+    "date": "Ngày",
+    "amount": "Số tiền (CHF)",
+    "category": "Danh mục",
+    "category_placeholder": "Chọn danh mục",
+    "description": "Mô tả",
+    "description_placeholder": "Đã mua gì?",
+    "supplier": "Nhà cung cấp",
+    "supplier_placeholder": "Tùy chọn",
+    "payment_method": "Phương thức thanh toán",
+    "payment_placeholder": "Chọn phương thức",
+    "receipt": "Hóa đơn",
+    "receipt_placeholder": "Tải ảnh hoặc PDF",
+    "scan_button": "Quét hóa đơn & nhận dữ liệu",
+    "scanning": "Đang quét…",
+    "scan_success": "Dữ liệu đã được nhận",
+    "scan_error": "Nhận dạng thất bại",
+    "receipt_remove": "Xóa tệp",
+    "notes": "Ghi chú",
+    "notes_placeholder": "Tùy chọn",
+    "submit": "Lưu",
+    "submitting": "Đang lưu…",
+    "success": "Đã lưu chi phí",
+    "error_generic": "Lỗi khi lưu. Vui lòng thử lại."
+  },
+  "expense_table": {
+    "title": "Chi phí của tôi",
+    "date": "Ngày",
+    "category": "Danh mục",
+    "description": "Mô tả",
+    "supplier": "Nhà cung cấp",
+    "amount": "Số tiền",
+    "payment": "Thanh toán",
+    "receipt": "Hóa đơn",
+    "no_entries": "Chưa có chi phí nào.",
+    "loading": "Đang tải…",
+    "view_receipt": "Xem hóa đơn"
+  },
+  "expense_modal": {
+    "edit_title": "Chỉnh sửa chi phí",
     "save": "Lưu",
     "saving": "Đang lưu…",
     "cancel": "Hủy",
@@ -127,6 +189,27 @@
       "payment": "Thanh toán",
       "no_entries": "Không có dịch vụ nào cho bộ lọc đã chọn."
     },
+    "expense_table": {
+      "employee": "Nhân viên",
+      "date": "Ngày",
+      "category": "Danh mục",
+      "description": "Mô tả",
+      "supplier": "Nhà cung cấp",
+      "amount": "Số tiền",
+      "payment": "Thanh toán",
+      "receipt": "Hóa đơn",
+      "no_entries": "Không có chi phí nào cho bộ lọc đã chọn."
+    },
+    "expense_filter": {
+      "all_categories": "Tất cả danh mục",
+      "all_payments": "Tất cả phương thức"
+    },
+    "combined_summary": {
+      "income": "Thu nhập",
+      "expenses": "Chi phí",
+      "profit": "Lợi nhuận",
+      "loss": "Lỗ"
+    },
     "employees": {
       "title": "Nhân viên",
       "add": "Thêm nhân viên",
@@ -139,25 +222,72 @@
       "inactive": "Không hoạt động",
       "role_admin": "Quản trị viên",
       "role_employee": "Nhân viên",
+      "activate": "Kích hoạt",
+      "activate_confirm": "Xác nhận kích hoạt?",
       "deactivate": "Vô hiệu hóa",
       "deactivate_confirm": "Xác nhận vô hiệu hóa?",
+      "delete": "Xóa",
+      "delete_confirm": "Xác nhận xóa? Tất cả dữ liệu sẽ bị xóa.",
       "reset_password": "Đổi mật khẩu",
       "new_password": "Mật khẩu mới",
       "reset_password_submit": "Lưu",
-      "reset_password_success": "Mật khẩu đã đổi"
+      "reset_password_success": "Mật khẩu đã đổi",
+      "pending": "Đang chờ",
+      "resend_invite": "Gửi lại lời mời",
+      "resend_invite_success": "Đã gửi lại lời mời",
+      "resend_invite_error": "Gửi thất bại"
     },
     "add_employee": {
       "title": "Thêm nhân viên mới",
       "name": "Họ và tên",
       "email": "Địa chỉ email",
-      "password": "Mật khẩu",
-      "password_confirm": "Xác nhận mật khẩu",
-      "password_mismatch": "Mật khẩu không khớp.",
+      "invite_hint": "Sau khi thêm, người đó sẽ tự động nhận được email mời với liên kết để tự đặt mật khẩu.",
       "role": "Vai trò",
       "language": "Ngôn ngữ",
-      "submit": "Tạo",
-      "submitting": "Đang tạo…",
+      "submit": "Gửi lời mời",
+      "submitting": "Đang gửi…",
       "error": "Lỗi khi tạo nhân viên. Vui lòng thử lại."
     }
+  },
+  "help": {
+    "title": "Trợ giúp",
+    "close": "Đóng",
+    "tab_general": "Chung",
+    "tab_income": "Thu nhập",
+    "tab_expenses": "Chi phí",
+    "tab_employees": "Nhân viên",
+    "general_steps": [
+      { "title": "Đăng nhập", "text": "Đăng nhập bằng địa chỉ email và mật khẩu của bạn. Sau khi đăng nhập, bạn sẽ được chuyển hướng tự động đến trang tổng quan phù hợp." },
+      { "title": "Chuyển ngôn ngữ", "text": "Bạn có thể chuyển đổi giữa tiếng Đức, tiếng Anh và tiếng Việt bất kỳ lúc nào bằng các nút ở góc trên bên phải." },
+      { "title": "Sử dụng các tab", "text": "Trang tổng quan có hai tab: 'Thu nhập' cho các dịch vụ đã thực hiện và 'Chi phí' cho các chi phí và mua hàng." },
+      { "title": "Xuất PDF", "text": "Sử dụng nút xuất ở góc trên bên phải để tải xuống các mục nhập của bạn dưới dạng PDF." },
+      { "title": "Đăng xuất", "text": "Nhấp vào 'Đăng xuất' ở góc trên bên phải để đăng xuất an toàn." }
+    ],
+    "income_steps": [
+      { "title": "Chọn ngày", "text": "Ngày hôm nay được chọn sẵn theo mặc định. Bạn có thể điều chỉnh thủ công." },
+      { "title": "Nhập giờ từ/đến", "text": "Nhập giờ bắt đầu – giờ kết thúc tự động được đặt sau 1 tiếng. Bạn có thể điều chỉnh sau." },
+      { "title": "Chọn danh mục", "text": "Đầu tiên chọn danh mục (ví dụ: Làm móng tay, Làm móng chân, Chăm sóc da mặt). Sau đó các dịch vụ phù hợp sẽ xuất hiện." },
+      { "title": "Chọn dịch vụ", "text": "Chọn dịch vụ đã thực hiện. Giá mặc định sẽ được điền tự động." },
+      { "title": "Điều chỉnh số tiền", "text": "Số tiền được điền sẵn nhưng có thể ghi đè thủ công (ví dụ: giá đặc biệt)." },
+      { "title": "Chọn phương thức thanh toán", "text": "Chọn cách khách hàng thanh toán: Tiền mặt, Twint hoặc Thẻ tín dụng." },
+      { "title": "Chỉnh sửa mục nhập", "text": "Nhấp vào một mục nhập hiện có trong bảng để chỉnh sửa hoặc xóa nó." }
+    ],
+    "expenses_steps": [
+      { "title": "Ngày và số tiền", "text": "Chọn ngày mua hàng và nhập số tiền bằng CHF." },
+      { "title": "Chọn danh mục", "text": "Chọn danh mục chi phí phù hợp (ví dụ: Vật liệu, Vệ sinh, Marketing)." },
+      { "title": "Nhập mô tả", "text": "Mô tả ngắn gọn mục đích của khoản chi. Trường này là bắt buộc." },
+      { "title": "Nhà cung cấp (tùy chọn)", "text": "Nhập tên nhà cung cấp hoặc cửa hàng, ví dụ: 'Migros' hoặc 'Amazon'." },
+      { "title": "Tải lên hóa đơn", "text": "Tải lên ảnh hoặc PDF của hóa đơn. Dùng nút 'Quét hóa đơn' để tự động trích xuất ngày, số tiền, nhà cung cấp và mô tả." },
+      { "title": "Xóa hóa đơn", "text": "Nếu bạn chọn nhầm tệp, nhấp vào X bên cạnh tên tệp để xóa nó." },
+      { "title": "Chỉnh sửa mục nhập", "text": "Nhấp vào một mục nhập hiện có trong bảng để chỉnh sửa." }
+    ],
+    "employees_steps": [
+      { "title": "Mở danh sách nhân viên", "text": "Nhấp vào 'Nhân viên' trong thanh điều hướng quản trị để xem danh sách đầy đủ." },
+      { "title": "Thêm nhân viên mới", "text": "Nhấp vào 'Thêm nhân viên'. Điền tên, địa chỉ email, mật khẩu (hai lần) và vai trò. Nhấp 'Lưu' để tạo tài khoản." },
+      { "title": "Vô hiệu hóa nhân viên", "text": "Nhấp 'Vô hiệu hóa' trên mục nhập mong muốn. Tài khoản được giữ lại nhưng người đó không thể đăng nhập nữa." },
+      { "title": "Kích hoạt lại nhân viên", "text": "Nhấp 'Kích hoạt' trên một mục bị vô hiệu hóa để khôi phục quyền truy cập." },
+      { "title": "Xóa nhân viên", "text": "Nút xóa sẽ xóa vĩnh viễn tài khoản. Tất cả các mục nhập trước đó của người đó vẫn được lưu trong cơ sở dữ liệu." },
+      { "title": "Đặt lại mật khẩu", "text": "Nhấp 'Thay đổi mật khẩu' để đặt mật khẩu mới trực tiếp cho nhân viên – không cần liên kết email." }
+    ]
   }
 }

@@ -73,7 +73,8 @@
   "payment": {
     "cash": "Cash",
     "twint": "Twint",
-    "credit_card": "Credit card"
+    "credit_card": "Credit card",
+    "bank_transfer": "Bank transfer"
   },
   "table": {
     "title": "My services",
@@ -88,6 +89,67 @@
   },
   "modal": {
     "edit_title": "Edit service",
+    "save": "Save",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "delete_confirm": "Really delete?"
+  },
+  "expense_categories": {
+    "1": "Materials & Supplies",
+    "2": "Tools & Equipment",
+    "3": "Cleaning & Hygiene",
+    "4": "Rent & Utilities",
+    "5": "Marketing & Advertising",
+    "6": "Training & Education",
+    "7": "Insurance & Fees",
+    "8": "Other"
+  },
+  "tabs": {
+    "income": "Income",
+    "expenses": "Expenses"
+  },
+  "expense_form": {
+    "title": "Record new expense",
+    "date": "Date",
+    "amount": "Amount (CHF)",
+    "category": "Category",
+    "category_placeholder": "Select category",
+    "description": "Description",
+    "description_placeholder": "What was purchased?",
+    "supplier": "Supplier",
+    "supplier_placeholder": "Optional",
+    "payment_method": "Payment method",
+    "payment_placeholder": "Select payment method",
+    "receipt": "Receipt",
+    "receipt_placeholder": "Upload photo or PDF",
+    "scan_button": "Scan receipt & extract data",
+    "scanning": "Scanning…",
+    "scan_success": "Data extracted",
+    "scan_error": "Extraction failed",
+    "receipt_remove": "Remove file",
+    "notes": "Notes",
+    "notes_placeholder": "Optional",
+    "submit": "Save",
+    "submitting": "Saving…",
+    "success": "Expense saved",
+    "error_generic": "Error saving. Please try again."
+  },
+  "expense_table": {
+    "title": "My expenses",
+    "date": "Date",
+    "category": "Category",
+    "description": "Description",
+    "supplier": "Supplier",
+    "amount": "Amount",
+    "payment": "Payment",
+    "receipt": "Receipt",
+    "no_entries": "No expenses yet.",
+    "loading": "Loading…",
+    "view_receipt": "View receipt"
+  },
+  "expense_modal": {
+    "edit_title": "Edit expense",
     "save": "Save",
     "saving": "Saving…",
     "cancel": "Cancel",
@@ -127,6 +189,27 @@
       "payment": "Payment",
       "no_entries": "No entries for the selected filters."
     },
+    "expense_table": {
+      "employee": "Employee",
+      "date": "Date",
+      "category": "Category",
+      "description": "Description",
+      "supplier": "Supplier",
+      "amount": "Amount",
+      "payment": "Payment",
+      "receipt": "Receipt",
+      "no_entries": "No expenses for the selected filters."
+    },
+    "expense_filter": {
+      "all_categories": "All categories",
+      "all_payments": "All payment methods"
+    },
+    "combined_summary": {
+      "income": "Income",
+      "expenses": "Expenses",
+      "profit": "Profit",
+      "loss": "Loss"
+    },
     "employees": {
       "title": "Employees",
       "add": "Add employee",
@@ -139,25 +222,72 @@
       "inactive": "Inactive",
       "role_admin": "Admin",
       "role_employee": "Employee",
+      "activate": "Activate",
+      "activate_confirm": "Really activate?",
       "deactivate": "Deactivate",
       "deactivate_confirm": "Really deactivate?",
+      "delete": "Delete",
+      "delete_confirm": "Really delete? All data will be removed.",
       "reset_password": "Change password",
       "new_password": "New password",
       "reset_password_submit": "Save",
-      "reset_password_success": "Password changed"
+      "reset_password_success": "Password changed",
+      "pending": "Pending",
+      "resend_invite": "Resend invitation",
+      "resend_invite_success": "Invitation resent",
+      "resend_invite_error": "Failed to send"
     },
     "add_employee": {
       "title": "Add new employee",
       "name": "Full name",
       "email": "Email address",
-      "password": "Password",
-      "password_confirm": "Confirm password",
-      "password_mismatch": "Passwords do not match.",
+      "invite_hint": "After adding, the person will automatically receive an invitation email with a link to set their own password.",
       "role": "Role",
       "language": "Language",
-      "submit": "Create",
-      "submitting": "Creating…",
+      "submit": "Send invitation",
+      "submitting": "Sending…",
       "error": "Error creating employee. Please try again."
     }
+  },
+  "help": {
+    "title": "Help",
+    "close": "Close",
+    "tab_general": "General",
+    "tab_income": "Income",
+    "tab_expenses": "Expenses",
+    "tab_employees": "Employees",
+    "general_steps": [
+      { "title": "Log in", "text": "Sign in with your email address and password. After login you will be automatically redirected to the correct dashboard." },
+      { "title": "Switch language", "text": "You can switch between German, English and Vietnamese at any time using the buttons in the top right." },
+      { "title": "Use tabs", "text": "The dashboard has two tabs: 'Income' for services rendered and 'Expenses' for costs and purchases." },
+      { "title": "Export PDF", "text": "Use the export button in the top right to download your entries as a PDF." },
+      { "title": "Log out", "text": "Click 'Logout' in the top right to securely sign out." }
+    ],
+    "income_steps": [
+      { "title": "Select date", "text": "Today's date is pre-selected by default. You can adjust it manually." },
+      { "title": "Enter time from/to", "text": "Enter the start time – the end time is automatically set 1 hour later. You can adjust it afterwards." },
+      { "title": "Choose category", "text": "First select a category (e.g. Manicure, Pedicure, Face). The matching services will then appear." },
+      { "title": "Choose service", "text": "Select the service performed. The default price is filled in automatically." },
+      { "title": "Adjust amount", "text": "The amount is pre-filled but can be overwritten manually (e.g. for special prices)." },
+      { "title": "Choose payment method", "text": "Select how the customer paid: Cash, Twint or Credit card." },
+      { "title": "Edit entry", "text": "Click on an existing entry in the table to edit or delete it." }
+    ],
+    "expenses_steps": [
+      { "title": "Date and amount", "text": "Select the purchase date and enter the amount in CHF." },
+      { "title": "Choose category", "text": "Select the appropriate expense category (e.g. Materials, Cleaning, Marketing)." },
+      { "title": "Enter description", "text": "Briefly describe the purpose of the expense. This field is required." },
+      { "title": "Supplier (optional)", "text": "Enter the name of the supplier or shop, e.g. 'Migros' or 'Amazon'." },
+      { "title": "Upload receipt", "text": "Upload a photo or PDF of the receipt. Use the 'Scan receipt' button to automatically extract the date, amount, supplier and description." },
+      { "title": "Remove receipt", "text": "If you selected the wrong file, click the X next to the filename to remove it." },
+      { "title": "Edit entry", "text": "Click on an existing entry in the table to edit it." }
+    ],
+    "employees_steps": [
+      { "title": "Open employee list", "text": "Click 'Employees' in the admin navigation to see the full list." },
+      { "title": "Add new employee", "text": "Click 'Add employee'. Fill in name, email address, password (twice) and role. Click 'Save' to create the account." },
+      { "title": "Deactivate employee", "text": "Click 'Deactivate' on the desired entry. The account is kept but the person can no longer log in." },
+      { "title": "Reactivate employee", "text": "Click 'Activate' on a deactivated entry to restore access." },
+      { "title": "Delete employee", "text": "The delete button permanently removes the account. All previous entries by that person remain in the database." },
+      { "title": "Reset password", "text": "Click 'Change password' to set a new password for an employee directly – without an email link." }
+    ]
   }
 }

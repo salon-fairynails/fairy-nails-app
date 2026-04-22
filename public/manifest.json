@@ -1,0 +1,17 @@
+{
+  "name": "Fairy Nails",
+  "short_name": "Fairy Nails",
+  "description": "Internes Mitarbeiterportal",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FDF6F0",
+  "theme_color": "#8B4A6B",
+  "icons": [
+    {
+      "src": "/fairy.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { Eye, EyeOff } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { type Locale } from '@/lib/i18n/config'
@@ -120,12 +121,10 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Branding */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 mb-3">
+          <div className="inline-flex flex-col items-center gap-3 mb-3">
+            <Image src="/fairy.png" alt="Fairy Nails" width={80} height={80} priority />
             <span className="font-display text-4xl font-semibold text-accent tracking-wide">
               {t('brand.name')}
-            </span>
-            <span className="text-3xl" role="img" aria-label="sparkle">
-              ✨
             </span>
           </div>
           <p className="text-text-muted text-sm font-sans tracking-widest uppercase">

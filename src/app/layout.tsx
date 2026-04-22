@@ -19,6 +19,11 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: 'Fairy Nails ✨',
   description: 'Internes Mitarbeiterportal — Fairy Nails',
+  icons: {
+    icon: '/fairy.png',
+    apple: '/fairy.png',
+  },
+  manifest: '/manifest.json',
 }
 
 export default function RootLayout({

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { X, Eye, EyeOff } from 'lucide-react'
+import { X, Mail } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface Props {
@@ -15,13 +15,9 @@ export default function AddEmployeeModal({ onClose, onCreated }: Props) {
   const [form, setForm] = useState({
     full_name: '',
     email: '',
-    password: '',
-    password_confirm: '',
     role: 'employee',
     language: 'de',
   })
-  const [showPassword, setShowPassword] = useState(false)
-  const [showConfirm, setShowConfirm] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -32,12 +28,6 @@ export default function AddEmployeeModal({ onClose, onCreated }: Props) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
-
-    if (form.password !== form.password_confirm) {
-      setError(t('admin.add_employee.password_mismatch'))
-      return
-    }
-
     setLoading(true)
     const res = await fetch('/api/admin/create-employee', {
       method: 'POST',
@@ -45,7 +35,6 @@ export default function AddEmployeeModal({ onClose, onCreated }: Props) {
       body: JSON.stringify({
         full_name: form.full_name,
         email: form.email,
-        password: form.password,
         role: form.role,
         language: form.language,
       }),
@@ -95,40 +84,12 @@ export default function AddEmployeeModal({ onClose, onCreated }: Props) {
             <input type="email" required value={form.email} onChange={set('email')} className={inputClass} />
           </div>
 
-          <div>
-            <label className={labelClass}>{t('admin.add_employee.password')}</label>
-            <div className="relative">
-              <input
-                type={showPassword ? 'text' : 'password'}
-                required
-                minLength={6}
-                value={form.password}
-                onChange={set('password')}
-                className={cn(inputClass, 'pr-10')}
-              />
-              <button type="button" onClick={() => setShowPassword(v => !v)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text transition-colors">
-                {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
-              </button>
-            </div>
-          </div>
-
-          <div>
-            <label className={labelClass}>{t('admin.add_employee.password_confirm')}</label>
-            <div className="relative">
-              <input
-                type={showConfirm ? 'text' : 'password'}
-                required
-                minLength={6}
-                value={form.password_confirm}
-                onChange={set('password_confirm')}
-                className={cn(inputClass, 'pr-10')}
-              />
-              <button type="button" onClick={() => setShowConfirm(v => !v)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-text transition-colors">
-                {showConfirm ? <EyeOff size={15} /> : <Eye size={15} />}
-              </button>
-            </div>
+          {/* Invite hint */}
+          <div className="flex items-start gap-2.5 bg-accent/5 border border-accent/20 rounded-xl px-4 py-3">
+            <Mail size={15} className="text-accent mt-0.5 flex-shrink-0" />
+            <p className="text-xs text-text-muted leading-relaxed">
+              {t('admin.add_employee.invite_hint')}
+            </p>
           </div>
 
           <div className="grid grid-cols-2 gap-3">

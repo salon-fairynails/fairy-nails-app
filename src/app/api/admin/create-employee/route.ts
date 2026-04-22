@@ -18,19 +18,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
-  const { email, password, full_name, role, language } = await request.json()
+  const { email, full_name, role, language } = await request.json()
 
-  if (!email || !password || !full_name) {
+  if (!email || !full_name) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
   }
 
   const adminClient = createAdminClient()
+  const origin = request.headers.get('origin') ?? 'https://fairy-nails-app.vercel.app'
 
-  // Create auth user
-  const { data: { user: newUser }, error: authError } = await adminClient.auth.admin.createUser({
-    email,
-    password,
-    email_confirm: true,
+  // Invite user — Supabase sends the invitation email automatically
+  const { data: { user: newUser }, error: authError } = await adminClient.auth.admin.inviteUserByEmail(email, {
+    redirectTo: `${origin}/auth/reset-password`,
   })
 
   if (authError || !newUser) {

@@ -1,6 +1,7 @@
 export type Role = 'admin' | 'employee'
 export type Language = 'de' | 'en' | 'vi'
 export type PaymentMethod = 'cash' | 'twint' | 'credit_card'
+export type ExpensePaymentMethod = 'cash' | 'twint' | 'credit_card' | 'bank_transfer'
 
 export interface Profile {
   id: string
@@ -59,6 +60,7 @@ export interface EmployeeWithEmail {
   language: Language
   is_active: boolean
   email: string
+  email_confirmed_at: string | null
 }
 
 export type PeriodType = 'week' | 'month' | 'year' | 'custom'
@@ -71,4 +73,43 @@ export interface Filters {
   payment_method: string
   category_id: string
   service_id: string
+}
+
+export interface ExpenseCategory {
+  id: number
+  name: string
+}
+
+export interface Expense {
+  id: string
+  employee_id: string
+  category_id: number
+  expense_date: string
+  amount: number
+  description: string
+  supplier: string | null
+  payment_method: ExpensePaymentMethod
+  receipt_url: string | null
+  notes: string | null
+  created_at: string
+  updated_at: string
+  expense_categories?: {
+    id: number
+    name: string
+  }
+}
+
+export interface AdminExpense extends Expense {
+  profiles?: {
+    full_name: string
+  }
+}
+
+export interface ExpenseFilters {
+  employee_id: string
+  period: PeriodType
+  date_from: string
+  date_to: string
+  payment_method: string
+  category_id: string
 }
