@@ -37,13 +37,6 @@ export async function GET() {
       is_active: p.is_active,
       email: authUser?.email ?? '',
       last_sign_in_at: authUser?.last_sign_in_at ?? null,
-      // debug fields — remove after investigation
-      _debug: {
-        email_confirmed_at: authUser?.email_confirmed_at,
-        confirmed_at: authUser?.confirmed_at,
-        invited_at: authUser?.invited_at,
-        last_sign_in_at: authUser?.last_sign_in_at,
-      },
     }
   })
 
