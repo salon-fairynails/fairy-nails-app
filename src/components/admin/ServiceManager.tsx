@@ -16,9 +16,13 @@ interface ServiceWithCategory {
   service_categories?: { id: number; name: string }
 }
 
+const CURRENCIES = ['CHF', 'EUR', 'USD', 'GBP', 'JPY', 'AUD', 'CAD', 'SEK', 'NOK', 'DKK']
+
 interface Props {
   services: ServiceWithCategory[]
   categories: ServiceCategory[]
+  currency: string
+  onCurrencyChange: (currency: string) => void
   onReload: () => void
 }
 
@@ -34,7 +38,7 @@ const EMPTY_FORM = {
   price_label: '',
 }
 
-export default function ServiceManager({ services, categories, onReload }: Props) {
+export default function ServiceManager({ services, categories, currency, onCurrencyChange, onReload }: Props) {
   const { t } = useTranslation('common')
   const [filterCat, setFilterCat] = useState('')
   const [modal, setModal] = useState<ModalState | null>(null)
@@ -127,26 +131,41 @@ export default function ServiceManager({ services, categories, onReload }: Props
   return (
     <>
       <div className="bg-surface rounded-2xl border border-border overflow-hidden">
-        <div className="px-5 py-4 border-b border-border flex flex-col sm:flex-row sm:items-center gap-3">
-          <h2 className="font-display text-lg font-semibold text-text flex-1">{t('catalog.services')}</h2>
-          <div className="flex items-center gap-2">
+        <div className="px-5 py-4 border-b border-border space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <h2 className="font-display text-lg font-semibold text-text flex-1">{t('catalog.services')}</h2>
+            <div className="flex items-center gap-2">
+              <select
+                value={filterCat}
+                onChange={(e) => setFilterCat(e.target.value)}
+                className={cn(inputClass, 'py-1.5 w-auto')}
+              >
+                <option value="">{t('catalog.all_categories')}</option>
+                {categories.map((c) => (
+                  <option key={c.id} value={c.id}>{c.name}</option>
+                ))}
+              </select>
+              <button
+                onClick={openAdd}
+                className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-accent text-white hover:bg-[#7a3d5e] transition-all whitespace-nowrap"
+              >
+                <Plus size={13} />
+                {t('catalog.add_service')}
+              </button>
+            </div>
+          </div>
+          <div className="flex items-center gap-2 pt-1 border-t border-border/50">
+            <span className="text-xs text-text-muted">{t('catalog.currency_label')}</span>
             <select
-              value={filterCat}
-              onChange={(e) => setFilterCat(e.target.value)}
-              className={cn(inputClass, 'py-1.5 w-auto')}
+              value={currency}
+              onChange={(e) => onCurrencyChange(e.target.value)}
+              className={cn(inputClass, 'py-1 w-auto text-xs font-medium')}
             >
-              <option value="">{t('catalog.all_categories')}</option>
-              {categories.map((c) => (
-                <option key={c.id} value={c.id}>{c.name}</option>
+              {CURRENCIES.map((c) => (
+                <option key={c} value={c}>{c}</option>
               ))}
             </select>
-            <button
-              onClick={openAdd}
-              className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg bg-accent text-white hover:bg-[#7a3d5e] transition-all whitespace-nowrap"
-            >
-              <Plus size={13} />
-              {t('catalog.add_service')}
-            </button>
+            <span className="text-xs text-text-muted">{t('catalog.currency_hint')}</span>
           </div>
         </div>
 
@@ -173,7 +192,7 @@ export default function ServiceManager({ services, categories, onReload }: Props
                     {svc.service_categories?.name ?? '—'}
                   </td>
                   <td className="px-5 py-3 text-text">
-                    {svc.default_price != null ? `CHF ${svc.default_price.toFixed(2)}` : '—'}
+                    {svc.default_price != null ? `${currency} ${svc.default_price.toFixed(2)}` : '—'}
                   </td>
                   <td className="px-5 py-3 text-text-muted hidden md:table-cell">
                     {svc.price_label || '—'}
@@ -255,7 +274,7 @@ export default function ServiceManager({ services, categories, onReload }: Props
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className={labelClass}>{t('catalog.service_price_chf')}</label>
+                  <label className={labelClass}>{t('catalog.service_price_default')} ({currency})</label>
                   <input
                     type="number"
                     min="0"

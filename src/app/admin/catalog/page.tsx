@@ -21,20 +21,36 @@ export default function CatalogPage() {
   const { t } = useTranslation('common')
   const [categories, setCategories] = useState<ServiceCategory[]>([])
   const [services, setServices] = useState<ServiceWithCategory[]>([])
+  const [currency, setCurrency] = useState('CHF')
   const [loading, setLoading] = useState(true)
 
   const loadData = useCallback(async () => {
-    const [catsRes, svcsRes] = await Promise.all([
+    const [catsRes, svcsRes, settingsRes] = await Promise.all([
       fetch('/api/admin/catalog/categories'),
       fetch('/api/admin/catalog/services'),
+      fetch('/api/admin/settings'),
     ])
-    const [cats, svcs] = await Promise.all([catsRes.json(), svcsRes.json()])
+    const [cats, svcs, settings] = await Promise.all([
+      catsRes.json(),
+      svcsRes.json(),
+      settingsRes.json(),
+    ])
     setCategories(cats)
     setServices(svcs)
+    if (settings.currency) setCurrency(settings.currency)
     setLoading(false)
   }, [])
 
   useEffect(() => { loadData() }, [loadData])
+
+  const handleCurrencyChange = async (newCurrency: string) => {
+    setCurrency(newCurrency)
+    await fetch('/api/admin/settings', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key: 'currency', value: newCurrency }),
+    })
+  }
 
   if (loading) {
     return (
@@ -50,7 +66,13 @@ export default function CatalogPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6 items-start">
         <CategoryManager categories={categories} onReload={loadData} />
-        <ServiceManager services={services} categories={categories} onReload={loadData} />
+        <ServiceManager
+          services={services}
+          categories={categories}
+          currency={currency}
+          onCurrencyChange={handleCurrencyChange}
+          onReload={loadData}
+        />
       </div>
     </div>
   )
