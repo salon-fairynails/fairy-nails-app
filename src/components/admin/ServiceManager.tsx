@@ -16,7 +16,7 @@ interface ServiceWithCategory {
   service_categories?: { id: number; name: string }
 }
 
-const CURRENCIES = ['CHF', 'EUR', 'USD', 'GBP', 'JPY', 'AUD', 'CAD', 'SEK', 'NOK', 'DKK']
+const CURRENCIES = ['CHF', 'EUR', 'USD', 'GBP', 'JPY', 'AUD', 'CAD', 'SEK', 'NOK', 'DKK', 'VND']
 
 interface Props {
   services: ServiceWithCategory[]
