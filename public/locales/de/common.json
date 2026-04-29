@@ -47,7 +47,9 @@
     "logout": "Abmelden",
     "dashboard": "Dashboard",
     "employees": "Mitarbeitende",
-    "my_entries": "Meine Leistungen"
+    "catalog": "Katalog",
+    "my_entries": "Meine Leistungen",
+    "change_password": "Passwort ändern"
   },
   "form": {
     "title": "Neue Leistung erfassen",
@@ -236,22 +238,51 @@
       "new_password": "Neues Passwort",
       "reset_password_submit": "Speichern",
       "reset_password_success": "Passwort geändert",
-      "pending": "Ausstehend",
-      "resend_invite": "Einladung erneut senden",
-      "resend_invite_success": "Einladung erneut gesendet",
-      "resend_invite_error": "Fehler beim Senden"
+      "pending": "Ausstehend"
     },
     "add_employee": {
       "title": "Neue/n Mitarbeitende/n anlegen",
       "name": "Vollständiger Name",
       "email": "E-Mail-Adresse",
-      "invite_hint": "Nach dem Anlegen erhält die Person automatisch eine Einladungs-E-Mail mit einem Link, über den sie ihr eigenes Passwort setzen kann.",
+      "password": "Initiales Passwort",
+      "password_confirm": "Passwort bestätigen",
+      "invite_hint": "Du setzt das Passwort direkt. Die Person kann es nach dem ersten Login selbst ändern.",
       "role": "Rolle",
       "language": "Sprache",
-      "submit": "Einladung senden",
-      "submitting": "Wird gesendet…",
-      "error": "Fehler beim Anlegen. Bitte versuche es erneut."
+      "submit": "Konto anlegen",
+      "submitting": "Wird angelegt…",
+      "error": "Fehler beim Anlegen. Bitte versuche es erneut.",
+      "error_password_mismatch": "Die Passwörter stimmen nicht überein."
     }
+  },
+  "catalog": {
+    "title": "Katalog verwalten",
+    "categories": "Kategorien",
+    "add_category": "Kategorie hinzufügen",
+    "category_name_placeholder": "z.B. Maniküre",
+    "no_categories": "Noch keine Kategorien vorhanden.",
+    "services": "Services",
+    "all_categories": "Alle Kategorien",
+    "add_service": "Service hinzufügen",
+    "service_name": "Name",
+    "service_name_placeholder": "z.B. Gel Lack",
+    "service_category": "Kategorie",
+    "service_price": "Preis",
+    "service_price_chf": "Standardpreis (CHF)",
+    "service_price_label": "Preishinweis",
+    "service_price_label_placeholder": "z.B. ab CHF 50",
+    "service_status": "Status",
+    "service_active": "Aktiv",
+    "service_inactive": "Inaktiv",
+    "no_services": "Keine Services für diese Auswahl.",
+    "category_placeholder": "Kategorie wählen",
+    "modal_add_title": "Neuer Service",
+    "modal_edit_title": "Service bearbeiten",
+    "save": "Speichern",
+    "saving": "Wird gespeichert…",
+    "cancel": "Abbrechen",
+    "error_generic": "Fehler beim Speichern. Bitte versuche es erneut.",
+    "error_name_cat_required": "Name und Kategorie sind erforderlich."
   },
   "help": {
     "title": "Hilfe",

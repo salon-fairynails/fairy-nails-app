@@ -47,7 +47,9 @@
     "logout": "Sign out",
     "dashboard": "Dashboard",
     "employees": "Employees",
-    "my_entries": "My services"
+    "catalog": "Catalog",
+    "my_entries": "My services",
+    "change_password": "Change password"
   },
   "form": {
     "title": "Record new service",
@@ -232,22 +234,51 @@
       "new_password": "New password",
       "reset_password_submit": "Save",
       "reset_password_success": "Password changed",
-      "pending": "Pending",
-      "resend_invite": "Resend invitation",
-      "resend_invite_success": "Invitation resent",
-      "resend_invite_error": "Failed to send"
+      "pending": "Pending"
     },
     "add_employee": {
       "title": "Add new employee",
       "name": "Full name",
       "email": "Email address",
-      "invite_hint": "After adding, the person will automatically receive an invitation email with a link to set their own password.",
+      "password": "Initial password",
+      "password_confirm": "Confirm password",
+      "invite_hint": "You set the password directly. The person can change it after their first login.",
       "role": "Role",
       "language": "Language",
-      "submit": "Send invitation",
-      "submitting": "Sending…",
-      "error": "Error creating employee. Please try again."
+      "submit": "Create account",
+      "submitting": "Creating…",
+      "error": "Error creating employee. Please try again.",
+      "error_password_mismatch": "Passwords do not match."
     }
+  },
+  "catalog": {
+    "title": "Manage Catalog",
+    "categories": "Categories",
+    "add_category": "Add category",
+    "category_name_placeholder": "e.g. Manicure",
+    "no_categories": "No categories yet.",
+    "services": "Services",
+    "all_categories": "All categories",
+    "add_service": "Add service",
+    "service_name": "Name",
+    "service_name_placeholder": "e.g. Gel polish",
+    "service_category": "Category",
+    "service_price": "Price",
+    "service_price_chf": "Default price (CHF)",
+    "service_price_label": "Price note",
+    "service_price_label_placeholder": "e.g. from CHF 50",
+    "service_status": "Status",
+    "service_active": "Active",
+    "service_inactive": "Inactive",
+    "no_services": "No services for this selection.",
+    "category_placeholder": "Select category",
+    "modal_add_title": "New service",
+    "modal_edit_title": "Edit service",
+    "save": "Save",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "error_generic": "Error saving. Please try again.",
+    "error_name_cat_required": "Name and category are required."
   },
   "help": {
     "title": "Help",

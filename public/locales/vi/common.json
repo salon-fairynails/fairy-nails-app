@@ -47,7 +47,9 @@
     "logout": "Đăng xuất",
     "dashboard": "Bảng điều khiển",
     "employees": "Nhân viên",
-    "my_entries": "Dịch vụ của tôi"
+    "catalog": "Danh mục",
+    "my_entries": "Dịch vụ của tôi",
+    "change_password": "Đổi mật khẩu"
   },
   "form": {
     "title": "Ghi nhận dịch vụ mới",
@@ -232,22 +234,51 @@
       "new_password": "Mật khẩu mới",
       "reset_password_submit": "Lưu",
       "reset_password_success": "Mật khẩu đã đổi",
-      "pending": "Đang chờ",
-      "resend_invite": "Gửi lại lời mời",
-      "resend_invite_success": "Đã gửi lại lời mời",
-      "resend_invite_error": "Gửi thất bại"
+      "pending": "Đang chờ"
     },
     "add_employee": {
       "title": "Thêm nhân viên mới",
       "name": "Họ và tên",
       "email": "Địa chỉ email",
-      "invite_hint": "Sau khi thêm, người đó sẽ tự động nhận được email mời với liên kết để tự đặt mật khẩu.",
+      "password": "Mật khẩu ban đầu",
+      "password_confirm": "Xác nhận mật khẩu",
+      "invite_hint": "Bạn đặt mật khẩu trực tiếp. Người đó có thể thay đổi sau lần đăng nhập đầu tiên.",
       "role": "Vai trò",
       "language": "Ngôn ngữ",
-      "submit": "Gửi lời mời",
-      "submitting": "Đang gửi…",
-      "error": "Lỗi khi tạo nhân viên. Vui lòng thử lại."
+      "submit": "Tạo tài khoản",
+      "submitting": "Đang tạo…",
+      "error": "Lỗi khi tạo nhân viên. Vui lòng thử lại.",
+      "error_password_mismatch": "Mật khẩu không khớp."
     }
+  },
+  "catalog": {
+    "title": "Quản lý danh mục",
+    "categories": "Danh mục",
+    "add_category": "Thêm danh mục",
+    "category_name_placeholder": "VD: Làm móng tay",
+    "no_categories": "Chưa có danh mục nào.",
+    "services": "Dịch vụ",
+    "all_categories": "Tất cả danh mục",
+    "add_service": "Thêm dịch vụ",
+    "service_name": "Tên",
+    "service_name_placeholder": "VD: Sơn gel",
+    "service_category": "Danh mục",
+    "service_price": "Giá",
+    "service_price_chf": "Giá mặc định (CHF)",
+    "service_price_label": "Ghi chú giá",
+    "service_price_label_placeholder": "VD: từ CHF 50",
+    "service_status": "Trạng thái",
+    "service_active": "Hoạt động",
+    "service_inactive": "Không hoạt động",
+    "no_services": "Không có dịch vụ nào cho lựa chọn này.",
+    "category_placeholder": "Chọn danh mục",
+    "modal_add_title": "Dịch vụ mới",
+    "modal_edit_title": "Chỉnh sửa dịch vụ",
+    "save": "Lưu",
+    "saving": "Đang lưu…",
+    "cancel": "Hủy",
+    "error_generic": "Lỗi khi lưu. Vui lòng thử lại.",
+    "error_name_cat_required": "Tên và danh mục là bắt buộc."
   },
   "help": {
     "title": "Trợ giúp",

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import { LogOut, HelpCircle } from 'lucide-react'
+import { LogOut, HelpCircle, KeyRound } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import '@/lib/i18n/config'
 import { cn } from '@/lib/utils'
@@ -16,6 +16,7 @@ import HelpModal from './HelpModal'
 const ADMIN_NAV = [
   { href: '/admin/dashboard', labelKey: 'nav.dashboard' },
   { href: '/admin/employees', labelKey: 'nav.employees' },
+  { href: '/admin/catalog', labelKey: 'nav.catalog' },
   { href: '/employee/dashboard', labelKey: 'nav.my_entries' },
 ]
 
@@ -80,6 +81,15 @@ export default function Navbar() {
           )}
 
           <LanguageSwitcher />
+
+          <Link
+            href="/auth/reset-password"
+            title={t('nav.change_password')}
+            className="flex items-center gap-1.5 text-sm text-text-muted hover:text-text transition-colors"
+          >
+            <KeyRound size={16} strokeWidth={1.75} />
+            <span className="hidden sm:inline">{t('nav.change_password')}</span>
+          </Link>
 
           <button
             onClick={() => setHelpOpen(true)}

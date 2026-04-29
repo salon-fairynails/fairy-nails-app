@@ -19,20 +19,6 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
   const [resetId, setResetId] = useState<string | null>(null)
   const [newPassword, setNewPassword] = useState('')
   const [resetSuccess, setResetSuccess] = useState<string | null>(null)
-  const [resendingId, setResendingId] = useState<string | null>(null)
-  const [resendResult, setResendResult] = useState<{ id: string; ok: boolean } | null>(null)
-
-  const handleResendInvite = async (id: string, email: string) => {
-    setResendingId(id)
-    const res = await fetch('/api/admin/resend-invite', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email }),
-    })
-    setResendingId(null)
-    setResendResult({ id, ok: res.ok })
-    setTimeout(() => setResendResult(null), 3000)
-  }
 
   const handleResetPassword = async (id: string) => {
     if (!newPassword || newPassword.length < 6) return
@@ -157,23 +143,6 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
                   </td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-2 flex-wrap">
-                      {!emp.last_sign_in_at && (
-                        resendResult?.id === emp.id ? (
-                          <span className={cn('text-xs', resendResult.ok ? 'text-success' : 'text-error')}>
-                            {resendResult.ok
-                              ? t('admin.employees.resend_invite_success')
-                              : t('admin.employees.resend_invite_error')}
-                          </span>
-                        ) : (
-                          <button
-                            onClick={() => handleResendInvite(emp.id, emp.email)}
-                            disabled={resendingId === emp.id || working}
-                            className="text-xs px-3 py-1 rounded-lg text-accent hover:bg-accent/10 disabled:opacity-40 transition-all"
-                          >
-                            {resendingId === emp.id ? '…' : t('admin.employees.resend_invite')}
-                          </button>
-                        )
-                      )}
                       {resetSuccess === emp.id ? (
                         <span className="text-xs text-success">{t('admin.employees.reset_password_success')}</span>
                       ) : resetId === emp.id ? (

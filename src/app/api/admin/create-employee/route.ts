@@ -18,25 +18,28 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
-  const { email, full_name, role, language } = await request.json()
+  const { email, full_name, role, language, password } = await request.json()
 
-  if (!email || !full_name) {
+  if (!email || !full_name || !password) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
   }
 
-  const adminClient = createAdminClient()
-  const origin = request.headers.get('origin') ?? 'https://fairy-nails-app.vercel.app'
+  if (password.length < 6) {
+    return NextResponse.json({ error: 'Password must be at least 6 characters' }, { status: 400 })
+  }
 
-  // Invite user — Supabase sends the invitation email automatically
-  const { data: { user: newUser }, error: authError } = await adminClient.auth.admin.inviteUserByEmail(email, {
-    redirectTo: `${origin}/auth/reset-password`,
+  const adminClient = createAdminClient()
+
+  const { data: { user: newUser }, error: authError } = await adminClient.auth.admin.createUser({
+    email,
+    password,
+    email_confirm: true,
   })
 
   if (authError || !newUser) {
     return NextResponse.json({ error: authError?.message ?? 'Failed to create user' }, { status: 400 })
   }
 
-  // Create profile
   const { error: profileError } = await adminClient.from('profiles').insert({
     id: newUser.id,
     full_name,
