@@ -75,7 +75,7 @@
   "payment": {
     "cash": "Tiền mặt",
     "twint": "Twint",
-    "credit_card": "Thẻ tín dụng",
+    "credit_card": "Thẻ",
     "bank_transfer": "Chuyển khoản"
   },
   "table": {
@@ -87,7 +87,13 @@
     "amount": "Số tiền",
     "payment": "Thanh toán",
     "no_entries": "Chưa có dịch vụ nào.",
-    "loading": "Đang tải…"
+    "no_entries_filtered": "Không có dịch vụ nào trong khoảng thời gian đã chọn.",
+    "loading": "Đang tải…",
+    "filter_all": "Tất cả",
+    "filter_week": "Tuần",
+    "filter_month": "Tháng",
+    "filter_year": "Năm",
+    "total": "Tổng"
   },
   "modal": {
     "edit_title": "Chỉnh sửa dịch vụ",
@@ -303,8 +309,9 @@
       { "title": "Chọn danh mục", "text": "Đầu tiên chọn danh mục (ví dụ: Làm móng tay, Làm móng chân, Chăm sóc da mặt). Sau đó các dịch vụ phù hợp sẽ xuất hiện." },
       { "title": "Chọn dịch vụ", "text": "Chọn dịch vụ đã thực hiện. Giá mặc định sẽ được điền tự động." },
       { "title": "Điều chỉnh số tiền", "text": "Số tiền được điền sẵn nhưng có thể ghi đè thủ công (ví dụ: giá đặc biệt)." },
-      { "title": "Chọn phương thức thanh toán", "text": "Chọn cách khách hàng thanh toán: Tiền mặt, Twint hoặc Thẻ tín dụng." },
-      { "title": "Chỉnh sửa mục nhập", "text": "Nhấp vào một mục nhập hiện có trong bảng để chỉnh sửa hoặc xóa nó." }
+      { "title": "Chọn phương thức thanh toán", "text": "Chọn cách khách hàng thanh toán: Tiền mặt, Twint hoặc Thẻ." },
+      { "title": "Chỉnh sửa mục nhập", "text": "Nhấp vào một mục nhập hiện có trong bảng để chỉnh sửa hoặc xóa nó." },
+      { "title": "Lọc bảng", "text": "Sử dụng các nút 'Tất cả', 'Tuần', 'Tháng' và 'Năm' để lọc bảng theo khoảng thời gian. Mặc định hiển thị tháng hiện tại. Tổng số tiền của các mục được lọc sẽ hiển thị ở cuối bảng." }
     ],
     "expenses_steps": [
       { "title": "Ngày và số tiền", "text": "Chọn ngày mua hàng và nhập số tiền bằng CHF." },

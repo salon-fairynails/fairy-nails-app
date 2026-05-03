@@ -75,7 +75,7 @@
   "payment": {
     "cash": "Cash",
     "twint": "Twint",
-    "credit_card": "Credit card",
+    "credit_card": "Card",
     "bank_transfer": "Bank transfer"
   },
   "table": {
@@ -87,7 +87,13 @@
     "amount": "Amount",
     "payment": "Payment",
     "no_entries": "No entries yet.",
-    "loading": "Loading…"
+    "no_entries_filtered": "No entries for the selected period.",
+    "loading": "Loading…",
+    "filter_all": "All",
+    "filter_week": "Week",
+    "filter_month": "Month",
+    "filter_year": "Year",
+    "total": "Total"
   },
   "modal": {
     "edit_title": "Edit service",
@@ -303,8 +309,9 @@
       { "title": "Choose category", "text": "First select a category (e.g. Manicure, Pedicure, Face). The matching services will then appear." },
       { "title": "Choose service", "text": "Select the service performed. The default price is filled in automatically." },
       { "title": "Adjust amount", "text": "The amount is pre-filled but can be overwritten manually (e.g. for special prices)." },
-      { "title": "Choose payment method", "text": "Select how the customer paid: Cash, Twint or Credit card." },
-      { "title": "Edit entry", "text": "Click on an existing entry in the table to edit or delete it." }
+      { "title": "Choose payment method", "text": "Select how the customer paid: Cash, Twint or Card." },
+      { "title": "Edit entry", "text": "Click on an existing entry in the table to edit or delete it." },
+      { "title": "Filter table", "text": "Use the 'All', 'Week', 'Month' and 'Year' buttons to filter the table by period. The current month is shown by default. The total amount of the filtered entries is displayed at the bottom of the table." }
     ],
     "expenses_steps": [
       { "title": "Date and amount", "text": "Select the purchase date and enter the amount in CHF." },

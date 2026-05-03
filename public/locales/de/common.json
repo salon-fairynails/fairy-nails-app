@@ -75,7 +75,7 @@
   "payment": {
     "cash": "Bar",
     "twint": "Twint",
-    "credit_card": "Kreditkarte",
+    "credit_card": "Karte",
     "bank_transfer": "Überweisung"
   },
   "table": {
@@ -87,7 +87,13 @@
     "amount": "Betrag",
     "payment": "Zahlung",
     "no_entries": "Noch keine Einträge vorhanden.",
-    "loading": "Lädt…"
+    "no_entries_filtered": "Keine Einträge im gewählten Zeitraum.",
+    "loading": "Lädt…",
+    "filter_all": "Alle",
+    "filter_week": "Woche",
+    "filter_month": "Monat",
+    "filter_year": "Jahr",
+    "total": "Gesamt"
   },
   "modal": {
     "edit_title": "Leistung bearbeiten",
@@ -307,8 +313,9 @@
       { "title": "Kategorie wählen", "text": "Wähle zuerst eine Kategorie (z.B. Maniküre, Pediküre, Face). Danach erscheinen die passenden Services." },
       { "title": "Service wählen", "text": "Wähle den erbrachten Service. Der Standardpreis wird automatisch eingetragen." },
       { "title": "Betrag anpassen", "text": "Der Betrag ist vorausgefüllt, kann aber manuell überschrieben werden (z.B. bei Sonderpreisen)." },
-      { "title": "Zahlungsart wählen", "text": "Wähle wie der Kunde bezahlt hat: Bar, Twint oder Kreditkarte." },
-      { "title": "Eintrag bearbeiten", "text": "Klicke auf einen bestehenden Eintrag in der Tabelle, um ihn zu bearbeiten oder zu löschen." }
+      { "title": "Zahlungsart wählen", "text": "Wähle wie der Kunde bezahlt hat: Bar, Twint oder Karte." },
+      { "title": "Eintrag bearbeiten", "text": "Klicke auf einen bestehenden Eintrag in der Tabelle, um ihn zu bearbeiten oder zu löschen." },
+      { "title": "Tabelle filtern", "text": "Mit den Schaltflächen 'Alle', 'Woche', 'Monat' und 'Jahr' kannst du die Tabelle nach Zeitraum filtern. Standardmässig wird der laufende Monat angezeigt. Die Gesamtsumme der gefilterten Einträge wird am Ende der Tabelle eingeblendet." }
     ],
     "expenses_steps": [
       { "title": "Datum und Betrag", "text": "Wähle das Datum des Einkaufs und gib den Betrag in CHF ein." },
