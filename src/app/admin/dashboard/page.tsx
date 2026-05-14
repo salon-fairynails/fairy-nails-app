@@ -16,7 +16,8 @@ import AdminEntryTable from '@/components/admin/AdminEntryTable'
 import AdminExpenseTable from '@/components/admin/AdminExpenseTable'
 import SummaryBar from '@/components/admin/SummaryBar'
 import EditEntryModal from '@/components/employee/EditEntryModal'
-import type { Filters, ExpenseFilters, AdminEntry } from '@/types/database'
+import EditExpenseModal from '@/components/employee/EditExpenseModal'
+import type { Filters, ExpenseFilters, AdminEntry, AdminExpense } from '@/types/database'
 
 type Tab = 'income' | 'expenses'
 
@@ -46,9 +47,10 @@ export default function AdminDashboard() {
   const [expenseFilters, setExpenseFilters] = useState<ExpenseFilters>(DEFAULT_EXPENSE_FILTERS)
   const [exporting, setExporting] = useState(false)
   const [editingEntry, setEditingEntry] = useState<AdminEntry | null>(null)
+  const [editingExpense, setEditingExpense] = useState<AdminExpense | null>(null)
 
   const { entries, loading: entriesLoading, reload: reloadEntries } = useAdminEntries(filters)
-  const { expenses, loading: expensesLoading } = useAdminExpenses(expenseFilters)
+  const { expenses, loading: expensesLoading, reload: reloadExpenses } = useAdminExpenses(expenseFilters)
   const { employees } = useEmployees()
   const { categories, services } = useServices()
   const { categories: expenseCategories } = useExpenseCategories()
@@ -178,7 +180,7 @@ export default function AdminDashboard() {
               </span>
             </div>
           </div>
-          <AdminExpenseTable expenses={expenses} loading={expensesLoading} />
+          <AdminExpenseTable expenses={expenses} loading={expensesLoading} onEdit={setEditingExpense} />
         </>
       )}
 
@@ -189,6 +191,15 @@ export default function AdminDashboard() {
           services={services}
           onClose={() => setEditingEntry(null)}
           onSaved={() => { setEditingEntry(null); reloadEntries() }}
+        />
+      )}
+
+      {editingExpense && (
+        <EditExpenseModal
+          expense={editingExpense}
+          categories={expenseCategories}
+          onClose={() => setEditingExpense(null)}
+          onSaved={() => { setEditingExpense(null); reloadExpenses() }}
         />
       )}
     </div>

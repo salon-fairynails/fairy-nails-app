@@ -14,8 +14,6 @@ import EntryForm from '@/components/employee/EntryForm'
 import EntryTable from '@/components/employee/EntryTable'
 import ExpenseForm from '@/components/employee/ExpenseForm'
 import ExpenseTable from '@/components/employee/ExpenseTable'
-import EditExpenseModal from '@/components/employee/EditExpenseModal'
-import type { Expense } from '@/types/database'
 
 type Tab = 'income' | 'expenses'
 
@@ -30,7 +28,6 @@ export default function EmployeeDashboard() {
   const { categories: expenseCategories, loading: expCatsLoading } = useExpenseCategories()
   const { expenses, loading: expensesLoading, reload: reloadExpenses } = useExpenses()
 
-  const [editingExpense, setEditingExpense] = useState<Expense | null>(null)
 
   const handleExport = async () => {
     setExporting(true)
@@ -100,18 +97,10 @@ export default function EmployeeDashboard() {
       {tab === 'expenses' && (
         <div className="space-y-6">
           <ExpenseForm categories={expenseCategories} onSuccess={reloadExpenses} />
-          <ExpenseTable expenses={expenses} loading={expensesLoading} onEdit={setEditingExpense} />
+          <ExpenseTable expenses={expenses} loading={expensesLoading} />
         </div>
       )}
 
-      {editingExpense && (
-        <EditExpenseModal
-          expense={editingExpense}
-          categories={expenseCategories}
-          onClose={() => setEditingExpense(null)}
-          onSaved={reloadExpenses}
-        />
-      )}
     </>
   )
 }

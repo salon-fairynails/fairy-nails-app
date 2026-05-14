@@ -9,7 +9,6 @@ import type { Expense, ExpensePaymentMethod } from '@/types/database'
 interface Props {
   expenses: Expense[]
   loading: boolean
-  onEdit: (expense: Expense) => void
 }
 
 const PAYMENT_BADGE: Record<ExpensePaymentMethod, string> = {
@@ -25,7 +24,7 @@ async function openReceipt(path: string) {
   if (data?.signedUrl) window.open(data.signedUrl, '_blank')
 }
 
-export default function ExpenseTable({ expenses, loading, onEdit }: Props) {
+export default function ExpenseTable({ expenses, loading }: Props) {
   const { t } = useTranslation('common')
 
   return (
@@ -62,11 +61,7 @@ export default function ExpenseTable({ expenses, loading, onEdit }: Props) {
               {expenses.map((expense) => (
                 <tr
                   key={expense.id}
-                  onClick={() => onEdit(expense)}
-                  className={cn(
-                    'border-b border-border last:border-0 cursor-pointer',
-                    'hover:bg-secondary/20 transition-colors duration-150'
-                  )}
+                  className="border-b border-border last:border-0"
                 >
                   <td className="px-4 py-3 text-text whitespace-nowrap">
                     {formatDate(expense.expense_date)}
@@ -93,7 +88,7 @@ export default function ExpenseTable({ expenses, loading, onEdit }: Props) {
                       {t(`payment.${expense.payment_method}`)}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-right" onClick={(e) => e.stopPropagation()}>
+                  <td className="px-4 py-3 text-right">
                     {expense.receipt_url && (
                       <button
                         onClick={() => openReceipt(expense.receipt_url!)}
