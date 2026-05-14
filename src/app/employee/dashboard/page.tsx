@@ -12,11 +12,10 @@ import { useExpenseCategories } from '@/hooks/useExpenseCategories'
 import { useUser } from '@/hooks/useUser'
 import EntryForm from '@/components/employee/EntryForm'
 import EntryTable from '@/components/employee/EntryTable'
-import EditEntryModal from '@/components/employee/EditEntryModal'
 import ExpenseForm from '@/components/employee/ExpenseForm'
 import ExpenseTable from '@/components/employee/ExpenseTable'
 import EditExpenseModal from '@/components/employee/EditExpenseModal'
-import type { Entry, Expense } from '@/types/database'
+import type { Expense } from '@/types/database'
 
 type Tab = 'income' | 'expenses'
 
@@ -31,7 +30,6 @@ export default function EmployeeDashboard() {
   const { categories: expenseCategories, loading: expCatsLoading } = useExpenseCategories()
   const { expenses, loading: expensesLoading, reload: reloadExpenses } = useExpenses()
 
-  const [editingEntry, setEditingEntry] = useState<Entry | null>(null)
   const [editingExpense, setEditingExpense] = useState<Expense | null>(null)
 
   const handleExport = async () => {
@@ -95,7 +93,7 @@ export default function EmployeeDashboard() {
       {tab === 'income' && (
         <div className="space-y-6">
           <EntryForm categories={serviceCategories} services={services} onSuccess={reloadEntries} />
-          <EntryTable entries={entries} loading={entriesLoading} onEdit={setEditingEntry} />
+          <EntryTable entries={entries} loading={entriesLoading} />
         </div>
       )}
 
@@ -104,16 +102,6 @@ export default function EmployeeDashboard() {
           <ExpenseForm categories={expenseCategories} onSuccess={reloadExpenses} />
           <ExpenseTable expenses={expenses} loading={expensesLoading} onEdit={setEditingExpense} />
         </div>
-      )}
-
-      {editingEntry && (
-        <EditEntryModal
-          entry={editingEntry}
-          categories={serviceCategories}
-          services={services}
-          onClose={() => setEditingEntry(null)}
-          onSaved={reloadEntries}
-        />
       )}
 
       {editingExpense && (

@@ -10,7 +10,6 @@ type Period = 'all' | 'week' | 'month' | 'year'
 interface Props {
   entries: Entry[]
   loading: boolean
-  onEdit: (entry: Entry) => void
 }
 
 const PAYMENT_BADGE: Record<PaymentMethod, string> = {
@@ -43,7 +42,7 @@ function filterByPeriod(entries: Entry[], period: Period): Entry[] {
   })
 }
 
-export default function EntryTable({ entries, loading, onEdit }: Props) {
+export default function EntryTable({ entries, loading }: Props) {
   const { t } = useTranslation('common')
   const [period, setPeriod] = useState<Period>('month')
 
@@ -105,11 +104,7 @@ export default function EntryTable({ entries, loading, onEdit }: Props) {
               {filtered.map((entry) => (
                 <tr
                   key={entry.id}
-                  onClick={() => onEdit(entry)}
-                  className={cn(
-                    'border-b border-border last:border-0 cursor-pointer',
-                    'hover:bg-secondary/20 transition-colors duration-150'
-                  )}
+                  className="border-b border-border last:border-0"
                 >
                   <td className="px-4 py-3 text-text whitespace-nowrap">
                     {formatDate(entry.entry_date)}
