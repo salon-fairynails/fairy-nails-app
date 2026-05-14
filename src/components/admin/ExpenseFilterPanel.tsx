@@ -1,7 +1,8 @@
 'use client'
 
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { cn, startOfWeek, endOfWeek, startOfMonth, endOfMonth, startOfYear, endOfYear } from '@/lib/utils'
+import { cn, startOfWeek, endOfWeek, startOfYear, endOfYear } from '@/lib/utils'
 import type { ExpenseFilters, PeriodType, ExpenseCategory, EmployeeWithEmail } from '@/types/database'
 
 interface Props {
@@ -14,29 +15,66 @@ interface Props {
 const PERIODS: PeriodType[] = ['week', 'month', 'year', 'custom']
 
 function periodDates(period: PeriodType): { date_from: string; date_to: string } {
-  if (period === 'week')  return { date_from: startOfWeek(),  date_to: endOfWeek() }
-  if (period === 'month') return { date_from: startOfMonth(), date_to: endOfMonth() }
-  if (period === 'year')  return { date_from: startOfYear(),  date_to: endOfYear() }
+  if (period === 'week') return { date_from: startOfWeek(), date_to: endOfWeek() }
+  if (period === 'year') return { date_from: startOfYear(), date_to: endOfYear() }
   return { date_from: '', date_to: '' }
 }
 
+function monthDateRange(year: number, month: number): { date_from: string; date_to: string } {
+  const m = String(month + 1).padStart(2, '0')
+  const lastDay = new Date(year, month + 1, 0).getDate()
+  return {
+    date_from: `${year}-${m}-01`,
+    date_to: `${year}-${m}-${String(lastDay).padStart(2, '0')}`,
+  }
+}
+
 export default function ExpenseFilterPanel({ filters, employees, categories, onChange }: Props) {
-  const { t } = useTranslation('common')
+  const { t, i18n } = useTranslation('common')
+
+  const [pickerYear, setPickerYear] = useState<number>(() => {
+    if (filters.date_from) return parseInt(filters.date_from.substring(0, 4))
+    return new Date().getFullYear()
+  })
 
   const set = (partial: Partial<ExpenseFilters>) => onChange({ ...filters, ...partial })
 
   const handlePeriod = (period: PeriodType) => {
-    set({ period, ...periodDates(period) })
+    if (period === 'month') {
+      set({ period, ...monthDateRange(pickerYear, new Date().getMonth()) })
+    } else {
+      set({ period, ...periodDates(period) })
+    }
   }
 
-  const handleReset = () =>
+  const handleMonthSelect = (month: number) => {
+    set({ period: 'month', ...monthDateRange(pickerYear, month) })
+  }
+
+  const handleReset = () => {
+    const now = new Date()
+    setPickerYear(now.getFullYear())
     onChange({
       employee_id: '',
       period: 'month',
-      ...periodDates('month'),
+      ...monthDateRange(now.getFullYear(), now.getMonth()),
       payment_method: '',
       category_id: '',
     })
+  }
+
+  const activeMonth =
+    filters.period === 'month' && filters.date_from
+      ? parseInt(filters.date_from.substring(5, 7)) - 1
+      : -1
+  const activeYear =
+    filters.period === 'month' && filters.date_from
+      ? parseInt(filters.date_from.substring(0, 4))
+      : -1
+
+  const monthNames = Array.from({ length: 12 }, (_, i) =>
+    new Intl.DateTimeFormat(i18n.language, { month: 'short' }).format(new Date(2024, i, 1))
+  )
 
   const selectClass = cn(
     'px-3 py-1.5 rounded-xl border border-border bg-bg text-text text-sm',
@@ -82,6 +120,43 @@ export default function ExpenseFilterPanel({ filters, employees, categories, onC
             </button>
           ))}
         </div>
+
+        {/* Monat: Monatsauswahl */}
+        {filters.period === 'month' && (
+          <div className="w-full flex flex-col gap-2 mt-1">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setPickerYear((y) => y - 1)}
+                className="px-2 py-1 rounded-lg text-text-muted hover:text-text hover:bg-secondary/40 transition-all text-sm"
+              >
+                ‹
+              </button>
+              <span className="text-sm font-medium text-text min-w-[3rem] text-center">{pickerYear}</span>
+              <button
+                onClick={() => setPickerYear((y) => y + 1)}
+                className="px-2 py-1 rounded-lg text-text-muted hover:text-text hover:bg-secondary/40 transition-all text-sm"
+              >
+                ›
+              </button>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {monthNames.map((name, i) => (
+                <button
+                  key={i}
+                  onClick={() => handleMonthSelect(i)}
+                  className={cn(
+                    'px-3 py-1.5 rounded-xl text-sm transition-all border',
+                    activeMonth === i && activeYear === pickerYear
+                      ? 'bg-accent text-white border-accent'
+                      : 'border-border text-text-muted hover:text-text hover:bg-secondary/40'
+                  )}
+                >
+                  {name}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {filters.period === 'custom' && (
           <>
