@@ -15,7 +15,8 @@ import ExpenseFilterPanel from '@/components/admin/ExpenseFilterPanel'
 import AdminEntryTable from '@/components/admin/AdminEntryTable'
 import AdminExpenseTable from '@/components/admin/AdminExpenseTable'
 import SummaryBar from '@/components/admin/SummaryBar'
-import type { Filters, ExpenseFilters } from '@/types/database'
+import EditEntryModal from '@/components/employee/EditEntryModal'
+import type { Filters, ExpenseFilters, AdminEntry } from '@/types/database'
 
 type Tab = 'income' | 'expenses'
 
@@ -44,8 +45,9 @@ export default function AdminDashboard() {
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS)
   const [expenseFilters, setExpenseFilters] = useState<ExpenseFilters>(DEFAULT_EXPENSE_FILTERS)
   const [exporting, setExporting] = useState(false)
+  const [editingEntry, setEditingEntry] = useState<AdminEntry | null>(null)
 
-  const { entries, loading: entriesLoading } = useAdminEntries(filters)
+  const { entries, loading: entriesLoading, reload: reloadEntries } = useAdminEntries(filters)
   const { expenses, loading: expensesLoading } = useAdminExpenses(expenseFilters)
   const { employees } = useEmployees()
   const { categories, services } = useServices()
@@ -152,7 +154,7 @@ export default function AdminDashboard() {
             onChange={setFilters}
           />
           <SummaryBar entries={displayedEntries} />
-          <AdminEntryTable entries={displayedEntries} loading={entriesLoading} />
+          <AdminEntryTable entries={displayedEntries} loading={entriesLoading} onEdit={setEditingEntry} />
         </>
       )}
 
@@ -178,6 +180,16 @@ export default function AdminDashboard() {
           </div>
           <AdminExpenseTable expenses={expenses} loading={expensesLoading} />
         </>
+      )}
+
+      {editingEntry && (
+        <EditEntryModal
+          entry={editingEntry}
+          categories={categories}
+          services={services}
+          onClose={() => setEditingEntry(null)}
+          onSaved={() => { setEditingEntry(null); reloadEntries() }}
+        />
       )}
     </div>
   )

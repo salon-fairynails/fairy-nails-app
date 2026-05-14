@@ -7,6 +7,7 @@ import type { AdminEntry, PaymentMethod } from '@/types/database'
 interface Props {
   entries: AdminEntry[]
   loading: boolean
+  onEdit: (entry: AdminEntry) => void
 }
 
 const PAYMENT_BADGE: Record<PaymentMethod, string> = {
@@ -15,7 +16,7 @@ const PAYMENT_BADGE: Record<PaymentMethod, string> = {
   credit_card: 'bg-accent/20 text-accent',
 }
 
-export default function AdminEntryTable({ entries, loading }: Props) {
+export default function AdminEntryTable({ entries, loading, onEdit }: Props) {
   const { t } = useTranslation('common')
 
   return (
@@ -44,7 +45,11 @@ export default function AdminEntryTable({ entries, loading }: Props) {
             </thead>
             <tbody>
               {entries.map((entry) => (
-                <tr key={entry.id} className="border-b border-border last:border-0 hover:bg-secondary/10 transition-colors">
+                <tr
+                  key={entry.id}
+                  onClick={() => onEdit(entry)}
+                  className="border-b border-border last:border-0 hover:bg-secondary/20 transition-colors cursor-pointer"
+                >
                   <td className="px-4 py-3 font-medium text-text">
                     {entry.profiles?.full_name ?? '—'}
                   </td>
