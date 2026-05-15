@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
 import type { ExpenseCategory } from '@/types/database'
 
 export function useExpenseCategories() {
@@ -9,16 +8,11 @@ export function useExpenseCategories() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const load = async () => {
-      const supabase = createClient()
-      const { data } = await supabase
-        .from('expense_categories')
-        .select('*')
-        .order('id')
-      setCategories(data ?? [])
-      setLoading(false)
-    }
-    load()
+    fetch('/api/expense-categories')
+      .then((r) => r.json())
+      .then((data) => setCategories(Array.isArray(data) ? data : []))
+      .catch(() => setCategories([]))
+      .finally(() => setLoading(false))
   }, [])
 
   return { categories, loading }
