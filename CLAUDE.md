@@ -64,7 +64,7 @@ Mitarbeitende erfassen ihre erbrachten Leistungen. Admins sehen alle Daten, kön
 Vollständiges Schema: siehe `docs/schema.sql`
 
 ### Tabellen-Übersicht
-- `profiles` — Userdaten (Rolle, Name, Sprache)
+- `profiles` — Userdaten (Rolle, Name, Sprache, `commission_rate`)
 - `service_categories` — Maniküre / Pediküre / Face
 - `services` — 47 Services mit Preis und Kategorie
 - `entries` — Erfasste Leistungen der Mitarbeitenden
@@ -113,17 +113,22 @@ Vollständige Struktur: siehe `docs/project-structure.md`
 - Filter-Panel:
   - Nach Mitarbeiter (Dropdown)
   - Nach Zeitraum (Woche / Monat / Jahr / Individuell mit Datepicker)
-  - Nach Zahlungsart (Cash / Twint / Credit Card)
+  - Nach Zahlungsart (Cash / Twint, Credit Card)
   - Nach Service-Kategorie und/oder einzelnem Service
   - Filter kombinierbar
-- Summen-Zeile: Gesamtbetrag der gefilterten Ansicht
+- Summen-Zeile (SummaryBar): Gesamtbetrag + Provisionsabrechnung
+  - Tabelle pro Mitarbeitenden: Umsatz, Provision (%), Admin-Anteil
+  - Gesamtzeile bei mehreren Mitarbeitenden
 - Export-Button → PDF mit aktuellem Filter und Tabellenlayout
 - Mitarbeiterverwaltung: Hinzufügen / Deaktivieren
 
 ### `/admin/employees`
-- Liste aller Mitarbeitenden (Name, Email, Status, Sprache)
+- Liste aller Mitarbeitenden (Name, Email, Rolle, Sprache, Provision %, Status)
 - Neuen Mitarbeitenden anlegen (Modal: Name, Email, Passwort, Rolle)
 - Mitarbeitenden deaktivieren (kein Löschen — nur `is_active = false`)
+- Provision inline editierbar (Klick auf %-Wert → Eingabefeld, 0–100%)
+- Passwort zurücksetzen (inline)
+- Einladung erneut senden
 
 ---
 
