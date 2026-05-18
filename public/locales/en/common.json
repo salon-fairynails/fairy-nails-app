@@ -185,7 +185,11 @@
     },
     "summary": {
       "total": "Total",
-      "entries": "entries"
+      "entries": "entries",
+      "commission_breakdown": "Commission breakdown",
+      "revenue": "Revenue",
+      "commission_col": "Commission",
+      "admin_share": "Your share"
     },
     "table": {
       "employee": "Employee",
@@ -240,7 +244,9 @@
       "new_password": "New password",
       "reset_password_submit": "Save",
       "reset_password_success": "Password changed",
-      "pending": "Pending"
+      "pending": "Pending",
+      "commission_rate": "Commission",
+      "commission_saved": "Commission saved"
     },
     "add_employee": {
       "title": "Add new employee",
@@ -297,38 +303,116 @@
     "tab_expenses": "Expenses",
     "tab_employees": "Employees",
     "general_steps": [
-      { "title": "Log in", "text": "Sign in with your email address and password. After login you will be automatically redirected to the correct dashboard." },
-      { "title": "Switch language", "text": "You can switch between German, English and Vietnamese at any time using the buttons in the top right." },
-      { "title": "Use tabs", "text": "The dashboard has two tabs: 'Income' for services rendered and 'Expenses' for costs and purchases." },
-      { "title": "Export PDF", "text": "Use the export button in the top right to download your entries as a PDF." },
-      { "title": "Log out", "text": "Click 'Logout' in the top right to securely sign out." }
+      {
+        "title": "Log in",
+        "text": "Sign in with your email address and password. After login you will be automatically redirected to the correct dashboard."
+      },
+      {
+        "title": "Switch language",
+        "text": "You can switch between German, English and Vietnamese at any time using the buttons in the top right."
+      },
+      {
+        "title": "Use tabs",
+        "text": "The dashboard has two tabs: 'Income' for services rendered and 'Expenses' for costs and purchases."
+      },
+      {
+        "title": "Export PDF",
+        "text": "Use the export button in the top right to download your entries as a PDF."
+      },
+      {
+        "title": "Log out",
+        "text": "Click 'Logout' in the top right to securely sign out."
+      }
     ],
     "income_steps": [
-      { "title": "Select date", "text": "Today's date is pre-selected by default. You can adjust it manually." },
-      { "title": "Enter time from/to", "text": "Enter the start time – the end time is automatically set 1 hour later. You can adjust it afterwards." },
-      { "title": "Choose category", "text": "First select a category (e.g. Manicure, Pedicure, Face). The matching services will then appear." },
-      { "title": "Choose service", "text": "Select the service performed. The default price is filled in automatically." },
-      { "title": "Adjust amount", "text": "The amount is pre-filled but can be overwritten manually (e.g. for special prices)." },
-      { "title": "Choose payment method", "text": "Select how the customer paid: Cash, Twint or Card." },
-      { "title": "Edit entry", "text": "Click on an existing entry in the table to edit or delete it." },
-      { "title": "Filter table", "text": "Use the 'All', 'Week', 'Month' and 'Year' buttons to filter the table by period. The current month is shown by default. The total amount of the filtered entries is displayed at the bottom of the table." }
+      {
+        "title": "Select date",
+        "text": "Today's date is pre-selected by default. You can adjust it manually."
+      },
+      {
+        "title": "Enter time from/to",
+        "text": "Enter the start time – the end time is automatically set 1 hour later. You can adjust it afterwards."
+      },
+      {
+        "title": "Choose category",
+        "text": "First select a category (e.g. Manicure, Pedicure, Face). The matching services will then appear."
+      },
+      {
+        "title": "Choose service",
+        "text": "Select the service performed. The default price is filled in automatically."
+      },
+      {
+        "title": "Adjust amount",
+        "text": "The amount is pre-filled but can be overwritten manually (e.g. for special prices)."
+      },
+      {
+        "title": "Choose payment method",
+        "text": "Select how the customer paid: Cash, Twint or Card."
+      },
+      {
+        "title": "Edit entry",
+        "text": "Click on an existing entry in the table to edit or delete it."
+      },
+      {
+        "title": "Filter table",
+        "text": "Use the 'All', 'Week', 'Month' and 'Year' buttons to filter the table by period. The current month is shown by default. The total amount of the filtered entries is displayed at the bottom of the table."
+      }
     ],
     "expenses_steps": [
-      { "title": "Date and amount", "text": "Select the purchase date and enter the amount in CHF." },
-      { "title": "Choose category", "text": "Select the appropriate expense category (e.g. Materials, Cleaning, Marketing)." },
-      { "title": "Enter description", "text": "Briefly describe the purpose of the expense. This field is required." },
-      { "title": "Supplier (optional)", "text": "Enter the name of the supplier or shop, e.g. 'Migros' or 'Amazon'." },
-      { "title": "Upload receipt", "text": "Upload a photo or PDF of the receipt. Use the 'Scan receipt' button to automatically extract the date, amount, supplier and description." },
-      { "title": "Remove receipt", "text": "If you selected the wrong file, click the X next to the filename to remove it." },
-      { "title": "Edit entry", "text": "Click on an existing entry in the table to edit it." }
+      {
+        "title": "Date and amount",
+        "text": "Select the purchase date and enter the amount in CHF."
+      },
+      {
+        "title": "Choose category",
+        "text": "Select the appropriate expense category (e.g. Materials, Cleaning, Marketing)."
+      },
+      {
+        "title": "Enter description",
+        "text": "Briefly describe the purpose of the expense. This field is required."
+      },
+      {
+        "title": "Supplier (optional)",
+        "text": "Enter the name of the supplier or shop, e.g. 'Migros' or 'Amazon'."
+      },
+      {
+        "title": "Upload receipt",
+        "text": "Upload a photo or PDF of the receipt. Use the 'Scan receipt' button to automatically extract the date, amount, supplier and description."
+      },
+      {
+        "title": "Remove receipt",
+        "text": "If you selected the wrong file, click the X next to the filename to remove it."
+      },
+      {
+        "title": "Edit entry",
+        "text": "Click on an existing entry in the table to edit it."
+      }
     ],
     "employees_steps": [
-      { "title": "Open employee list", "text": "Click 'Employees' in the admin navigation to see the full list." },
-      { "title": "Add new employee", "text": "Click 'Add employee'. Fill in name, email address, password (twice) and role. Click 'Save' to create the account." },
-      { "title": "Deactivate employee", "text": "Click 'Deactivate' on the desired entry. The account is kept but the person can no longer log in." },
-      { "title": "Reactivate employee", "text": "Click 'Activate' on a deactivated entry to restore access." },
-      { "title": "Delete employee", "text": "The delete button permanently removes the account. All previous entries by that person remain in the database." },
-      { "title": "Reset password", "text": "Click 'Change password' to set a new password for an employee directly – without an email link." }
+      {
+        "title": "Open employee list",
+        "text": "Click 'Employees' in the admin navigation to see the full list."
+      },
+      {
+        "title": "Add new employee",
+        "text": "Click 'Add employee'. Fill in name, email address, password (twice) and role. Click 'Save' to create the account."
+      },
+      {
+        "title": "Deactivate employee",
+        "text": "Click 'Deactivate' on the desired entry. The account is kept but the person can no longer log in."
+      },
+      {
+        "title": "Reactivate employee",
+        "text": "Click 'Activate' on a deactivated entry to restore access."
+      },
+      {
+        "title": "Delete employee",
+        "text": "The delete button permanently removes the account. All previous entries by that person remain in the database."
+      },
+      {
+        "title": "Reset password",
+        "text": "Click 'Change password' to set a new password for an employee directly – without an email link."
+      }
     ]
   }
 }

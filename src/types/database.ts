@@ -61,6 +61,7 @@ export interface EmployeeWithEmail {
   is_active: boolean
   email: string
   last_sign_in_at: string | null
+  commission_rate: number
 }
 
 export type PeriodType = 'week' | 'month' | 'year' | 'custom'

@@ -37,6 +37,7 @@ export async function GET() {
       is_active: p.is_active,
       email: authUser?.email ?? '',
       last_sign_in_at: authUser?.last_sign_in_at ?? null,
+      commission_rate: p.commission_rate ?? 50,
     }
   })
 

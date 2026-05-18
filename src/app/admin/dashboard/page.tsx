@@ -155,7 +155,7 @@ export default function AdminDashboard() {
             services={services}
             onChange={setFilters}
           />
-          <SummaryBar entries={displayedEntries} />
+          <SummaryBar entries={displayedEntries} employees={employees} />
           <AdminEntryTable entries={displayedEntries} loading={entriesLoading} onEdit={setEditingEntry} />
         </>
       )}

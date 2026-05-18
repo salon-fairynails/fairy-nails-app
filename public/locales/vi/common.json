@@ -185,7 +185,11 @@
     },
     "summary": {
       "total": "Tổng cộng",
-      "entries": "mục"
+      "entries": "mục",
+      "commission_breakdown": "Chi tiết hoa hồng",
+      "revenue": "Doanh thu",
+      "commission_col": "Hoa hồng",
+      "admin_share": "Phần của bạn"
     },
     "table": {
       "employee": "Nhân viên",
@@ -240,7 +244,9 @@
       "new_password": "Mật khẩu mới",
       "reset_password_submit": "Lưu",
       "reset_password_success": "Mật khẩu đã đổi",
-      "pending": "Đang chờ"
+      "pending": "Đang chờ",
+      "commission_rate": "Hoa hồng",
+      "commission_saved": "Đã lưu hoa hồng"
     },
     "add_employee": {
       "title": "Thêm nhân viên mới",
@@ -297,38 +303,116 @@
     "tab_expenses": "Chi phí",
     "tab_employees": "Nhân viên",
     "general_steps": [
-      { "title": "Đăng nhập", "text": "Đăng nhập bằng địa chỉ email và mật khẩu của bạn. Sau khi đăng nhập, bạn sẽ được chuyển hướng tự động đến trang tổng quan phù hợp." },
-      { "title": "Chuyển ngôn ngữ", "text": "Bạn có thể chuyển đổi giữa tiếng Đức, tiếng Anh và tiếng Việt bất kỳ lúc nào bằng các nút ở góc trên bên phải." },
-      { "title": "Sử dụng các tab", "text": "Trang tổng quan có hai tab: 'Thu nhập' cho các dịch vụ đã thực hiện và 'Chi phí' cho các chi phí và mua hàng." },
-      { "title": "Xuất PDF", "text": "Sử dụng nút xuất ở góc trên bên phải để tải xuống các mục nhập của bạn dưới dạng PDF." },
-      { "title": "Đăng xuất", "text": "Nhấp vào 'Đăng xuất' ở góc trên bên phải để đăng xuất an toàn." }
+      {
+        "title": "Đăng nhập",
+        "text": "Đăng nhập bằng địa chỉ email và mật khẩu của bạn. Sau khi đăng nhập, bạn sẽ được chuyển hướng tự động đến trang tổng quan phù hợp."
+      },
+      {
+        "title": "Chuyển ngôn ngữ",
+        "text": "Bạn có thể chuyển đổi giữa tiếng Đức, tiếng Anh và tiếng Việt bất kỳ lúc nào bằng các nút ở góc trên bên phải."
+      },
+      {
+        "title": "Sử dụng các tab",
+        "text": "Trang tổng quan có hai tab: 'Thu nhập' cho các dịch vụ đã thực hiện và 'Chi phí' cho các chi phí và mua hàng."
+      },
+      {
+        "title": "Xuất PDF",
+        "text": "Sử dụng nút xuất ở góc trên bên phải để tải xuống các mục nhập của bạn dưới dạng PDF."
+      },
+      {
+        "title": "Đăng xuất",
+        "text": "Nhấp vào 'Đăng xuất' ở góc trên bên phải để đăng xuất an toàn."
+      }
     ],
     "income_steps": [
-      { "title": "Chọn ngày", "text": "Ngày hôm nay được chọn sẵn theo mặc định. Bạn có thể điều chỉnh thủ công." },
-      { "title": "Nhập giờ từ/đến", "text": "Nhập giờ bắt đầu – giờ kết thúc tự động được đặt sau 1 tiếng. Bạn có thể điều chỉnh sau." },
-      { "title": "Chọn danh mục", "text": "Đầu tiên chọn danh mục (ví dụ: Làm móng tay, Làm móng chân, Chăm sóc da mặt). Sau đó các dịch vụ phù hợp sẽ xuất hiện." },
-      { "title": "Chọn dịch vụ", "text": "Chọn dịch vụ đã thực hiện. Giá mặc định sẽ được điền tự động." },
-      { "title": "Điều chỉnh số tiền", "text": "Số tiền được điền sẵn nhưng có thể ghi đè thủ công (ví dụ: giá đặc biệt)." },
-      { "title": "Chọn phương thức thanh toán", "text": "Chọn cách khách hàng thanh toán: Tiền mặt, Twint hoặc Thẻ." },
-      { "title": "Chỉnh sửa mục nhập", "text": "Nhấp vào một mục nhập hiện có trong bảng để chỉnh sửa hoặc xóa nó." },
-      { "title": "Lọc bảng", "text": "Sử dụng các nút 'Tất cả', 'Tuần', 'Tháng' và 'Năm' để lọc bảng theo khoảng thời gian. Mặc định hiển thị tháng hiện tại. Tổng số tiền của các mục được lọc sẽ hiển thị ở cuối bảng." }
+      {
+        "title": "Chọn ngày",
+        "text": "Ngày hôm nay được chọn sẵn theo mặc định. Bạn có thể điều chỉnh thủ công."
+      },
+      {
+        "title": "Nhập giờ từ/đến",
+        "text": "Nhập giờ bắt đầu – giờ kết thúc tự động được đặt sau 1 tiếng. Bạn có thể điều chỉnh sau."
+      },
+      {
+        "title": "Chọn danh mục",
+        "text": "Đầu tiên chọn danh mục (ví dụ: Làm móng tay, Làm móng chân, Chăm sóc da mặt). Sau đó các dịch vụ phù hợp sẽ xuất hiện."
+      },
+      {
+        "title": "Chọn dịch vụ",
+        "text": "Chọn dịch vụ đã thực hiện. Giá mặc định sẽ được điền tự động."
+      },
+      {
+        "title": "Điều chỉnh số tiền",
+        "text": "Số tiền được điền sẵn nhưng có thể ghi đè thủ công (ví dụ: giá đặc biệt)."
+      },
+      {
+        "title": "Chọn phương thức thanh toán",
+        "text": "Chọn cách khách hàng thanh toán: Tiền mặt, Twint hoặc Thẻ."
+      },
+      {
+        "title": "Chỉnh sửa mục nhập",
+        "text": "Nhấp vào một mục nhập hiện có trong bảng để chỉnh sửa hoặc xóa nó."
+      },
+      {
+        "title": "Lọc bảng",
+        "text": "Sử dụng các nút 'Tất cả', 'Tuần', 'Tháng' và 'Năm' để lọc bảng theo khoảng thời gian. Mặc định hiển thị tháng hiện tại. Tổng số tiền của các mục được lọc sẽ hiển thị ở cuối bảng."
+      }
     ],
     "expenses_steps": [
-      { "title": "Ngày và số tiền", "text": "Chọn ngày mua hàng và nhập số tiền bằng CHF." },
-      { "title": "Chọn danh mục", "text": "Chọn danh mục chi phí phù hợp (ví dụ: Vật liệu, Vệ sinh, Marketing)." },
-      { "title": "Nhập mô tả", "text": "Mô tả ngắn gọn mục đích của khoản chi. Trường này là bắt buộc." },
-      { "title": "Nhà cung cấp (tùy chọn)", "text": "Nhập tên nhà cung cấp hoặc cửa hàng, ví dụ: 'Migros' hoặc 'Amazon'." },
-      { "title": "Tải lên hóa đơn", "text": "Tải lên ảnh hoặc PDF của hóa đơn. Dùng nút 'Quét hóa đơn' để tự động trích xuất ngày, số tiền, nhà cung cấp và mô tả." },
-      { "title": "Xóa hóa đơn", "text": "Nếu bạn chọn nhầm tệp, nhấp vào X bên cạnh tên tệp để xóa nó." },
-      { "title": "Chỉnh sửa mục nhập", "text": "Nhấp vào một mục nhập hiện có trong bảng để chỉnh sửa." }
+      {
+        "title": "Ngày và số tiền",
+        "text": "Chọn ngày mua hàng và nhập số tiền bằng CHF."
+      },
+      {
+        "title": "Chọn danh mục",
+        "text": "Chọn danh mục chi phí phù hợp (ví dụ: Vật liệu, Vệ sinh, Marketing)."
+      },
+      {
+        "title": "Nhập mô tả",
+        "text": "Mô tả ngắn gọn mục đích của khoản chi. Trường này là bắt buộc."
+      },
+      {
+        "title": "Nhà cung cấp (tùy chọn)",
+        "text": "Nhập tên nhà cung cấp hoặc cửa hàng, ví dụ: 'Migros' hoặc 'Amazon'."
+      },
+      {
+        "title": "Tải lên hóa đơn",
+        "text": "Tải lên ảnh hoặc PDF của hóa đơn. Dùng nút 'Quét hóa đơn' để tự động trích xuất ngày, số tiền, nhà cung cấp và mô tả."
+      },
+      {
+        "title": "Xóa hóa đơn",
+        "text": "Nếu bạn chọn nhầm tệp, nhấp vào X bên cạnh tên tệp để xóa nó."
+      },
+      {
+        "title": "Chỉnh sửa mục nhập",
+        "text": "Nhấp vào một mục nhập hiện có trong bảng để chỉnh sửa."
+      }
     ],
     "employees_steps": [
-      { "title": "Mở danh sách nhân viên", "text": "Nhấp vào 'Nhân viên' trong thanh điều hướng quản trị để xem danh sách đầy đủ." },
-      { "title": "Thêm nhân viên mới", "text": "Nhấp vào 'Thêm nhân viên'. Điền tên, địa chỉ email, mật khẩu (hai lần) và vai trò. Nhấp 'Lưu' để tạo tài khoản." },
-      { "title": "Vô hiệu hóa nhân viên", "text": "Nhấp 'Vô hiệu hóa' trên mục nhập mong muốn. Tài khoản được giữ lại nhưng người đó không thể đăng nhập nữa." },
-      { "title": "Kích hoạt lại nhân viên", "text": "Nhấp 'Kích hoạt' trên một mục bị vô hiệu hóa để khôi phục quyền truy cập." },
-      { "title": "Xóa nhân viên", "text": "Nút xóa sẽ xóa vĩnh viễn tài khoản. Tất cả các mục nhập trước đó của người đó vẫn được lưu trong cơ sở dữ liệu." },
-      { "title": "Đặt lại mật khẩu", "text": "Nhấp 'Thay đổi mật khẩu' để đặt mật khẩu mới trực tiếp cho nhân viên – không cần liên kết email." }
+      {
+        "title": "Mở danh sách nhân viên",
+        "text": "Nhấp vào 'Nhân viên' trong thanh điều hướng quản trị để xem danh sách đầy đủ."
+      },
+      {
+        "title": "Thêm nhân viên mới",
+        "text": "Nhấp vào 'Thêm nhân viên'. Điền tên, địa chỉ email, mật khẩu (hai lần) và vai trò. Nhấp 'Lưu' để tạo tài khoản."
+      },
+      {
+        "title": "Vô hiệu hóa nhân viên",
+        "text": "Nhấp 'Vô hiệu hóa' trên mục nhập mong muốn. Tài khoản được giữ lại nhưng người đó không thể đăng nhập nữa."
+      },
+      {
+        "title": "Kích hoạt lại nhân viên",
+        "text": "Nhấp 'Kích hoạt' trên một mục bị vô hiệu hóa để khôi phục quyền truy cập."
+      },
+      {
+        "title": "Xóa nhân viên",
+        "text": "Nút xóa sẽ xóa vĩnh viễn tài khoản. Tất cả các mục nhập trước đó của người đó vẫn được lưu trong cơ sở dữ liệu."
+      },
+      {
+        "title": "Đặt lại mật khẩu",
+        "text": "Nhấp 'Thay đổi mật khẩu' để đặt mật khẩu mới trực tiếp cho nhân viên – không cần liên kết email."
+      }
     ]
   }
 }

@@ -19,6 +19,9 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
   const [resetId, setResetId] = useState<string | null>(null)
   const [newPassword, setNewPassword] = useState('')
   const [resetSuccess, setResetSuccess] = useState<string | null>(null)
+  const [commissionEditId, setCommissionEditId] = useState<string | null>(null)
+  const [commissionValue, setCommissionValue] = useState('')
+  const [commissionSuccess, setCommissionSuccess] = useState<string | null>(null)
 
   const handleResetPassword = async (id: string) => {
     if (!newPassword || newPassword.length < 6) return
@@ -89,6 +92,23 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
     onReload()
   }
 
+  const handleSaveCommission = async (id: string) => {
+    const rate = parseFloat(commissionValue)
+    if (isNaN(rate) || rate < 0 || rate > 100) return
+    setWorking(true)
+    await fetch('/api/admin/update-commission', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ employee_id: id, commission_rate: rate }),
+    })
+    setCommissionEditId(null)
+    setCommissionValue('')
+    setCommissionSuccess(id)
+    setTimeout(() => setCommissionSuccess(null), 3000)
+    setWorking(false)
+    onReload()
+  }
+
   const LANG_LABELS: Record<string, string> = { de: 'DE', en: 'EN', vi: 'VI' }
   const ROLE_LABELS: Record<string, string> = {
     admin: t('admin.employees.role_admin'),
@@ -110,6 +130,7 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
                 <th className="text-left px-4 py-3 font-medium text-text-muted hidden sm:table-cell">{t('admin.employees.email')}</th>
                 <th className="text-left px-4 py-3 font-medium text-text-muted hidden md:table-cell">{t('admin.employees.role')}</th>
                 <th className="text-left px-4 py-3 font-medium text-text-muted hidden md:table-cell">{t('admin.employees.language')}</th>
+                <th className="text-left px-4 py-3 font-medium text-text-muted hidden lg:table-cell">{t('admin.employees.commission_rate')}</th>
                 <th className="text-left px-4 py-3 font-medium text-text-muted">{t('admin.employees.status')}</th>
                 <th className="px-4 py-3" />
               </tr>
@@ -124,6 +145,42 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
                   </td>
                   <td className="px-4 py-3 text-text-muted hidden md:table-cell">
                     {LANG_LABELS[emp.language] ?? emp.language}
+                  </td>
+                  <td className="px-4 py-3 hidden lg:table-cell">
+                    {commissionSuccess === emp.id ? (
+                      <span className="text-xs text-success">{t('admin.employees.commission_saved')}</span>
+                    ) : commissionEditId === emp.id ? (
+                      <div className="flex items-center gap-1.5">
+                        <input
+                          type="number"
+                          value={commissionValue}
+                          onChange={(e) => setCommissionValue(e.target.value)}
+                          min={0}
+                          max={100}
+                          step={1}
+                          className="text-xs px-2 py-1 rounded-lg border border-border bg-bg text-text w-16 outline-none focus:border-primary"
+                        />
+                        <span className="text-xs text-text-muted">%</span>
+                        <button
+                          onClick={() => handleSaveCommission(emp.id)}
+                          disabled={working}
+                          className="text-xs px-2 py-1 rounded-lg bg-accent text-white hover:bg-[#7a3d5e] disabled:opacity-40 transition-all"
+                        >
+                          {t('admin.employees.reset_password_submit')}
+                        </button>
+                        <button
+                          onClick={() => { setCommissionEditId(null); setCommissionValue('') }}
+                          className="text-xs text-text-muted hover:text-text transition-colors"
+                        >✕</button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => { setCommissionEditId(emp.id); setCommissionValue(String(emp.commission_rate)); setResetId(null); setConfirmId(null) }}
+                        className="text-xs px-2 py-1 rounded-lg text-text-muted hover:bg-secondary/40 transition-all"
+                      >
+                        {emp.commission_rate}%
+                      </button>
+                    )}
                   </td>
                   <td className="px-4 py-3">
                     <span className={cn(
