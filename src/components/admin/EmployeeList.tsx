@@ -130,7 +130,7 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
                 <th className="text-left px-4 py-3 font-medium text-text-muted hidden sm:table-cell">{t('admin.employees.email')}</th>
                 <th className="text-left px-4 py-3 font-medium text-text-muted hidden md:table-cell">{t('admin.employees.role')}</th>
                 <th className="text-left px-4 py-3 font-medium text-text-muted hidden md:table-cell">{t('admin.employees.language')}</th>
-                <th className="text-left px-4 py-3 font-medium text-text-muted hidden lg:table-cell">{t('admin.employees.commission_rate')}</th>
+                <th className="text-left px-4 py-3 font-medium text-text-muted">{t('admin.employees.commission_rate')}</th>
                 <th className="text-left px-4 py-3 font-medium text-text-muted">{t('admin.employees.status')}</th>
                 <th className="px-4 py-3" />
               </tr>
@@ -146,7 +146,7 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
                   <td className="px-4 py-3 text-text-muted hidden md:table-cell">
                     {LANG_LABELS[emp.language] ?? emp.language}
                   </td>
-                  <td className="px-4 py-3 hidden lg:table-cell">
+                  <td className="px-4 py-3">
                     {commissionSuccess === emp.id ? (
                       <span className="text-xs text-success">{t('admin.employees.commission_saved')}</span>
                     ) : commissionEditId === emp.id ? (
