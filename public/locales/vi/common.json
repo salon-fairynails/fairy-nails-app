@@ -70,7 +70,13 @@
     "submitting": "Đang lưu…",
     "success": "Đã ghi nhận dịch vụ",
     "error_time": "Giờ kết thúc phải sau giờ bắt đầu",
-    "error_generic": "Lỗi khi lưu. Vui lòng thử lại."
+    "error_generic": "Lỗi khi lưu. Vui lòng thử lại.",
+    "services_label": "Dịch vụ",
+    "services_count": "{{count}} dịch vụ",
+    "add_service": "Thêm dịch vụ khác",
+    "remove_service": "Xóa",
+    "submit_multiple": "Lưu {{count}} dịch vụ",
+    "success_multiple": "Đã ghi nhận {{count}} dịch vụ"
   },
   "payment": {
     "cash": "Tiền mặt",
@@ -246,7 +252,9 @@
       "reset_password_success": "Mật khẩu đã đổi",
       "pending": "Đang chờ",
       "commission_rate": "Hoa hồng",
-      "commission_saved": "Đã lưu hoa hồng"
+      "commission_saved": "Đã lưu hoa hồng",
+      "name_saved": "Đã lưu tên",
+      "name_edit_hint": "Nhấp để chỉnh sửa"
     },
     "add_employee": {
       "title": "Thêm nhân viên mới",
@@ -286,6 +294,7 @@
     "service_active": "Hoạt động",
     "service_inactive": "Không hoạt động",
     "no_services": "Không có dịch vụ nào cho lựa chọn này.",
+    "search_placeholder": "Tìm kiếm dịch vụ…",
     "category_placeholder": "Chọn danh mục",
     "modal_add_title": "Dịch vụ mới",
     "modal_edit_title": "Chỉnh sửa dịch vụ",

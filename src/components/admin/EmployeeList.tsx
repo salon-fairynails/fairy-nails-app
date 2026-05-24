@@ -22,6 +22,9 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
   const [commissionEditId, setCommissionEditId] = useState<string | null>(null)
   const [commissionValue, setCommissionValue] = useState('')
   const [commissionSuccess, setCommissionSuccess] = useState<string | null>(null)
+  const [nameEditId, setNameEditId] = useState<string | null>(null)
+  const [nameValue, setNameValue] = useState('')
+  const [nameSuccess, setNameSuccess] = useState<string | null>(null)
 
   const handleResetPassword = async (id: string) => {
     if (!newPassword || newPassword.length < 6) return
@@ -92,6 +95,22 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
     onReload()
   }
 
+  const handleSaveName = async (id: string) => {
+    if (!nameValue.trim()) return
+    setWorking(true)
+    await fetch('/api/admin/update-employee', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ employee_id: id, full_name: nameValue }),
+    })
+    setNameEditId(null)
+    setNameValue('')
+    setNameSuccess(id)
+    setTimeout(() => setNameSuccess(null), 3000)
+    setWorking(false)
+    onReload()
+  }
+
   const handleSaveCommission = async (id: string) => {
     const rate = parseFloat(commissionValue)
     if (isNaN(rate) || rate < 0 || rate > 100) return
@@ -138,7 +157,41 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
             <tbody>
               {employees.map((emp) => (
                 <tr key={emp.id} className="border-b border-border last:border-0 hover:bg-secondary/10 transition-colors">
-                  <td className="px-4 py-3 font-medium text-text">{emp.full_name}</td>
+                  <td className="px-4 py-3 font-medium text-text">
+                    {nameSuccess === emp.id ? (
+                      <span className="text-xs text-success">{t('admin.employees.name_saved')}</span>
+                    ) : nameEditId === emp.id ? (
+                      <div className="flex items-center gap-1.5">
+                        <input
+                          autoFocus
+                          type="text"
+                          value={nameValue}
+                          onChange={(e) => setNameValue(e.target.value)}
+                          onKeyDown={(e) => { if (e.key === 'Enter') handleSaveName(emp.id); if (e.key === 'Escape') { setNameEditId(null); setNameValue('') } }}
+                          className="text-xs px-2 py-1 rounded-lg border border-border bg-bg text-text w-36 outline-none focus:border-primary"
+                        />
+                        <button
+                          onClick={() => handleSaveName(emp.id)}
+                          disabled={working || !nameValue.trim()}
+                          className="text-xs px-2 py-1 rounded-lg bg-accent text-white hover:bg-[#7a3d5e] disabled:opacity-40 transition-all"
+                        >
+                          {t('admin.employees.reset_password_submit')}
+                        </button>
+                        <button
+                          onClick={() => { setNameEditId(null); setNameValue('') }}
+                          className="text-xs text-text-muted hover:text-text transition-colors"
+                        >✕</button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => { setNameEditId(emp.id); setNameValue(emp.full_name); setResetId(null); setConfirmId(null); setCommissionEditId(null) }}
+                        className="text-left hover:underline decoration-dotted underline-offset-2 transition-all"
+                        title={t('admin.employees.name_edit_hint')}
+                      >
+                        {emp.full_name}
+                      </button>
+                    )}
+                  </td>
                   <td className="px-4 py-3 text-text-muted hidden sm:table-cell">{emp.email}</td>
                   <td className="px-4 py-3 text-text-muted hidden md:table-cell">
                     {ROLE_LABELS[emp.role] ?? emp.role}

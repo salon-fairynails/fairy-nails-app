@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Pencil, Plus, X, Check } from 'lucide-react'
+import { Pencil, Plus, X, Check, Search } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 import type { ServiceCategory } from '@/types/database'
@@ -41,15 +41,18 @@ const EMPTY_FORM = {
 export default function ServiceManager({ services, categories, currency, onCurrencyChange, onReload }: Props) {
   const { t } = useTranslation('common')
   const [filterCat, setFilterCat] = useState('')
+  const [filterText, setFilterText] = useState('')
   const [modal, setModal] = useState<ModalState | null>(null)
   const [form, setForm] = useState(EMPTY_FORM)
   const [saving, setSaving] = useState(false)
   const [togglingId, setTogglingId] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  const filtered = filterCat
-    ? services.filter((s) => s.category_id === parseInt(filterCat))
-    : services
+  const filtered = services.filter((s) => {
+    const matchCat = !filterCat || s.category_id === parseInt(filterCat)
+    const matchText = !filterText || s.name.toLowerCase().includes(filterText.toLowerCase())
+    return matchCat && matchText
+  })
 
   const openAdd = () => {
     setForm({ ...EMPTY_FORM, category_id: filterCat })
@@ -134,7 +137,25 @@ export default function ServiceManager({ services, categories, currency, onCurre
         <div className="px-5 py-4 border-b border-border space-y-3">
           <div className="flex flex-col sm:flex-row sm:items-center gap-3">
             <h2 className="font-display text-lg font-semibold text-text flex-1">{t('catalog.services')}</h2>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
+              <div className="relative">
+                <Search size={13} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" />
+                <input
+                  type="text"
+                  value={filterText}
+                  onChange={(e) => setFilterText(e.target.value)}
+                  placeholder={t('catalog.search_placeholder')}
+                  className={cn(inputClass, 'py-1.5 pl-8 w-44')}
+                />
+                {filterText && (
+                  <button
+                    onClick={() => setFilterText('')}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-text-muted hover:text-text"
+                  >
+                    <X size={12} />
+                  </button>
+                )}
+              </div>
               <select
                 value={filterCat}
                 onChange={(e) => setFilterCat(e.target.value)}

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { CheckCircle, Clock } from 'lucide-react'
+import { CheckCircle, Clock, Plus, Trash2 } from 'lucide-react'
 import { cn, todayIso } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
 import type { Service, ServiceCategory } from '@/types/database'
@@ -15,26 +15,30 @@ interface Props {
 
 const PAYMENT_METHODS = ['cash', 'twint', 'credit_card'] as const
 
+interface ServiceRow {
+  category_id: string
+  service_id: string
+  amount: string
+}
+
 interface FormState {
   entry_date: string
   time_from: string
   time_to: string
-  category_id: string
-  service_id: string
-  amount: string
   payment_method: string
   notes: string
+  rows: ServiceRow[]
 }
+
+const EMPTY_ROW: ServiceRow = { category_id: '', service_id: '', amount: '' }
 
 const EMPTY_FORM: FormState = {
   entry_date: todayIso(),
   time_from: '',
   time_to: '',
-  category_id: '',
-  service_id: '',
-  amount: '',
   payment_method: '',
   notes: '',
+  rows: [{ ...EMPTY_ROW }],
 }
 
 const HOURS = Array.from({ length: 24 }, (_, i) => String(i).padStart(2, '0'))
@@ -87,11 +91,7 @@ export default function EntryForm({ categories, services, onSuccess }: Props) {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
 
-  const filteredServices = services.filter(
-    (s) => s.category_id === parseInt(form.category_id)
-  )
-
-  const set = (field: keyof FormState) => (
+  const setShared = (field: keyof Omit<FormState, 'rows'>) => (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => setForm((prev) => ({ ...prev, [field]: e.target.value }))
 
@@ -106,17 +106,28 @@ export default function EntryForm({ categories, services, onSuccess }: Props) {
     })
   }
 
-  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setForm((prev) => ({ ...prev, category_id: e.target.value, service_id: '', amount: '' }))
+  const updateRow = (index: number, patch: Partial<ServiceRow>) => {
+    setForm((prev) => {
+      const rows = prev.rows.map((r, i) => (i === index ? { ...r, ...patch } : r))
+      return { ...prev, rows }
+    })
   }
 
-  const handleServiceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const svc = services.find((s) => s.id === parseInt(e.target.value))
-    setForm((prev) => ({
-      ...prev,
-      service_id: e.target.value,
-      amount: svc?.default_price?.toString() ?? '',
-    }))
+  const handleCategoryChange = (index: number, value: string) => {
+    updateRow(index, { category_id: value, service_id: '', amount: '' })
+  }
+
+  const handleServiceChange = (index: number, value: string) => {
+    const svc = services.find((s) => s.id === parseInt(value))
+    updateRow(index, { service_id: value, amount: svc?.default_price?.toString() ?? '' })
+  }
+
+  const addRow = () => {
+    setForm((prev) => ({ ...prev, rows: [...prev.rows, { ...EMPTY_ROW }] }))
+  }
+
+  const removeRow = (index: number) => {
+    setForm((prev) => ({ ...prev, rows: prev.rows.filter((_, i) => i !== index) }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -134,17 +145,18 @@ export default function EntryForm({ categories, services, onSuccess }: Props) {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) throw new Error('Not authenticated')
 
-      const { error: insertError } = await supabase.from('entries').insert({
+      const inserts = form.rows.map((row) => ({
         employee_id: user.id,
-        service_id: parseInt(form.service_id),
+        service_id: parseInt(row.service_id),
         entry_date: form.entry_date,
         time_from: form.time_from,
         time_to: form.time_to,
-        amount: parseFloat(form.amount),
+        amount: parseFloat(row.amount),
         payment_method: form.payment_method,
         notes: form.notes || null,
-      })
+      }))
 
+      const { error: insertError } = await supabase.from('entries').insert(inserts)
       if (insertError) throw insertError
 
       setForm({ ...EMPTY_FORM, entry_date: form.entry_date })
@@ -167,6 +179,8 @@ export default function EntryForm({ categories, services, onSuccess }: Props) {
 
   const labelClass = 'block text-xs font-medium text-text-muted mb-1'
 
+  const allRowsValid = form.rows.every((r) => r.service_id && r.amount)
+
   return (
     <div className="bg-surface rounded-2xl border border-border p-6">
       <h2 className="font-display text-xl font-semibold text-text mb-5">
@@ -178,7 +192,7 @@ export default function EntryForm({ categories, services, onSuccess }: Props) {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
             <label className={labelClass}>{t('form.date')}</label>
-            <input type="date" required value={form.entry_date} onChange={set('entry_date')} className={inputClass} />
+            <input type="date" required value={form.entry_date} onChange={setShared('entry_date')} className={inputClass} />
           </div>
           <div>
             <label className={labelClass}>{t('form.time_from')}</label>
@@ -190,62 +204,116 @@ export default function EntryForm({ categories, services, onSuccess }: Props) {
           </div>
         </div>
 
-        {/* Kategorie + Service */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label className={labelClass}>{t('form.category')}</label>
-            <select required value={form.category_id} onChange={handleCategoryChange} className={inputClass}>
-              <option value="">{t('form.category_placeholder')}</option>
-              {categories.map((c) => (
-                <option key={c.id} value={c.id}>{c.name}</option>
-              ))}
-            </select>
+        {/* Service-Zeilen */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <label className={cn(labelClass, 'mb-0')}>{t('form.services_label')}</label>
+            {form.rows.length > 1 && (
+              <span className="text-xs text-text-muted">
+                {t('form.services_count', { count: form.rows.length })}
+              </span>
+            )}
           </div>
-          <div>
-            <label className={labelClass}>{t('form.service')}</label>
-            <select
-              required
-              value={form.service_id}
-              onChange={handleServiceChange}
-              disabled={!form.category_id}
-              className={cn(inputClass, !form.category_id && 'opacity-50 cursor-not-allowed')}
-            >
-              <option value="">
-                {form.category_id ? t('form.service_placeholder') : t('form.service_disabled')}
-              </option>
-              {filteredServices.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {s.name}{s.price_label ? ` (${s.price_label})` : ''}
-                </option>
-              ))}
-            </select>
-          </div>
+
+          {form.rows.map((row, index) => {
+            const filteredServices = services.filter(
+              (s) => s.category_id === parseInt(row.category_id) && s.is_active
+            )
+            return (
+              <div
+                key={index}
+                className={cn(
+                  'grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto_auto] gap-2 items-end',
+                  'p-3 rounded-xl border border-border/60 bg-bg/50',
+                  form.rows.length > 1 && 'relative'
+                )}
+              >
+                {form.rows.length > 1 && (
+                  <span className="absolute -top-2.5 left-3 text-[10px] text-text-muted bg-surface px-1">
+                    {index + 1}
+                  </span>
+                )}
+                <div>
+                  <label className={labelClass}>{t('form.category')}</label>
+                  <select
+                    required
+                    value={row.category_id}
+                    onChange={(e) => handleCategoryChange(index, e.target.value)}
+                    className={inputClass}
+                  >
+                    <option value="">{t('form.category_placeholder')}</option>
+                    {categories.map((c) => (
+                      <option key={c.id} value={c.id}>{c.name}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass}>{t('form.service')}</label>
+                  <select
+                    required
+                    value={row.service_id}
+                    onChange={(e) => handleServiceChange(index, e.target.value)}
+                    disabled={!row.category_id}
+                    className={cn(inputClass, !row.category_id && 'opacity-50 cursor-not-allowed')}
+                  >
+                    <option value="">
+                      {row.category_id ? t('form.service_placeholder') : t('form.service_disabled')}
+                    </option>
+                    {filteredServices.map((s) => (
+                      <option key={s.id} value={s.id}>
+                        {s.name}{s.price_label ? ` (${s.price_label})` : ''}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass}>{t('form.amount')}</label>
+                  <input
+                    type="number"
+                    required
+                    min="0"
+                    step="0.05"
+                    value={row.amount}
+                    onChange={(e) => updateRow(index, { amount: e.target.value })}
+                    placeholder="0.00"
+                    className={inputClass}
+                  />
+                </div>
+                {form.rows.length > 1 && (
+                  <div className="flex items-end pb-0.5">
+                    <button
+                      type="button"
+                      onClick={() => removeRow(index)}
+                      className="p-2 rounded-lg text-error/60 hover:text-error hover:bg-error/10 transition-all"
+                      title={t('form.remove_service')}
+                    >
+                      <Trash2 size={15} />
+                    </button>
+                  </div>
+                )}
+              </div>
+            )
+          })}
+
+          <button
+            type="button"
+            onClick={addRow}
+            className="flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-dashed border-border text-text-muted hover:border-primary hover:text-primary transition-all w-full justify-center"
+          >
+            <Plus size={13} />
+            {t('form.add_service')}
+          </button>
         </div>
 
         {/* Betrag + Zahlungsart */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label className={labelClass}>{t('form.amount')}</label>
-            <input
-              type="number"
-              required
-              min="0"
-              step="0.05"
-              value={form.amount}
-              onChange={set('amount')}
-              placeholder="0.00"
-              className={inputClass}
-            />
-          </div>
-          <div>
-            <label className={labelClass}>{t('form.payment_method')}</label>
-            <select required value={form.payment_method} onChange={set('payment_method')} className={inputClass}>
-              <option value="">{t('form.payment_placeholder')}</option>
-              {PAYMENT_METHODS.map((pm) => (
-                <option key={pm} value={pm}>{t(`payment.${pm}`)}</option>
-              ))}
-            </select>
-          </div>
+        <div>
+          <label className={labelClass}>{t('form.payment_method')}</label>
+          <select required value={form.payment_method} onChange={setShared('payment_method')} className={inputClass}>
+            <option value="">{t('form.payment_placeholder')}</option>
+            {PAYMENT_METHODS.map((pm) => (
+              <option key={pm} value={pm}>{t(`payment.${pm}`)}</option>
+            ))}
+          </select>
         </div>
 
         {/* Notizen */}
@@ -253,29 +321,28 @@ export default function EntryForm({ categories, services, onSuccess }: Props) {
           <label className={labelClass}>{t('form.notes')}</label>
           <textarea
             value={form.notes}
-            onChange={set('notes')}
+            onChange={setShared('notes')}
             placeholder={t('form.notes_placeholder')}
             rows={2}
             className={cn(inputClass, 'resize-none')}
           />
         </div>
 
-        {/* Fehler */}
         {error && <p role="alert" className="text-error text-sm">{error}</p>}
 
-        {/* Erfolg */}
         {success && (
           <div className="flex items-center gap-2 text-success text-sm">
             <CheckCircle size={16} />
-            {t('form.success')}
+            {form.rows.length > 1
+              ? t('form.success_multiple', { count: form.rows.length })
+              : t('form.success')}
           </div>
         )}
 
-        {/* Submit */}
         <div className="flex justify-end">
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || !allRowsValid}
             className={cn(
               'px-6 py-2.5 rounded-xl bg-accent text-white text-sm font-medium',
               'hover:bg-[#7a3d5e] active:scale-[0.98] transition-all duration-200',
@@ -283,7 +350,11 @@ export default function EntryForm({ categories, services, onSuccess }: Props) {
               'focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2'
             )}
           >
-            {loading ? t('form.submitting') : t('form.submit')}
+            {loading
+              ? t('form.submitting')
+              : form.rows.length > 1
+                ? t('form.submit_multiple', { count: form.rows.length })
+                : t('form.submit')}
           </button>
         </div>
       </form>

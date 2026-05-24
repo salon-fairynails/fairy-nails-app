@@ -70,7 +70,13 @@
     "submitting": "Wird gespeichert…",
     "success": "Leistung erfasst",
     "error_time": "Endzeit muss nach Startzeit liegen",
-    "error_generic": "Fehler beim Speichern. Bitte versuche es erneut."
+    "error_generic": "Fehler beim Speichern. Bitte versuche es erneut.",
+    "services_label": "Services",
+    "services_count": "{{count}} Services",
+    "add_service": "Weiteren Service hinzufügen",
+    "remove_service": "Entfernen",
+    "submit_multiple": "{{count}} Leistungen erfassen",
+    "success_multiple": "{{count}} Leistungen erfasst"
   },
   "payment": {
     "cash": "Bar",
@@ -246,7 +252,9 @@
       "reset_password_success": "Passwort geändert",
       "pending": "Ausstehend",
       "commission_rate": "Provision",
-      "commission_saved": "Provision gespeichert"
+      "commission_saved": "Provision gespeichert",
+      "name_saved": "Name gespeichert",
+      "name_edit_hint": "Klicken zum Bearbeiten"
     },
     "add_employee": {
       "title": "Neue/n Mitarbeitende/n anlegen",
@@ -286,6 +294,7 @@
     "service_active": "Aktiv",
     "service_inactive": "Inaktiv",
     "no_services": "Keine Services für diese Auswahl.",
+    "search_placeholder": "Services suchen…",
     "category_placeholder": "Kategorie wählen",
     "modal_add_title": "Neuer Service",
     "modal_edit_title": "Service bearbeiten",

@@ -70,7 +70,13 @@
     "submitting": "Saving…",
     "success": "Service recorded",
     "error_time": "End time must be after start time",
-    "error_generic": "Error saving. Please try again."
+    "error_generic": "Error saving. Please try again.",
+    "services_label": "Services",
+    "services_count": "{{count}} services",
+    "add_service": "Add another service",
+    "remove_service": "Remove",
+    "submit_multiple": "Save {{count}} services",
+    "success_multiple": "{{count}} services recorded"
   },
   "payment": {
     "cash": "Cash",
@@ -246,7 +252,9 @@
       "reset_password_success": "Password changed",
       "pending": "Pending",
       "commission_rate": "Commission",
-      "commission_saved": "Commission saved"
+      "commission_saved": "Commission saved",
+      "name_saved": "Name saved",
+      "name_edit_hint": "Click to edit"
     },
     "add_employee": {
       "title": "Add new employee",
@@ -286,6 +294,7 @@
     "service_active": "Active",
     "service_inactive": "Inactive",
     "no_services": "No services for this selection.",
+    "search_placeholder": "Search services…",
     "category_placeholder": "Select category",
     "modal_add_title": "New service",
     "modal_edit_title": "Edit service",
