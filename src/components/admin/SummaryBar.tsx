@@ -26,6 +26,11 @@ export default function SummaryBar({ entries, employees }: Props) {
   const twint = entries.filter((e) => e.payment_method === 'twint').reduce((s, e) => s + Number(e.amount), 0)
   const cc = entries.filter((e) => e.payment_method === 'credit_card').reduce((s, e) => s + Number(e.amount), 0)
 
+  // A "customer" is a unique combination of employee + date + time slot
+  const customerCount = new Set(
+    entries.map((e) => `${e.employee_id}|${e.entry_date}|${e.time_from}|${e.time_to}`)
+  ).size
+
   // Commission breakdown per employee (only employees with entries)
   const commissionRows: EmployeeCommission[] = employees
     .filter((emp) => emp.role === 'employee')
@@ -59,7 +64,7 @@ export default function SummaryBar({ entries, employees }: Props) {
             CHF {formatAmount(total)}
           </span>
           <span className="text-text-muted text-xs">
-            ({entries.length} {t('admin.summary.entries')})
+            ({customerCount} {t('admin.summary.customers')} | {entries.length} {t('admin.summary.services')})
           </span>
         </div>
 

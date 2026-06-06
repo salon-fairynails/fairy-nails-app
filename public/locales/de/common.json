@@ -191,7 +191,8 @@
     },
     "summary": {
       "total": "Gesamt",
-      "entries": "Einträge",
+      "customers": "Kunden",
+      "services": "Services",
       "commission_breakdown": "Provisionsabrechnung",
       "revenue": "Umsatz",
       "commission_col": "Provision",

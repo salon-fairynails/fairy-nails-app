@@ -191,7 +191,8 @@
     },
     "summary": {
       "total": "Tổng cộng",
-      "entries": "mục",
+      "customers": "Khách",
+      "services": "Dịch vụ",
       "commission_breakdown": "Chi tiết hoa hồng",
       "revenue": "Doanh thu",
       "commission_col": "Hoa hồng",

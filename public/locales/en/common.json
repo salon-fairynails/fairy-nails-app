@@ -191,7 +191,8 @@
     },
     "summary": {
       "total": "Total",
-      "entries": "entries",
+      "customers": "Customers",
+      "services": "Services",
       "commission_breakdown": "Commission breakdown",
       "revenue": "Revenue",
       "commission_col": "Commission",
