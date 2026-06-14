@@ -52,6 +52,17 @@ export default function AdminDashboard() {
   const { entries, loading: entriesLoading, reload: reloadEntries } = useAdminEntries(filters)
   const { expenses, loading: expensesLoading, reload: reloadExpenses } = useAdminExpenses(expenseFilters)
 
+  // Keep expense date/employee in sync with income filters for the combined summary
+  useEffect(() => {
+    setExpenseFilters(prev => ({
+      ...prev,
+      employee_id: filters.employee_id,
+      period: filters.period,
+      date_from: filters.date_from,
+      date_to: filters.date_to,
+    }))
+  }, [filters.employee_id, filters.period, filters.date_from, filters.date_to])
+
   // Reload data when PWA comes back to foreground (iOS keeps apps frozen in background)
   useEffect(() => {
     const handleVisibility = () => {
