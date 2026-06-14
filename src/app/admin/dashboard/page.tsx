@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Download } from 'lucide-react'
 import '@/lib/i18n/config'
@@ -51,6 +51,19 @@ export default function AdminDashboard() {
 
   const { entries, loading: entriesLoading, reload: reloadEntries } = useAdminEntries(filters)
   const { expenses, loading: expensesLoading, reload: reloadExpenses } = useAdminExpenses(expenseFilters)
+
+  // Reload data when PWA comes back to foreground (iOS keeps apps frozen in background)
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') {
+        reloadEntries()
+        reloadExpenses()
+      }
+    }
+    document.addEventListener('visibilitychange', handleVisibility)
+    return () => document.removeEventListener('visibilitychange', handleVisibility)
+  }, [reloadEntries, reloadExpenses])
+
   const { employees } = useEmployees()
   const { categories, services } = useServices()
   const { categories: expenseCategories } = useExpenseCategories()
