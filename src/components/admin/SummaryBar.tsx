@@ -125,7 +125,7 @@ export default function SummaryBar({ entries, employees }: Props) {
               </tbody>
               {commissionRows.length > 1 && (
                 <tfoot>
-                  <tr className="border-t border-border text-xs font-semibold">
+                  <tr className="border-t border-border text-sm font-bold">
                     <td className="pr-4 pt-1.5 text-text-muted">{t('admin.summary.total')}</td>
                     <td className="pr-4 pt-1.5 text-right text-text">CHF {formatAmount(total)}</td>
                     <td className="pr-4 pt-1.5 text-right text-primary">CHF {formatAmount(totalCommission)}</td>

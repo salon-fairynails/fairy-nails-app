@@ -15,7 +15,8 @@ export function formatTime(timeStr: string): string {
 }
 
 export function formatAmount(amount: number): string {
-  return amount.toFixed(2)
+  const [int, dec] = amount.toFixed(2).split('.')
+  return `${int.replace(/\B(?=(\d{3})+(?!\d))/g, "'")}.${dec}`
 }
 
 export function todayIso(): string {

@@ -130,7 +130,7 @@ export default function AdminDashboard() {
       <div className="bg-accent/5 border border-accent/20 rounded-2xl px-5 py-4 flex flex-wrap items-center gap-6">
         <div className="flex items-baseline gap-1.5">
           <span className="text-text-muted text-sm">{t('admin.combined_summary.income')}:</span>
-          <span className="font-display text-xl font-semibold text-success">CHF {formatAmount(totalIncome)}</span>
+          <span className="font-display text-xl font-semibold text-text">CHF {formatAmount(totalIncome)}</span>
         </div>
         <div className="hidden sm:block w-px h-7 bg-border" />
         <div className="flex items-baseline gap-1.5">
@@ -144,7 +144,7 @@ export default function AdminDashboard() {
           </span>
           <span className={cn(
             'font-display text-xl font-semibold',
-            difference >= 0 ? 'text-accent' : 'text-error'
+            difference >= 0 ? 'text-success' : 'text-error'
           )}>
             CHF {formatAmount(Math.abs(difference))}
           </span>
