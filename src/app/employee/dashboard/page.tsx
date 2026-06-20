@@ -97,7 +97,7 @@ export default function EmployeeDashboard() {
       {tab === 'expenses' && (
         <div className="space-y-6">
           <ExpenseForm categories={expenseCategories} onSuccess={reloadExpenses} />
-          <ExpenseTable expenses={expenses} loading={expensesLoading} />
+          <ExpenseTable expenses={expenses} loading={expensesLoading} categories={expenseCategories} />
         </div>
       )}
 

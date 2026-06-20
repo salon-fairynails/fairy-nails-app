@@ -4,11 +4,12 @@ import { useTranslation } from 'react-i18next'
 import { FileText } from 'lucide-react'
 import { cn, formatDate, formatAmount } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
-import type { Expense, ExpensePaymentMethod } from '@/types/database'
+import type { Expense, ExpenseCategory, ExpensePaymentMethod } from '@/types/database'
 
 interface Props {
   expenses: Expense[]
   loading: boolean
+  categories?: ExpenseCategory[]
 }
 
 const PAYMENT_BADGE: Record<ExpensePaymentMethod, string> = {
@@ -24,7 +25,7 @@ async function openReceipt(path: string) {
   if (data?.signedUrl) window.open(data.signedUrl, '_blank')
 }
 
-export default function ExpenseTable({ expenses, loading }: Props) {
+export default function ExpenseTable({ expenses, loading, categories = [] }: Props) {
   const { t } = useTranslation('common')
 
   return (
@@ -67,9 +68,10 @@ export default function ExpenseTable({ expenses, loading }: Props) {
                     {formatDate(expense.expense_date)}
                   </td>
                   <td className="px-4 py-3 text-text-muted hidden sm:table-cell">
-                    {expense.expense_categories
-                      ? t(`expense_categories.${expense.expense_categories.id}`, { defaultValue: expense.expense_categories.name })
-                      : '—'}
+                    {(() => {
+                      const cat = expense.expense_categories ?? categories.find(c => c.id === expense.category_id)
+                      return cat ? t(`expense_categories.${cat.id}`, { defaultValue: cat.name }) : '—'
+                    })()}
                   </td>
                   <td className="px-4 py-3 text-text">
                     {expense.description}

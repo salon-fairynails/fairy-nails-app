@@ -204,7 +204,7 @@ export default function AdminDashboard() {
               </span>
             </div>
           </div>
-          <AdminExpenseTable expenses={expenses} loading={expensesLoading} onEdit={setEditingExpense} />
+          <AdminExpenseTable expenses={expenses} loading={expensesLoading} onEdit={setEditingExpense} categories={expenseCategories} />
         </>
       )}
 
