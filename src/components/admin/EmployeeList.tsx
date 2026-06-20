@@ -206,13 +206,69 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
                         >✕</button>
                       </div>
                     ) : (
-                      <button
-                        onClick={() => { setNameEditId(emp.id); setNameValue(emp.full_name); setResetId(null); setConfirmId(null); setCommissionEditId(null) }}
-                        className="text-left hover:underline decoration-dotted underline-offset-2 transition-all"
-                        title={t('admin.employees.name_edit_hint')}
-                      >
-                        {emp.full_name}
-                      </button>
+                      <div>
+                        <button
+                          onClick={() => { setNameEditId(emp.id); setNameValue(emp.full_name); setResetId(null); setConfirmId(null); setCommissionEditId(null) }}
+                          className="text-left hover:underline decoration-dotted underline-offset-2 transition-all"
+                          title={t('admin.employees.name_edit_hint')}
+                        >
+                          {emp.full_name}
+                        </button>
+                        <div className="lg:hidden mt-0.5">
+                          {goalSuccess === emp.id ? (
+                            <span className="text-xs text-success">{t('admin.employees.goal_saved')}</span>
+                          ) : goalEditId === emp.id ? (
+                            <div className="flex items-center gap-1.5 flex-wrap mt-1">
+                              <input
+                                autoFocus
+                                type="number"
+                                value={goalTarget}
+                                onChange={(e) => setGoalTarget(e.target.value)}
+                                placeholder="CHF"
+                                min={0}
+                                step={100}
+                                className="text-xs px-2 py-1 rounded-lg border border-border bg-bg text-text w-24 outline-none focus:border-primary"
+                              />
+                              <input
+                                type="number"
+                                value={goalBonusRate}
+                                onChange={(e) => setGoalBonusRate(e.target.value)}
+                                placeholder="0"
+                                min={0}
+                                max={100}
+                                step={0.5}
+                                className="text-xs px-2 py-1 rounded-lg border border-border bg-bg text-text w-14 outline-none focus:border-primary"
+                              />
+                              <span className="text-xs text-text-muted">%</span>
+                              <button
+                                onClick={() => handleSaveGoal(emp.id)}
+                                disabled={working}
+                                className="text-xs px-2 py-1 rounded-lg bg-accent text-white hover:bg-[#7a3d5e] disabled:opacity-40 transition-all"
+                              >
+                                {t('admin.employees.reset_password_submit')}
+                              </button>
+                              <button
+                                onClick={() => { setGoalEditId(null); setGoalTarget(''); setGoalBonusRate('') }}
+                                className="text-xs text-text-muted hover:text-text transition-colors"
+                              >✕</button>
+                            </div>
+                          ) : (
+                            <button
+                              onClick={() => {
+                                setGoalEditId(emp.id)
+                                setGoalTarget(emp.monthly_target != null ? String(emp.monthly_target) : '')
+                                setGoalBonusRate(String(emp.bonus_rate))
+                                setCommissionEditId(null); setResetId(null); setNameEditId(null); setConfirmId(null)
+                              }}
+                              className="text-xs px-1 py-0.5 rounded text-text-muted hover:bg-secondary/40 transition-all"
+                            >
+                              {emp.monthly_target != null
+                                ? `CHF ${formatAmount(emp.monthly_target)} / ${emp.bonus_rate}%`
+                                : t('admin.employees.goal_not_set')}
+                            </button>
+                          )}
+                        </div>
+                      </div>
                     )}
                   </td>
                   <td className="px-4 py-3 text-text-muted hidden sm:table-cell">{emp.email}</td>
