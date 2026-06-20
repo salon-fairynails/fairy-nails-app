@@ -38,6 +38,8 @@ export async function GET() {
       email: authUser?.email ?? '',
       last_sign_in_at: authUser?.last_sign_in_at ?? null,
       commission_rate: p.commission_rate ?? 50,
+      monthly_target: p.monthly_target ?? null,
+      bonus_rate: p.bonus_rate ?? 0,
     }
   })
 

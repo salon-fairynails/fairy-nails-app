@@ -255,7 +255,10 @@
       "commission_rate": "Commission",
       "commission_saved": "Commission saved",
       "name_saved": "Name saved",
-      "name_edit_hint": "Click to edit"
+      "name_edit_hint": "Click to edit",
+      "monthly_target": "Monthly Goal / Bonus",
+      "goal_saved": "Goal saved",
+      "goal_not_set": "No goal"
     },
     "add_employee": {
       "title": "Add new employee",
@@ -271,6 +274,12 @@
       "error": "Error creating employee. Please try again.",
       "error_password_mismatch": "Passwords do not match."
     }
+  },
+  "goals": {
+    "title": "Monthly Goals",
+    "achieved": "Goal reached",
+    "bonus": "Bonus",
+    "on_achievement": "on achievement"
   },
   "catalog": {
     "title": "Manage Catalog",

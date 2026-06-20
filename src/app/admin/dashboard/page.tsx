@@ -15,6 +15,7 @@ import ExpenseFilterPanel from '@/components/admin/ExpenseFilterPanel'
 import AdminEntryTable from '@/components/admin/AdminEntryTable'
 import AdminExpenseTable from '@/components/admin/AdminExpenseTable'
 import SummaryBar from '@/components/admin/SummaryBar'
+import GoalProgress from '@/components/admin/GoalProgress'
 import EditEntryModal from '@/components/employee/EditEntryModal'
 import EditExpenseModal from '@/components/employee/EditExpenseModal'
 import type { Filters, ExpenseFilters, AdminEntry, AdminExpense } from '@/types/database'
@@ -52,6 +53,14 @@ export default function AdminDashboard() {
   const { entries, loading: entriesLoading, reload: reloadEntries } = useAdminEntries(filters)
   const { expenses, loading: expensesLoading, reload: reloadExpenses } = useAdminExpenses(expenseFilters)
 
+  // Separate fetch for goal progress: all employees, same date range as income filter
+  const goalFilters = useMemo(() => ({
+    ...DEFAULT_FILTERS,
+    date_from: filters.date_from,
+    date_to: filters.date_to,
+  }), [filters.date_from, filters.date_to])
+  const { entries: goalEntries, reload: reloadGoalEntries } = useAdminEntries(goalFilters)
+
   // Keep expense date/employee in sync with income filters for the combined summary
   useEffect(() => {
     setExpenseFilters(prev => ({
@@ -69,11 +78,12 @@ export default function AdminDashboard() {
       if (document.visibilityState === 'visible') {
         reloadEntries()
         reloadExpenses()
+        reloadGoalEntries()
       }
     }
     document.addEventListener('visibilitychange', handleVisibility)
     return () => document.removeEventListener('visibilitychange', handleVisibility)
-  }, [reloadEntries, reloadExpenses])
+  }, [reloadEntries, reloadExpenses, reloadGoalEntries])
 
   const { employees } = useEmployees()
   const { categories, services } = useServices()
@@ -180,6 +190,7 @@ export default function AdminDashboard() {
             onChange={setFilters}
           />
           <SummaryBar entries={displayedEntries} employees={employees} />
+          <GoalProgress employees={employees} entries={goalEntries} />
           <AdminEntryTable entries={displayedEntries} loading={entriesLoading} onEdit={setEditingEntry} />
         </>
       )}

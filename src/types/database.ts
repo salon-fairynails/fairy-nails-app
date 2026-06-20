@@ -62,6 +62,8 @@ export interface EmployeeWithEmail {
   email: string
   last_sign_in_at: string | null
   commission_rate: number
+  monthly_target: number | null
+  bonus_rate: number
 }
 
 export type PeriodType = 'week' | 'month' | 'year' | 'custom'

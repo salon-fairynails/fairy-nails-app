@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { cn } from '@/lib/utils'
+import { cn, formatAmount } from '@/lib/utils'
 import type { EmployeeWithEmail } from '@/types/database'
 
 interface Props {
@@ -25,6 +25,10 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
   const [nameEditId, setNameEditId] = useState<string | null>(null)
   const [nameValue, setNameValue] = useState('')
   const [nameSuccess, setNameSuccess] = useState<string | null>(null)
+  const [goalEditId, setGoalEditId] = useState<string | null>(null)
+  const [goalTarget, setGoalTarget] = useState('')
+  const [goalBonusRate, setGoalBonusRate] = useState('')
+  const [goalSuccess, setGoalSuccess] = useState<string | null>(null)
 
   const handleResetPassword = async (id: string) => {
     if (!newPassword || newPassword.length < 6) return
@@ -111,6 +115,24 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
     onReload()
   }
 
+  const handleSaveGoal = async (id: string) => {
+    const target = goalTarget === '' ? null : parseFloat(goalTarget)
+    const bonusRate = parseFloat(goalBonusRate) || 0
+    if (target !== null && (isNaN(target) || target < 0)) return
+    if (isNaN(bonusRate) || bonusRate < 0 || bonusRate > 100) return
+    setWorking(true)
+    await fetch('/api/admin/update-goal', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ employee_id: id, monthly_target: target, bonus_rate: bonusRate }),
+    })
+    setGoalEditId(null)
+    setGoalSuccess(id)
+    setTimeout(() => setGoalSuccess(null), 3000)
+    setWorking(false)
+    onReload()
+  }
+
   const handleSaveCommission = async (id: string) => {
     const rate = parseFloat(commissionValue)
     if (isNaN(rate) || rate < 0 || rate > 100) return
@@ -150,6 +172,7 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
                 <th className="text-left px-4 py-3 font-medium text-text-muted hidden md:table-cell">{t('admin.employees.role')}</th>
                 <th className="text-left px-4 py-3 font-medium text-text-muted hidden md:table-cell">{t('admin.employees.language')}</th>
                 <th className="text-left px-4 py-3 font-medium text-text-muted">{t('admin.employees.commission_rate')}</th>
+                <th className="text-left px-4 py-3 font-medium text-text-muted hidden lg:table-cell">{t('admin.employees.monthly_target')}</th>
                 <th className="text-left px-4 py-3 font-medium text-text-muted">{t('admin.employees.status')}</th>
                 <th className="px-4 py-3" />
               </tr>
@@ -232,6 +255,60 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
                         className="text-xs px-2 py-1 rounded-lg text-text-muted hover:bg-secondary/40 transition-all"
                       >
                         {emp.commission_rate}%
+                      </button>
+                    )}
+                  </td>
+                  <td className="px-4 py-3 hidden lg:table-cell">
+                    {goalSuccess === emp.id ? (
+                      <span className="text-xs text-success">{t('admin.employees.goal_saved')}</span>
+                    ) : goalEditId === emp.id ? (
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <input
+                          autoFocus
+                          type="number"
+                          value={goalTarget}
+                          onChange={(e) => setGoalTarget(e.target.value)}
+                          placeholder="CHF"
+                          min={0}
+                          step={100}
+                          className="text-xs px-2 py-1 rounded-lg border border-border bg-bg text-text w-24 outline-none focus:border-primary"
+                        />
+                        <input
+                          type="number"
+                          value={goalBonusRate}
+                          onChange={(e) => setGoalBonusRate(e.target.value)}
+                          placeholder="0"
+                          min={0}
+                          max={100}
+                          step={0.5}
+                          className="text-xs px-2 py-1 rounded-lg border border-border bg-bg text-text w-14 outline-none focus:border-primary"
+                        />
+                        <span className="text-xs text-text-muted">%</span>
+                        <button
+                          onClick={() => handleSaveGoal(emp.id)}
+                          disabled={working}
+                          className="text-xs px-2 py-1 rounded-lg bg-accent text-white hover:bg-[#7a3d5e] disabled:opacity-40 transition-all"
+                        >
+                          {t('admin.employees.reset_password_submit')}
+                        </button>
+                        <button
+                          onClick={() => { setGoalEditId(null); setGoalTarget(''); setGoalBonusRate('') }}
+                          className="text-xs text-text-muted hover:text-text transition-colors"
+                        >✕</button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          setGoalEditId(emp.id)
+                          setGoalTarget(emp.monthly_target != null ? String(emp.monthly_target) : '')
+                          setGoalBonusRate(String(emp.bonus_rate))
+                          setCommissionEditId(null); setResetId(null); setNameEditId(null); setConfirmId(null)
+                        }}
+                        className="text-xs px-2 py-1 rounded-lg text-text-muted hover:bg-secondary/40 transition-all"
+                      >
+                        {emp.monthly_target != null
+                          ? `CHF ${formatAmount(emp.monthly_target)} / ${emp.bonus_rate}%`
+                          : t('admin.employees.goal_not_set')}
                       </button>
                     )}
                   </td>

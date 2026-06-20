@@ -255,7 +255,10 @@
       "commission_rate": "Provision",
       "commission_saved": "Provision gespeichert",
       "name_saved": "Name gespeichert",
-      "name_edit_hint": "Klicken zum Bearbeiten"
+      "name_edit_hint": "Klicken zum Bearbeiten",
+      "monthly_target": "Monatsziel / Bonus",
+      "goal_saved": "Ziel gespeichert",
+      "goal_not_set": "Kein Ziel"
     },
     "add_employee": {
       "title": "Neue/n Mitarbeitende/n anlegen",
@@ -271,6 +274,12 @@
       "error": "Fehler beim Anlegen. Bitte versuche es erneut.",
       "error_password_mismatch": "Die Passwörter stimmen nicht überein."
     }
+  },
+  "goals": {
+    "title": "Monatsziele",
+    "achieved": "Ziel erreicht",
+    "bonus": "Bonus",
+    "on_achievement": "bei Zielerreichung"
   },
   "catalog": {
     "title": "Katalog verwalten",

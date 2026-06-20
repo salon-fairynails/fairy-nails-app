@@ -255,7 +255,10 @@
       "commission_rate": "Hoa hồng",
       "commission_saved": "Đã lưu hoa hồng",
       "name_saved": "Đã lưu tên",
-      "name_edit_hint": "Nhấp để chỉnh sửa"
+      "name_edit_hint": "Nhấp để chỉnh sửa",
+      "monthly_target": "Mục tiêu tháng / Thưởng",
+      "goal_saved": "Đã lưu mục tiêu",
+      "goal_not_set": "Chưa đặt mục tiêu"
     },
     "add_employee": {
       "title": "Thêm nhân viên mới",
@@ -271,6 +274,12 @@
       "error": "Lỗi khi tạo nhân viên. Vui lòng thử lại.",
       "error_password_mismatch": "Mật khẩu không khớp."
     }
+  },
+  "goals": {
+    "title": "Mục tiêu tháng",
+    "achieved": "Đạt mục tiêu",
+    "bonus": "Thưởng",
+    "on_achievement": "khi đạt mục tiêu"
   },
   "catalog": {
     "title": "Quản lý danh mục",
