@@ -40,7 +40,7 @@ export default function GoalProgress({ employees, entries }: Props) {
   return (
     <div className="bg-accent/5 border border-accent/20 rounded-2xl px-5 py-4 space-y-4">
       <p className="text-xs font-medium text-text-muted uppercase tracking-wide">
-        {t('admin.goals.title')}
+        {t('goals.title')}
       </p>
 
       <div className="space-y-5">
@@ -52,7 +52,7 @@ export default function GoalProgress({ employees, entries }: Props) {
                 <span className="text-sm font-medium text-text">{emp.full_name}</span>
                 {achieved && (
                   <span className="text-xs px-2 py-0.5 rounded-full bg-success/15 text-success font-medium">
-                    {t('admin.goals.achieved')}
+                    {t('goals.achieved')}
                   </span>
                 )}
               </div>
@@ -87,12 +87,12 @@ export default function GoalProgress({ employees, entries }: Props) {
             {/* Bonus line */}
             {emp.bonus_rate > 0 && (
               <div className="flex items-center gap-1 text-xs text-text-muted">
-                <span>{t('admin.goals.bonus')}:</span>
+                <span>{t('goals.bonus')}:</span>
                 <span className={achieved ? 'text-success font-medium' : 'text-text'}>
                   CHF {formatAmount(bonus)}
                 </span>
                 {!achieved && (
-                  <span>({t('admin.goals.on_achievement')})</span>
+                  <span>({t('goals.on_achievement')})</span>
                 )}
               </div>
             )}
