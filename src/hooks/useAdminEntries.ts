@@ -14,7 +14,7 @@ export function useAdminEntries(filters: Filters) {
 
     let query = supabase
       .from('entries')
-      .select('*, profiles(full_name), services(name, service_categories(id, name))')
+      .select('*, profiles(full_name, color), services(name, service_categories(id, name))')
       .order('entry_date', { ascending: false })
       .order('time_from', { ascending: false })
 

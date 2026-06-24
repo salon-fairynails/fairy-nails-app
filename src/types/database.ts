@@ -1,6 +1,6 @@
 export type Role = 'admin' | 'employee'
 export type Language = 'de' | 'en' | 'vi'
-export type PaymentMethod = 'cash' | 'twint' | 'credit_card'
+export type PaymentMethod = 'cash' | 'twint' | 'credit_card' | 'voucher'
 export type ExpensePaymentMethod = 'cash' | 'twint' | 'credit_card' | 'bank_transfer'
 
 export interface Profile {
@@ -9,6 +9,7 @@ export interface Profile {
   role: Role
   language: Language
   is_active: boolean
+  color: string | null
   created_at: string
 }
 
@@ -50,6 +51,7 @@ export interface Entry {
 export interface AdminEntry extends Entry {
   profiles?: {
     full_name: string
+    color: string | null
   }
 }
 
@@ -64,6 +66,7 @@ export interface EmployeeWithEmail {
   commission_rate: number
   monthly_target: number | null
   bonus_rate: number
+  color: string | null
 }
 
 export type PeriodType = 'week' | 'month' | 'year' | 'custom'

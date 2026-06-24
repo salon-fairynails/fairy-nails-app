@@ -90,7 +90,7 @@ export default function EmployeeDashboard() {
       {tab === 'income' && (
         <div className="space-y-6">
           <EntryForm categories={serviceCategories} services={services} onSuccess={reloadEntries} />
-          <EntryTable entries={entries} loading={entriesLoading} />
+          <EntryTable entries={entries} loading={entriesLoading} employeeColor={profile?.color ?? null} />
         </div>
       )}
 

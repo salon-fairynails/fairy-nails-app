@@ -40,6 +40,7 @@ export async function GET() {
       commission_rate: p.commission_rate ?? 50,
       monthly_target: p.monthly_target ?? null,
       bonus_rate: p.bonus_rate ?? 0,
+      color: p.color ?? null,
     }
   })
 

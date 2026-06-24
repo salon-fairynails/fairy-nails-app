@@ -66,6 +66,7 @@
     "payment_placeholder": "Zahlungsart wählen",
     "notes": "Notizen",
     "notes_placeholder": "Optional",
+    "discount": "Rabatt",
     "submit": "Erfassen",
     "submitting": "Wird gespeichert…",
     "success": "Leistung erfasst",
@@ -82,7 +83,8 @@
     "cash": "Bar",
     "twint": "Twint",
     "credit_card": "Karte",
-    "bank_transfer": "Überweisung"
+    "bank_transfer": "Überweisung",
+    "voucher": "Gutschein"
   },
   "table": {
     "title": "Meine Leistungen",
@@ -258,7 +260,9 @@
       "name_edit_hint": "Klicken zum Bearbeiten",
       "monthly_target": "Monatsziel / Bonus",
       "goal_saved": "Ziel gespeichert",
-      "goal_not_set": "Kein Ziel"
+      "goal_not_set": "Kein Ziel",
+      "color": "Farbe",
+      "color_saved": "Farbe gespeichert"
     },
     "add_employee": {
       "title": "Neue/n Mitarbeitende/n anlegen",

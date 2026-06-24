@@ -15,7 +15,7 @@ interface Props {
   onSaved: () => void
 }
 
-const PAYMENT_METHODS = ['cash', 'twint', 'credit_card'] as const
+const PAYMENT_METHODS = ['cash', 'twint', 'credit_card', 'voucher'] as const
 
 export default function EditEntryModal({ entry, categories, services, onClose, onSaved }: Props) {
   const { t } = useTranslation('common')

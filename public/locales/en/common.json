@@ -66,6 +66,7 @@
     "payment_placeholder": "Select payment method",
     "notes": "Notes",
     "notes_placeholder": "Optional",
+    "discount": "Discount",
     "submit": "Save",
     "submitting": "Saving…",
     "success": "Service recorded",
@@ -82,7 +83,8 @@
     "cash": "Cash",
     "twint": "Twint",
     "credit_card": "Card",
-    "bank_transfer": "Bank transfer"
+    "bank_transfer": "Bank transfer",
+    "voucher": "Voucher"
   },
   "table": {
     "title": "My services",
@@ -258,7 +260,9 @@
       "name_edit_hint": "Click to edit",
       "monthly_target": "Monthly Goal / Bonus",
       "goal_saved": "Goal saved",
-      "goal_not_set": "No goal"
+      "goal_not_set": "No goal",
+      "color": "Color",
+      "color_saved": "Color saved"
     },
     "add_employee": {
       "title": "Add new employee",

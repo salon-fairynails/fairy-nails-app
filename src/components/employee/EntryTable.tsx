@@ -10,12 +10,24 @@ type Period = 'all' | 'week' | 'month' | 'year'
 interface Props {
   entries: Entry[]
   loading: boolean
+  employeeColor?: string | null
+}
+
+interface SessionGroup {
+  key: string
+  entry_date: string
+  time_from: string
+  time_to: string
+  payment_method: PaymentMethod
+  entries: Entry[]
+  total: number
 }
 
 const PAYMENT_BADGE: Record<PaymentMethod, string> = {
   cash: 'bg-secondary text-text',
   twint: 'bg-primary/20 text-primary-dark',
   credit_card: 'bg-accent/20 text-accent',
+  voucher: 'bg-success/15 text-success',
 }
 
 const PERIODS: Period[] = ['all', 'week', 'month', 'year']
@@ -42,11 +54,34 @@ function filterByPeriod(entries: Entry[], period: Period): Entry[] {
   })
 }
 
-export default function EntryTable({ entries, loading }: Props) {
+function groupBySessions(entries: Entry[]): SessionGroup[] {
+  const groups = new Map<string, SessionGroup>()
+  for (const entry of entries) {
+    const key = `${entry.entry_date}|${entry.time_from}|${entry.time_to}|${entry.payment_method}`
+    if (!groups.has(key)) {
+      groups.set(key, {
+        key,
+        entry_date: entry.entry_date,
+        time_from: entry.time_from,
+        time_to: entry.time_to,
+        payment_method: entry.payment_method,
+        entries: [],
+        total: 0,
+      })
+    }
+    const group = groups.get(key)!
+    group.entries.push(entry)
+    group.total += entry.amount ?? 0
+  }
+  return Array.from(groups.values())
+}
+
+export default function EntryTable({ entries, loading, employeeColor }: Props) {
   const { t } = useTranslation('common')
   const [period, setPeriod] = useState<Period>('month')
 
   const filtered = filterByPeriod(entries, period)
+  const groups = groupBySessions(filtered)
   const total = filtered.reduce((sum, e) => sum + (e.amount ?? 0), 0)
 
   return (
@@ -88,65 +123,82 @@ export default function EntryTable({ entries, loading }: Props) {
           {t('table.no_entries_filtered')}
         </div>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border bg-bg/50">
-                <th className="text-left px-4 py-3 font-medium text-text-muted">{t('table.date')}</th>
-                <th className="text-left px-4 py-3 font-medium text-text-muted">{t('table.time')}</th>
-                <th className="text-left px-4 py-3 font-medium text-text-muted hidden sm:table-cell">{t('table.category')}</th>
-                <th className="text-left px-4 py-3 font-medium text-text-muted">{t('table.service')}</th>
-                <th className="text-right px-4 py-3 font-medium text-text-muted">{t('table.amount')}</th>
-                <th className="text-left px-4 py-3 font-medium text-text-muted hidden md:table-cell">{t('table.payment')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filtered.map((entry) => (
-                <tr
-                  key={entry.id}
-                  className="border-b border-border last:border-0"
-                >
-                  <td className="px-4 py-3 text-text whitespace-nowrap">
-                    {formatDate(entry.entry_date)}
-                  </td>
-                  <td className="px-4 py-3 text-text-muted whitespace-nowrap">
-                    {formatTime(entry.time_from)} – {formatTime(entry.time_to)}
-                  </td>
-                  <td className="px-4 py-3 text-text-muted hidden sm:table-cell">
-                    {entry.services?.service_categories?.name ?? '—'}
-                  </td>
-                  <td className="px-4 py-3 text-text">
-                    {entry.services?.name ?? '—'}
-                  </td>
-                  <td className="px-4 py-3 text-text text-right font-medium whitespace-nowrap">
-                    CHF {formatAmount(entry.amount)}
-                  </td>
-                  <td className="px-4 py-3 hidden md:table-cell">
-                    <span className={cn(
-                      'inline-block px-2 py-0.5 rounded-full text-xs font-medium',
-                      PAYMENT_BADGE[entry.payment_method]
-                    )}>
-                      {t(`payment.${entry.payment_method}`)}
+        <div className="p-4 space-y-2">
+          {groups.map((group) => (
+            <div
+              key={group.key}
+              className={cn(
+                'rounded-xl border bg-bg/40 px-4 py-3',
+                group.entries.length > 1
+                  ? 'border-primary/40 bg-primary/5'
+                  : 'border-border'
+              )}
+            >
+              {/* Session header: Date + Time + Payment */}
+              <div className="flex items-center justify-between gap-3 mb-2.5">
+                <div className="flex items-center gap-3 min-w-0">
+                  <span className="text-sm font-medium text-text whitespace-nowrap">
+                    {formatDate(group.entry_date)}
+                  </span>
+                  <span className="text-xs text-text-muted whitespace-nowrap">
+                    {formatTime(group.time_from)} – {formatTime(group.time_to)}
+                  </span>
+                </div>
+                <span className={cn(
+                  'inline-block px-2 py-0.5 rounded-full text-xs font-medium whitespace-nowrap flex-shrink-0',
+                  PAYMENT_BADGE[group.payment_method]
+                )}>
+                  {t(`payment.${group.payment_method}`)}
+                </span>
+              </div>
+
+              {/* Service lines */}
+              <div className="space-y-1.5">
+                {group.entries.map((entry) => (
+                  <div key={entry.id} className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className="text-xs text-text-muted hidden sm:inline flex-shrink-0">
+                        {entry.services?.service_categories?.name ?? ''}
+                      </span>
+                      <span
+                        className="text-sm truncate"
+                        style={employeeColor ? { color: employeeColor } : undefined}
+                      >
+                        {entry.services?.name ?? '—'}
+                      </span>
+                    </div>
+                    <span className="text-sm font-medium text-text whitespace-nowrap">
+                      CHF {formatAmount(entry.amount)}
                     </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-            <tfoot>
-              <tr className="border-t-2 border-border bg-bg/50">
-                <td className="px-4 py-3" />
-                <td className="px-4 py-3" />
-                <td className="px-4 py-3 hidden sm:table-cell" />
-                <td className="px-4 py-3 text-sm font-semibold text-text-muted text-right">
-                  {t('table.total')} ({filtered.length})
-                </td>
-                <td className="px-4 py-3 text-right font-bold text-text whitespace-nowrap">
-                  CHF {formatAmount(total)}
-                </td>
-                <td className="px-4 py-3 hidden md:table-cell" />
-              </tr>
-            </tfoot>
-          </table>
+                  </div>
+                ))}
+              </div>
+
+              {/* Total for multi-service sessions */}
+              {group.entries.length > 1 && (
+                <div className="mt-2.5 pt-2 border-t border-border/60 flex justify-between items-center">
+                  <span className="text-xs text-text-muted font-medium">
+                    {t('table.total')} ({group.entries.length})
+                  </span>
+                  <span className="text-sm font-bold text-text whitespace-nowrap">
+                    CHF {formatAmount(group.total)}
+                  </span>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Overall total footer */}
+      {!loading && filtered.length > 0 && (
+        <div className="border-t-2 border-border px-6 py-3 bg-bg/50 flex justify-between items-center">
+          <span className="text-sm font-semibold text-text-muted">
+            {t('table.total')} ({filtered.length})
+          </span>
+          <span className="font-bold text-text whitespace-nowrap">
+            CHF {formatAmount(total)}
+          </span>
         </div>
       )}
     </div>

@@ -13,12 +13,14 @@ interface Props {
   onSuccess: () => void
 }
 
-const PAYMENT_METHODS = ['cash', 'twint', 'credit_card'] as const
+const PAYMENT_METHODS = ['cash', 'twint', 'credit_card', 'voucher'] as const
+const DISCOUNT_OPTIONS = [0, 5, 10, 15, 20, 25, 30]
 
 interface ServiceRow {
   category_id: string
   service_id: string
   amount: string
+  discount_pct: number
 }
 
 interface FormState {
@@ -30,7 +32,7 @@ interface FormState {
   rows: ServiceRow[]
 }
 
-const EMPTY_ROW: ServiceRow = { category_id: '', service_id: '', amount: '' }
+const EMPTY_ROW: ServiceRow = { category_id: '', service_id: '', amount: '', discount_pct: 0 }
 
 const EMPTY_FORM: FormState = {
   entry_date: todayIso(),
@@ -114,12 +116,23 @@ export default function EntryForm({ categories, services, onSuccess }: Props) {
   }
 
   const handleCategoryChange = (index: number, value: string) => {
-    updateRow(index, { category_id: value, service_id: '', amount: '' })
+    updateRow(index, { category_id: value, service_id: '', amount: '', discount_pct: 0 })
   }
 
   const handleServiceChange = (index: number, value: string) => {
     const svc = services.find((s) => s.id === parseInt(value))
-    updateRow(index, { service_id: value, amount: svc?.default_price?.toString() ?? '' })
+    updateRow(index, { service_id: value, amount: svc?.default_price?.toString() ?? '', discount_pct: 0 })
+  }
+
+  const handleDiscountChange = (index: number, pct: number) => {
+    const row = form.rows[index]
+    const svc = services.find((s) => s.id === parseInt(row.service_id))
+    if (svc?.default_price != null) {
+      const discounted = (svc.default_price * (1 - pct / 100)).toFixed(2)
+      updateRow(index, { discount_pct: pct, amount: discounted })
+    } else {
+      updateRow(index, { discount_pct: pct })
+    }
   }
 
   const addRow = () => {
@@ -223,7 +236,7 @@ export default function EntryForm({ categories, services, onSuccess }: Props) {
               <div
                 key={index}
                 className={cn(
-                  'grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto_auto] gap-2 items-end',
+                  'grid grid-cols-1 sm:grid-cols-[1fr_1fr_70px_auto_auto] gap-2 items-end',
                   'p-3 rounded-xl border border-border/60 bg-bg/50',
                   form.rows.length > 1 && 'relative'
                 )}
@@ -263,6 +276,18 @@ export default function EntryForm({ categories, services, onSuccess }: Props) {
                       <option key={s.id} value={s.id}>
                         {s.name}{s.price_label ? ` (${s.price_label})` : ''}
                       </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass}>{t('form.discount')}</label>
+                  <select
+                    value={row.discount_pct}
+                    onChange={(e) => handleDiscountChange(index, parseInt(e.target.value))}
+                    className={inputClass}
+                  >
+                    {DISCOUNT_OPTIONS.map((d) => (
+                      <option key={d} value={d}>{d}%</option>
                     ))}
                   </select>
                 </div>

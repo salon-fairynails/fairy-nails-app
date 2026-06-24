@@ -29,6 +29,13 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
   const [goalTarget, setGoalTarget] = useState('')
   const [goalBonusRate, setGoalBonusRate] = useState('')
   const [goalSuccess, setGoalSuccess] = useState<string | null>(null)
+  const [colorPickerId, setColorPickerId] = useState<string | null>(null)
+  const [colorSuccess, setColorSuccess] = useState<string | null>(null)
+
+  const COLOR_PALETTE = [
+    '#C97D6E', '#E08CA0', '#8B6BAE', '#5BA4CF',
+    '#4DB6AC', '#81C784', '#FFB74D', '#A1887F',
+  ]
 
   const handleResetPassword = async (id: string) => {
     if (!newPassword || newPassword.length < 6) return
@@ -150,6 +157,20 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
     onReload()
   }
 
+  const handleSaveColor = async (id: string, color: string | null) => {
+    setWorking(true)
+    await fetch('/api/admin/update-color', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ employee_id: id, color }),
+    })
+    setColorPickerId(null)
+    setColorSuccess(id)
+    setTimeout(() => setColorSuccess(null), 3000)
+    setWorking(false)
+    onReload()
+  }
+
   const LANG_LABELS: Record<string, string> = { de: 'DE', en: 'EN', vi: 'VI' }
   const ROLE_LABELS: Record<string, string> = {
     admin: t('admin.employees.role_admin'),
@@ -172,6 +193,7 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
                 <th className="text-left px-4 py-3 font-medium text-text-muted hidden md:table-cell">{t('admin.employees.role')}</th>
                 <th className="text-left px-4 py-3 font-medium text-text-muted hidden md:table-cell">{t('admin.employees.language')}</th>
                 <th className="text-left px-4 py-3 font-medium text-text-muted">{t('admin.employees.commission_rate')}</th>
+                <th className="text-left px-4 py-3 font-medium text-text-muted hidden sm:table-cell">{t('admin.employees.color')}</th>
                 <th className="text-left px-4 py-3 font-medium text-text-muted hidden lg:table-cell">{t('admin.employees.monthly_target')}</th>
                 <th className="text-left px-4 py-3 font-medium text-text-muted">{t('admin.employees.status')}</th>
                 <th className="px-4 py-3" />
@@ -311,6 +333,50 @@ export default function EmployeeList({ employees, loading, onReload }: Props) {
                         className="text-xs px-2 py-1 rounded-lg text-text-muted hover:bg-secondary/40 transition-all"
                       >
                         {emp.commission_rate}%
+                      </button>
+                    )}
+                  </td>
+                  {/* Color picker */}
+                  <td className="px-4 py-3 hidden sm:table-cell">
+                    {colorSuccess === emp.id ? (
+                      <span className="text-xs text-success">{t('admin.employees.color_saved')}</span>
+                    ) : colorPickerId === emp.id ? (
+                      <div className="flex items-center gap-1 flex-wrap">
+                        {COLOR_PALETTE.map((c) => (
+                          <button
+                            key={c}
+                            onClick={() => handleSaveColor(emp.id, c)}
+                            disabled={working}
+                            className="w-5 h-5 rounded-full border-2 transition-all hover:scale-110 disabled:opacity-40"
+                            style={{
+                              backgroundColor: c,
+                              borderColor: emp.color === c ? '#3D2B2B' : 'transparent',
+                            }}
+                            title={c}
+                          />
+                        ))}
+                        {emp.color && (
+                          <button
+                            onClick={() => handleSaveColor(emp.id, null)}
+                            disabled={working}
+                            className="text-xs text-text-muted hover:text-error transition-colors ml-0.5"
+                            title="Farbe entfernen"
+                          >✕</button>
+                        )}
+                        <button
+                          onClick={() => setColorPickerId(null)}
+                          className="text-xs text-text-muted hover:text-text transition-colors"
+                        >–</button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => { setColorPickerId(emp.id); setCommissionEditId(null); setResetId(null); setNameEditId(null); setGoalEditId(null); setConfirmId(null) }}
+                        className="flex items-center gap-1.5 text-xs px-2 py-1 rounded-lg hover:bg-secondary/40 transition-all"
+                      >
+                        <span
+                          className="w-4 h-4 rounded-full border border-border flex-shrink-0"
+                          style={{ backgroundColor: emp.color ?? '#E5D0C5' }}
+                        />
                       </button>
                     )}
                   </td>

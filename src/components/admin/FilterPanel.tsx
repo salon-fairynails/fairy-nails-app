@@ -198,6 +198,7 @@ export default function FilterPanel({ filters, employees, categories, services, 
           <option value="cash">{t('payment.cash')}</option>
           <option value="twint">{t('payment.twint')}</option>
           <option value="credit_card">{t('payment.credit_card')}</option>
+          <option value="voucher">{t('payment.voucher')}</option>
         </select>
 
         {/* Kategorie */}
