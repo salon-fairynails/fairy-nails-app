@@ -365,20 +365,28 @@
         "text": "Select the service performed. The default price is filled in automatically."
       },
       {
+        "title": "Apply discount",
+        "text": "A discount (0–30%) can be selected per service. The amount is calculated automatically from the default price. You can still overwrite the amount manually afterwards."
+      },
+      {
         "title": "Adjust amount",
-        "text": "The amount is pre-filled but can be overwritten manually (e.g. for special prices)."
+        "text": "The amount is pre-filled (including any discount) but can be overwritten manually (e.g. for special prices)."
       },
       {
         "title": "Choose payment method",
-        "text": "Select how the customer paid: Cash, Twint or Card."
+        "text": "Select how the customer paid: Cash, Twint, Card or Voucher."
+      },
+      {
+        "title": "Record multiple services",
+        "text": "Use 'Add another service' to record several services for the same customer at once. They appear in the list as a shared box with a total."
       },
       {
         "title": "Edit entry",
-        "text": "Click on an existing entry in the table to edit or delete it."
+        "text": "Click on an existing entry in the list to edit or delete it."
       },
       {
-        "title": "Filter table",
-        "text": "Use the 'All', 'Week', 'Month' and 'Year' buttons to filter the table by period. The current month is shown by default. The total amount of the filtered entries is displayed at the bottom of the table."
+        "title": "Filter list",
+        "text": "Use the 'All', 'Week', 'Month' and 'Year' buttons to filter by period. The current month is shown by default. The total of the filtered entries is displayed at the bottom."
       }
     ],
     "expenses_steps": [
@@ -435,6 +443,10 @@
       {
         "title": "Reset password",
         "text": "Click 'Change password' to set a new password for an employee directly – without an email link."
+      },
+      {
+        "title": "Assign color",
+        "text": "Click the color circle in the 'Color' column to choose from 8 colors. The chosen color is shown next to service names in the services list, making entries from different employees instantly recognizable."
       }
     ]
   }

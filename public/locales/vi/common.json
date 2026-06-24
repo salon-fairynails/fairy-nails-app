@@ -365,20 +365,28 @@
         "text": "Chọn dịch vụ đã thực hiện. Giá mặc định sẽ được điền tự động."
       },
       {
+        "title": "Áp dụng giảm giá",
+        "text": "Có thể chọn giảm giá (0–30%) cho từng dịch vụ. Số tiền được tính tự động từ giá mặc định. Bạn vẫn có thể ghi đè số tiền thủ công sau đó."
+      },
+      {
         "title": "Điều chỉnh số tiền",
-        "text": "Số tiền được điền sẵn nhưng có thể ghi đè thủ công (ví dụ: giá đặc biệt)."
+        "text": "Số tiền được điền sẵn (bao gồm giảm giá nếu có) nhưng có thể ghi đè thủ công (ví dụ: giá đặc biệt)."
       },
       {
         "title": "Chọn phương thức thanh toán",
-        "text": "Chọn cách khách hàng thanh toán: Tiền mặt, Twint hoặc Thẻ."
+        "text": "Chọn cách khách hàng thanh toán: Tiền mặt, Twint, Thẻ hoặc Phiếu quà tặng."
+      },
+      {
+        "title": "Ghi nhận nhiều dịch vụ",
+        "text": "Dùng 'Thêm dịch vụ khác' để ghi nhận nhiều dịch vụ cho cùng một khách hàng cùng lúc. Chúng hiển thị trong danh sách như một ô chung với tổng tiền."
       },
       {
         "title": "Chỉnh sửa mục nhập",
-        "text": "Nhấp vào một mục nhập hiện có trong bảng để chỉnh sửa hoặc xóa nó."
+        "text": "Nhấp vào một mục nhập hiện có trong danh sách để chỉnh sửa hoặc xóa nó."
       },
       {
-        "title": "Lọc bảng",
-        "text": "Sử dụng các nút 'Tất cả', 'Tuần', 'Tháng' và 'Năm' để lọc bảng theo khoảng thời gian. Mặc định hiển thị tháng hiện tại. Tổng số tiền của các mục được lọc sẽ hiển thị ở cuối bảng."
+        "title": "Lọc danh sách",
+        "text": "Sử dụng các nút 'Tất cả', 'Tuần', 'Tháng' và 'Năm' để lọc theo khoảng thời gian. Mặc định hiển thị tháng hiện tại. Tổng số tiền của các mục được lọc sẽ hiển thị ở cuối."
       }
     ],
     "expenses_steps": [
@@ -435,6 +443,10 @@
       {
         "title": "Đặt lại mật khẩu",
         "text": "Nhấp 'Thay đổi mật khẩu' để đặt mật khẩu mới trực tiếp cho nhân viên – không cần liên kết email."
+      },
+      {
+        "title": "Gán màu sắc",
+        "text": "Nhấp vào vòng tròn màu trong cột 'Màu' để chọn từ 8 màu. Màu đã chọn hiển thị bên cạnh tên dịch vụ trong danh sách, giúp nhận biết các mục của từng nhân viên ngay lập tức."
       }
     ]
   }

@@ -365,20 +365,28 @@
         "text": "Wähle den erbrachten Service. Der Standardpreis wird automatisch eingetragen."
       },
       {
+        "title": "Rabatt anwenden",
+        "text": "Pro Service kann ein Rabatt (0–30%) gewählt werden. Der Betrag wird automatisch aus dem Standardpreis berechnet. Du kannst den Betrag danach noch manuell überschreiben."
+      },
+      {
         "title": "Betrag anpassen",
-        "text": "Der Betrag ist vorausgefüllt, kann aber manuell überschrieben werden (z.B. bei Sonderpreisen)."
+        "text": "Der Betrag ist vorausgefüllt (inkl. allfälligem Rabatt), kann aber manuell überschrieben werden (z.B. bei Sonderpreisen)."
       },
       {
         "title": "Zahlungsart wählen",
-        "text": "Wähle wie der Kunde bezahlt hat: Bar, Twint oder Karte."
+        "text": "Wähle wie der Kunde bezahlt hat: Bar, Twint, Karte oder Gutschein."
+      },
+      {
+        "title": "Mehrere Services erfassen",
+        "text": "Mit 'Weiteren Service hinzufügen' kannst du mehrere Leistungen für denselben Kunden auf einmal erfassen. Diese werden in der Liste als gemeinsame Box mit Total angezeigt."
       },
       {
         "title": "Eintrag bearbeiten",
         "text": "Klicke auf einen bestehenden Eintrag in der Tabelle, um ihn zu bearbeiten oder zu löschen."
       },
       {
-        "title": "Tabelle filtern",
-        "text": "Mit den Schaltflächen 'Alle', 'Woche', 'Monat' und 'Jahr' kannst du die Tabelle nach Zeitraum filtern. Standardmässig wird der laufende Monat angezeigt. Die Gesamtsumme der gefilterten Einträge wird am Ende der Tabelle eingeblendet."
+        "title": "Liste filtern",
+        "text": "Mit den Schaltflächen 'Alle', 'Woche', 'Monat' und 'Jahr' kannst du die Liste nach Zeitraum filtern. Standardmässig wird der laufende Monat angezeigt. Die Gesamtsumme der gefilterten Einträge wird am Ende eingeblendet."
       }
     ],
     "expenses_steps": [
@@ -435,6 +443,10 @@
       {
         "title": "Passwort zurücksetzen",
         "text": "Klicke auf 'Passwort ändern' um direkt ein neues Passwort für einen Mitarbeitenden zu setzen – ohne E-Mail-Link."
+      },
+      {
+        "title": "Farbe zuweisen",
+        "text": "Klicke in der Spalte 'Farbe' auf den Farbkreis, um aus 8 Farben zu wählen. Die gewählte Farbe wird in der Leistungsliste beim Namen der Services angezeigt, so dass Einträge verschiedener Mitarbeitenden auf einen Blick erkennbar sind."
       }
     ]
   }
