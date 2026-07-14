@@ -285,6 +285,17 @@
     "bonus": "Bonus",
     "on_achievement": "bei Zielerreichung"
   },
+  "messages": {
+    "title": "Nachrichten",
+    "bell_label": "Nachrichten",
+    "placeholder": "Nachricht schreiben…",
+    "loading": "Lädt…",
+    "empty": "Noch keine Nachrichten.",
+    "broadcast_title": "Ankündigungen",
+    "broadcast_placeholder": "Ankündigung an alle Mitarbeitenden…",
+    "broadcast_send": "Senden",
+    "no_conversation_selected": "Wähle links eine/n Mitarbeitende/n aus, um den Chat zu öffnen."
+  },
   "catalog": {
     "title": "Katalog verwalten",
     "categories": "Kategorien",

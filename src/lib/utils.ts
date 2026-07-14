@@ -14,6 +14,13 @@ export function formatTime(timeStr: string): string {
   return timeStr.substring(0, 5)
 }
 
+export function formatDateTime(isoTimestamp: string): string {
+  const d = new Date(isoTimestamp)
+  const date = `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.${d.getFullYear()}`
+  const time = `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
+  return `${date} ${time}`
+}
+
 export function formatAmount(amount: number): string {
   const [int, dec] = amount.toFixed(2).split('.')
   return `${int.replace(/\B(?=(\d{3})+(?!\d))/g, "'")}.${dec}`

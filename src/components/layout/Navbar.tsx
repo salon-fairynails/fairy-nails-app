@@ -12,6 +12,7 @@ import { createClient } from '@/lib/supabase/client'
 import { useUser } from '@/hooks/useUser'
 import LanguageSwitcher from './LanguageSwitcher'
 import HelpModal from './HelpModal'
+import MessageBell from '@/components/messages/MessageBell'
 
 const ADMIN_NAV = [
   { href: '/admin/dashboard', labelKey: 'nav.dashboard' },
@@ -79,6 +80,8 @@ export default function Navbar() {
               {profile.full_name}
             </span>
           )}
+
+          <MessageBell />
 
           <LanguageSwitcher />
 

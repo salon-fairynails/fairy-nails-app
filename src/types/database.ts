@@ -119,3 +119,18 @@ export interface ExpenseFilters {
   payment_method: string
   category_id: string
 }
+
+export interface Message {
+  id: string
+  sender_id: string
+  recipient_id: string | null
+  is_broadcast: boolean
+  content: string
+  read_at: string | null
+  created_at: string
+  sender?: {
+    full_name: string
+    role: Role
+    color: string | null
+  }
+}

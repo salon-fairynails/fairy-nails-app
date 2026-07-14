@@ -285,6 +285,17 @@
     "bonus": "Bonus",
     "on_achievement": "on achievement"
   },
+  "messages": {
+    "title": "Messages",
+    "bell_label": "Messages",
+    "placeholder": "Write a message…",
+    "loading": "Loading…",
+    "empty": "No messages yet.",
+    "broadcast_title": "Announcements",
+    "broadcast_placeholder": "Announcement to all employees…",
+    "broadcast_send": "Send",
+    "no_conversation_selected": "Select an employee on the left to open the chat."
+  },
   "catalog": {
     "title": "Manage Catalog",
     "categories": "Categories",

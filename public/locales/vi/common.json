@@ -285,6 +285,17 @@
     "bonus": "Thưởng",
     "on_achievement": "khi đạt mục tiêu"
   },
+  "messages": {
+    "title": "Tin nhắn",
+    "bell_label": "Tin nhắn",
+    "placeholder": "Viết tin nhắn…",
+    "loading": "Đang tải…",
+    "empty": "Chưa có tin nhắn nào.",
+    "broadcast_title": "Thông báo",
+    "broadcast_placeholder": "Thông báo gửi tới tất cả nhân viên…",
+    "broadcast_send": "Gửi",
+    "no_conversation_selected": "Chọn một nhân viên bên trái để mở cuộc trò chuyện."
+  },
   "catalog": {
     "title": "Quản lý danh mục",
     "categories": "Danh mục",
